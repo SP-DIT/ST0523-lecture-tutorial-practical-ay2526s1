@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css" />
+        <link rel="stylesheet" href="../math-style.css" />
+    </head>
+    <body class="markdown-body">
+        <h1 dir="auto" id="4-environmental-model">4. Environmental Model</h1>
+        <p dir="auto">
+            We have seen in topic 3 how environmental model can be used to help model the memory state when evaluating a
+            program consisting of for-statements.
+        </p>
+        <p dir="auto">In this topic, we will see how it can be used to model Functions and If-statements too.</p>
+        <h2 dir="auto" id="41-modeling-functions-and-function-calls">4.1 Modeling functions and function calls</h2>
+        <p dir="auto">Take the following code as example:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">x, y</span>) {
+<span class="hljs-number">2.</span>      <span class="hljs-keyword">return</span> x + y;
+<span class="hljs-number">3.</span>  }
+
+<span class="hljs-number">4.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">square</span>(<span class="hljs-params">x</span>) {
+<span class="hljs-number">5.</span>      <span class="hljs-keyword">return</span> x * x;
+<span class="hljs-number">6.</span>  }
+
+<span class="hljs-number">7.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">sumOfSquare</span>(<span class="hljs-params">x, y</span>) {
+<span class="hljs-number">8.</span>     <span class="hljs-keyword">return</span> <span class="hljs-title function_">sum</span>(<span class="hljs-title function_">square</span>(x), <span class="hljs-title function_">square</span>(y));
+<span class="hljs-number">9.</span>  }
+
+<span class="hljs-number">10.</span> <span class="hljs-title function_">sumOfSquare</span>(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+</code></pre>
+        <p dir="auto">
+            Recall the distinction of <code>function delcaration</code> and <code>function application</code>. Line 1-3
+            is a <code>function declaration</code> where the function is being created, that is it only creates the
+            function but does not executes it. It is only executed when the <code>function application</code> expression
+            in line 8 is executed.
+        </p>
+        <p dir="auto">
+            That is, by the time the program evaluated the <code>function declaration</code> for <code>sum</code>,
+            <code>square</code>, and <code>sumOfSquare</code>, the environment have simply <em>created</em> the
+            functions:
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/JOux3a1054Nxjugx0RC0GNGgKLZ1CuQG-M1cAh5tyOaepodElQKFl8LeDBbkLZAWqgvZZPq0G0X11nbUKFDaNwcirCvFTaHUtC97Wxp0yC0QULC_ZgOPsfyyYDwDB4dkRff-IIgLxQyt9m00"
+        />
+        <blockquote dir="auto">
+            <p dir="auto"><code>f</code> represents that it's a function</p>
+        </blockquote>
+        <p dir="auto">
+            Thereafter, in line 10, we have our first <code>function application</code> expression, which invokes the
+            <code>sumOfSquare</code> functions. This creates another frame:
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuSfFoafDBb5mpybFIinHgEPIK51GqDFJuwhboaqiKF1DpCo32gRc9UVa5sVcfIlOse45Yajp5Mpj5D8WdCBInA9K97vfhdzQC98Wn3naOHp6Le3K6uEPbI2c2LSj5nVKUJQwkc0dMLd1jN61dGYIG38RMTuXDIy5v540"
+        />
+        <p dir="auto">
+            In which, <code>sumOfSquare</code> would then invoke the <code>square</code> function twice (<code
+                >square(x)</code
+            >
+            and <code>square(y)</code>, where <code>x</code> and <code>y</code> are <code>3</code> and
+            <code>4</code> respectively):
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuSfFoafDBb5mpybFIinHgEPIK51GqDFJuwhboaqiKF1DpCo32gRc9UVa5sVcfIlOse45Yajp5Mpj5D8WdCBInA9K97vfhdzQC98Wn3naOHp6Le3K6uEPbI2c2KmhM9SX0Mt8QetmgWMPomNrjeskBjYhLbPmjLnWhuCaaDoCNHxYC3noHiXo3gbvAQ201m00"
+        />
+        <p dir="auto">
+            Notice how despite having declared the variable <code>x</code> multiple times, there are no conflict? It is
+            because each of the <code>x</code> is created within its own frame.
+        </p>
+        <h3 dir="auto" id="411-tracking-mutation">4.1.1 Tracking mutation</h3>
+        <p dir="auto">
+            In the above example, we are not changing the values of any variables. The usefulness of the environmental
+            model would become more apparent when functions mutates variables. Take the following as an example:
+        </p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1.</span>  <span class="hljs-keyword">let</span> count = <span class="hljs-number">0</span>;
+
+<span class="hljs-number">2.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">increment</span>(<span class="hljs-params">x</span>) {
+<span class="hljs-number">3.</span>      count = count + x;
+<span class="hljs-number">4.</span>  }
+
+<span class="hljs-number">5.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">decrement</span>(<span class="hljs-params">x</span>) {
+<span class="hljs-number">6.</span>      count = count - x;
+<span class="hljs-number">7.</span>  }
+
+<span class="hljs-number">8.</span>  <span class="hljs-title function_">increment</span>(<span class="hljs-number">5</span>);
+<span class="hljs-number">9.</span>  <span class="hljs-title function_">increment</span>(<span class="hljs-number">3</span>);
+<span class="hljs-number">10.</span> <span class="hljs-title function_">decrement</span>(<span class="hljs-number">6</span>);
+</code></pre>
+        <p dir="auto">
+            After the first 7 lines, the variable <code>count</code> and the 2 functions <code>increment</code> and
+            <code>decrement</code> is created
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/LSv13a0m50JG_J_5N41ZBOYTbKDKVL9fVuLQYRkB4edblCNCD5lKQzozez3FR29Q5thjS100AANe9AyNTDhAYop6XStAXAfEOC8k4LMDF4KhPcNF3us91lxHIVJEb5cMgelYQwM6PRWFNG00"
+        />
+        <p dir="auto">
+            When the first <code>function application</code> expression (<code>increment(5)</code>) is evaluated, it
+            creates a new frame as follows:
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/TP0n3i8m34NtdEABlHKBIqKhDYQOk418JHlKsYWr0WbnTvHGIXaOy_nivtipg0rwxJiZnpCvnRQJe-tmC02GvxbvcjvUiBEUHqZiEXayDoYh19nSML5MMAQdPnUefpSw9LJJ3tgF_7f_vjwZlJ9FOrYK47pJVbocswp_56nFk7bjOmzMS86iKftKlIWLEBH-6BrQQ02BmWbhZBL80HPnqPX-dMKfSL5CdpBf0h4mxPrNDyHrlE8B"
+        />
+        <p dir="auto">
+            Within the function, it executes the statement <code>count = count + x</code>. Within the
+            <code>increment</code> frame, there is no <code>count</code>, it will hence look to it's enclosing frame,
+            the <code>Main</code> frame, and find that <code>count</code> is associated with the number <code>0</code>.
+        </p>
+        <p dir="auto">
+            Hence <code>count + x</code> will be evaluated to <code>0 + 5</code> resulting in the value <code>5</code>.
+            It will then be reassigned to the <code>count</code> variable, also in the <code>Main</code> frame.
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/LOyn3eCm40JxUyL-82WD3Gg8BbKUOSn17DbtaJcgYBz761GfvOwqgzb-CPTjJP5qUB4ttACEBk93051L5MsKt1iF5-I4B3xg4cH6snNWTHL3sw4kCOZFdFX0Kq4Z_w6DIDGOESnFErUFaT9r2u-OiYPSOOfwTw3JwtQv59Uc-MbGppBk3xu0"
+        />
+        <p dir="auto">Thereafter, in line 9, again we execute <code>increment(3)</code>.</p>
+        <p dir="auto">It first creates the new <code>increment</code> frame:</p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/TP0x3i9034Hxds8ka3GH3GAKZef3B1i75kqdsWy1eTmTxG8X59H-7jipRaCKFYQZoHqlB2FssXs5neC0eAvhciY80GUXx1kobTe5PK_OxWgGBjc8xGwhKYehFHj-eRwWZd_GQ-LNzsVlBQiRceYiYmolJkUFrlAucE-zC8nHnNEUGGFfMKJkweMzKGGCdg_AfQ3lI4EN5OWEgvoHthatLLMohjUp7IhPSsE-kEosRBlyloS0"
+        />
+        <p dir="auto">
+            Then it executes <code>count = count + x</code>, substituting <code>count</code> with 5, and
+            <code>x</code> with 3, resulting in <code>count = 8</code>. Hence after executing the function we have the
+            following:
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/LO_12eCm44Jl-nNp0_LM4AdYhQT-H8ohJKbsIrnFnNylHYdqE0zcUDClvhAjAP8EB_Q6UzJ1HNm80AggeesIU-FXWfoGnKTTWinekmAyhc9eEzGb1l6P4nzeAcZaFxGHYHeZX_bfv-enKhfkuH5JreGhJ57l3dHwtIwNuj8qFmtgMSRzmHS0"
+        />
+        <p dir="auto">
+            And finally, in line 10, we have decrement(6), which behaves very similarly to increment but minus away some
+            value instead.
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/TP1B3i8m34JtFiLSe5rM207gZXM72AaBGVbK-L0GwjrH0fIoOEddiJtZDaJXOpAQtF72CcAltL5eF0W0whgcYOmOS13AlY5RgLrGzeJjhW3faetOxh0gfRBIi-4NwWlg-0UzLdxXdxsth6ve8h8kChmwdJzQo-DYllV2C4OLpta63QHd4Rch5_P64J1ulYgNWhuZ3LrM83giSaPwvzvKLScwNizsg6JFZVdYijkoxVB_dW00"
+        />
+        <p dir="auto">
+            It then evaluates the statement <code>count = count - x</code>, subtituting <code>count</code> with
+            <code>8</code> and <code>x</code> with <code>6</code>, resulting in <code>count = 2</code>. Hence after
+            executing the function we have the following:
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/LOyn3eCm40JxUyL-81HK4Gg8BbKUOSn17DbtaJcgYBz761GfvOvMgzb-CPTjJP5qUB4ttACEBk93051L5MsKt1iF5-I4B3xg4cH6snNWTHL3sw4kCOZFdFX0Kq4Z_w6DIDGOESnFErUFaL9q2u-OiYPSOOfwTw3JwtQv59Uc-MbGppBk3xu0"
+        />
+        <h2 dir="auto" id="42-adding-if-statement-and-for-loop-into-the-mix">
+            4.2 Adding if-statement and for-loop into the mix
+        </h2>
+        <p dir="auto">
+            In the previous topics and the examples above, we largely focused on visualizing the environment with only 1
+            concept involved. Let's put everything together and see how it can be applied to everything. Consider the
+            following function:
+        </p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">let</span> sign = <span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">resetSign</span>(<span class="hljs-params"></span>) {
+    sign = <span class="hljs-number">1</span>;
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">flipSign</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">let</span> newSign;
+    <span class="hljs-keyword">if</span> (sign === <span class="hljs-number">1</span>) {
+        newSign = -<span class="hljs-number">1</span>;
+    } <span class="hljs-keyword">else</span> {
+        newSign = <span class="hljs-number">1</span>;
+    }
+    sign = newSign;
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">computeAlternatingSum</span>(<span class="hljs-params">n</span>) {
+    <span class="hljs-keyword">let</span> result = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= n; i = i + <span class="hljs-number">1</span>) {
+        result = result + sign * i;
+        <span class="hljs-title function_">flipSign</span>();
+    }
+    <span class="hljs-title function_">resetSign</span>();
+    <span class="hljs-keyword">return</span> result;
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">computeAlternatingSum</span>(<span class="hljs-number">7</span>));
+</code></pre>
+        <p dir="auto">
+            At the start of the program, the variable <code>sign</code> and the 3 functions will be created in the
+            <code>Main</code> frame.
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/LSun3iCW40J0_bvn7p1IMYksd2fLAhy0apCYWWF1KLd-UnI28gNSsM9tAQAprE0XRYyoWdSVD-tn04H4fHIS47J2XtRSaTZuM1nRdEO6nLd6QSPBIvaAoTffRxHxb_x5n92gqCqBPTRYsAurVEiJe7-u3aFR7SVV92p4py_RDm00"
+        />
+        <p dir="auto">
+            When it reaches the last line and executes <code>computeAlternatingSum(7)</code>, it creates a new frame:
+        </p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/TP0n2iCm34Ltdq8NIA1J8JGXdJfroWcSL0akjcniUGgvUubgIWlfgAUlho_rYNNaxApounCdXflrexQmAW20kgxLffmESDU62aIQh4-65cWx0Sai16q79waY9kIXe5dGR4tu9PDt8JDUBMCapOQM8RjtUrEoy5Zn9u4ud_VH4lzILHAvQJvQ9IViZKFhRsMFzDXVyW80"
+        />
+        <p dir="auto">It then creates a new variable <code>result</code> within the frame:</p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/TP0n3i8m34NtdC8NQ0KJKaMhCZ4nzGHfCLMGurIDCw7U7SKK158P_Vpjx-ysYfqbUJAXl-CWSARGMuA70G0eoz8inji9BjRn2f472j7n27MZ8BgHeMvWhzMC4QLRqKtHZTpqIuRWfoHu8i6PhJWUk-HVxSMeuRRYpmMw-V2sJoIvtkLLQvnZKMY4glhC6esK6vjMtyeM-PfVz0G0"
+        />
+        <p dir="auto">It then starts a <code>for-statement</code>, creating a frame for each iteration:</p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/TP0z3eCm38Ltdy8N09Mf4Yg8JfqwSO900qgLFn5dghXx5GCLbM3qyxFzFJU1n4JHQ73TM_Q43-qweV43Y8XvdiCCHdXy2cLNKTfUkw3iY5NDGb2ZnQh6Wgj91adjAWqi3LhvVwLtnaUITqroieAK7TjeblOCVF3OSKB0cw_R-QWfrPTjbNRE5sUZQY6V0TRajopZj6NvymAdJur3ghtp63kDCiNUsaZxIe__0W00"
+        />
+        <p dir="auto">In this loop, it does a few things:</p>
+        <ol dir="auto">
+            <li dir="auto">
+                <p dir="auto">
+                    It checks whether the condition (<code>i &lt;= n</code>) is true, <code>i</code> is found in the
+                    <code>loop1</code> frame, and <code>n</code> is found in the
+                    <code>computerAlternatingSum</code> frame, substituting the value we get
+                    <code>1 &lt;= 7</code> which evaluates to <code>true</code>. Hence we will enter the
+                    <code>loop-statements</code>
+                </p>
+            </li>
+            <li dir="auto">
+                <p dir="auto">
+                    In which we execute <code>result = result + sign * i</code>, substituting the names accordingly we
+                    get:
+                </p>
+                <ol dir="auto">
+                    <li dir="auto">
+                        <p dir="auto">
+                            <code>result</code> =&gt; <code>0</code>, from <code>computerAlternatingSum</code> frame
+                        </p>
+                    </li>
+                    <li dir="auto">
+                        <p dir="auto"><code>sign</code> =&gt; <code>1</code>, from <code>Main</code> frame</p>
+                    </li>
+                    <li dir="auto">
+                        <p dir="auto"><code>i</code> =&gt; <code>1</code>, from <code>loop1</code> frame.</p>
+                    </li>
+                    <li dir="auto">
+                        <p dir="auto">
+                            After substituting, we get <code>result = 0 + 1 * 1</code> or simply:
+                            <code>result = 1</code>, this updates the <code>result</code> variable in the
+                            <code>computeAlternatingSum</code> frame.
+                        </p>
+
+                        <img
+                            style="background-color: #fff"
+                            src="https://www.plantuml.com/plantuml/svg/XLBB2eCm4Bpx5Vi35JmLf8ezzTIJNn1rjIbv4JUduhyNjnB52kQGXDcPxEmG081g9E4fQ9K00DZcZIt1Gzb6AFWmDgyqJVa-yQw5WwUGPaD0qoexIZD0KKPmb8E1eeGi8Xv7f7g1-mZtIhf_jBNQ1SAx8lH6a3H37VHAcP9evfXvuewxNRVMWgBLxczKOmd1o-55c-SMQd2T8Eo0R9H4HyfQbvqvaDjkV2p1touN3ZZFeuxB7FfSF1nuppvEPPQpkpszGjFD_-0B"
+                        />
+                    </li>
+                    <li dir="auto">
+                        <p dir="auto">
+                            Thereafter, it executes <code>flipSign()</code>, creating a <code>flipSign</code> frame
+                        </p>
+
+                        <img
+                            style="background-color: #fff"
+                            src="https://www.plantuml.com/plantuml/svg/XP9D2eCm48Ntdc8kKC5LGQhOLLTTUO9eewJa3pDP5UzUCjWeDgrPXF3opUJD8m00ZKCseLSo0m0mtPFt23TfEYRXHLfOUPxJUQPTCGjt9lG6uBgNnWazGbL7qObHGrL34PM9Euxj8WzH7gImtsflbFN8hnBvf1aAFRPUhSYSHJDfyi0TlNRUMlCILxkRzj8OMnor4ydIEDcVwWLVGh-SJXHkMKQGhYdmS9aSzYVzCR07qf652ffsZpTSFy8dUGC0"
+                        />
+                    </li>
+                    <li dir="auto">
+                        <p dir="auto">In there, it does the following:</p>
+                        <ol dir="auto">
+                            <li dir="auto">creates a new variable <code>newSign</code></li>
+                            <li dir="auto">
+                                It then evaluates the condition (<code>sign === 1</code>). Since <code>sign</code> is
+                                not within the <code>if1</code> frame, it would follow the <code>enclosing</code> chain
+                                until it reaches the <code>Main</code> frame where it finds that <code>sign</code> is
+                                associated to the value <code>1</code>. Replacing it gives us <code>1 === 1</code>,
+                                which evaluates to <code>true</code>.
+                            </li>
+                            <li dir="auto">
+                                It hence goes into the first <code>consequent-statement</code> which also creates a
+                                frame:
+                            </li>
+                        </ol>
+
+                        <img
+                            style="background-color: #fff"
+                            src="https://www.plantuml.com/plantuml/svg/XP9D3eCW48Ntdc8kK1DNJKmrTjLLLvu0BHYQuISAwQBnxWs4eb5QNH3pveDvl040e9aC6OqLc040gEv9UmCtL1r1U7lDVNcU-__Phu9ek1CkLm2LFQg9om6gEeeJ7oHKDHHH6Ub4JHja5cM6NE_LNWbj3RsYeQCaXikXjM91vYoQIPC7xdotyzgQHRFONHsFIkdYw3YUt1flTcI6la80cvmv-zivj0e3kvnEVZ1b6K5VziDonMHGF-cl-IsGZjljy4bjyPY18pZRrHig7-u1VW00"
+                        />
+                    </li>
+                    <li dir="auto">
+                        <p dir="auto">In the first <code>consequent-statement</code>:</p>
+                        <ol dir="auto">
+                            <li dir="auto">It sets the <code>newSign</code> variable to <code>-1</code>.</li>
+                            <li dir="auto">
+                                Thereafter, as it exits the <code>if-statement</code>, it then executes
+                                <code>sign = newSign</code>.
+                            </li>
+                            <li dir="auto">
+                                Since <code>newSign</code> is <code>-1</code>, <code>sign</code>, in the
+                                <code>Main</code> frame will also be updated to <code>-1</code>:
+                            </li>
+                        </ol>
+
+                        <img
+                            style="background-color: #fff"
+                            src="https://www.plantuml.com/plantuml/svg/XP91QiCm44NtESM_G0nU5K8JqbLNNUK4YZMofyWZ8usWK7Bt8X5SOnkYXIIU_eo-PWG0rwGcQXxz0G32_PiwnQSFT-FnMraPJTFK_QFEevdmPLWM0fBEXyJIutoPOU9USBxWsCueKYAzFRcRiVCyRMaNnYahVNYbA4PP-biU_oMFGrqaA25oF-Z2JxqwJzOeMMWe5hQN6R5Wry95Cn8ueVDa8jbPQPnIX0u4bwLJ3eB193WMJWDPq0zrkU2bdrATVUSlobLV_xOiLVPQMBjExqEOsbVfU1FwRElxyLZRTphDSVMujhGSxhfVg_UVMCAhkxNyIcBBB_i3"
+                        />
+                    </li>
+                    <li dir="auto">
+                        <p dir="auto">
+                            The loop then ends, an the <code>afterthought</code> (<code>i = i + 1</code>) is executed
+                            and hence creates the next frame:
+                        </p>
+
+                        <img
+                            style="background-color: #fff"
+                            src="https://www.plantuml.com/plantuml/svg/XP5D2eCm48NtFSLSG44t1QbYLrrrvGcYZP8o-S5CLiMxbmoIYXNC8eHltfkyJ000MazYfg3n0W1W-xSS21veUu7mOHPNdkTyNdZNmi5JABCHI3EWzSfCK3S9UZKPg1l8YeHcwILrAnyJ7b6vVpfOxGB9EvASZI1bfYxedsIvf3J7ofDuVDjr6oqWHLRiswErhZnhfwArt5hNCTwoZCTLLSd7PHvXB1wctwkFdnZjd6ulRwLvnL_z0W00"
+                        />
+                    </li>
+                    <li dir="auto">
+                        <p dir="auto">The entire cycle then repeats</p>
+                        <ol dir="auto">
+                            <li dir="auto">
+                                We first compute the new <code>result</code>
+                                <ol dir="auto">
+                                    <li dir="auto"><code>result = result + sign * i</code></li>
+                                    <li dir="auto">
+                                        <code>result</code> =&gt; <code>1</code> from
+                                        <code>computeAlternatingSum</code> frame
+                                    </li>
+                                    <li dir="auto">
+                                        <code>sign</code> =&gt; <code>-1</code> from <code>Main</code> frame
+                                    </li>
+                                    <li dir="auto">
+                                        <code>i</code> =&gt; <code>2</code> from <code>loop2</code> frame
+                                    </li>
+                                    <li dir="auto">Hence, <code>result = 1 + -1 * 2 = -1</code></li>
+                                </ol>
+                            </li>
+                            <li dir="auto">
+                                We then execute <code>flipSign()</code>, which would result in changing
+                                <code>sign</code> in the <code>Main</code> from from <code>-1</code> to <code>1</code>.
+                            </li>
+                            <li dir="auto">
+                                As the execution completes, the <code>flipSign</code> frame is destroyed, and the
+                                <code>afterthought</code> (<code>i = i + 1</code>) is executed, creating the next loop
+                                frame.
+                            </li>
+                        </ol>
+
+                        <img
+                            style="background-color: #fff"
+                            src="https://www.plantuml.com/plantuml/svg/XP8nRiCm34Ntd89R9namF1G8cY2TkgHJJg0ujAn28WM9cehSlP3gkaPYm1u4u_DR_v4q0C0fYOwIlTi10F3r2tk13yTNxU2xQkLfcgQ-t-lfTO1FRMbXGEeT9qi63iTPJDOG78xGpah4X7APv66M1sV3izgp3rdmtGb6qcB9NBB_j_oo40j2j6QK1KqDBfS6lC4GsODgGNW2kU_cBjOZDjggcA_BdhAJegbs2spozgCcyuTMoTGJccCEtHQABR7TLkgPERmaq8DWb95pgLhg8teaIM0BGBVCd_R_fbJTytu_XzTotNqfhexlqRq-u_9vRV7HVaAwbT_n1m00"
+                        />
+                    </li>
+                    <li dir="auto">
+                        <p dir="auto">
+                            This cycle will keep repeating itself and the following table summarizes the changes of
+                            <code>i</code>, <code>result</code>, and <code>sign</code>
+                        </p>
+                        <table dir="auto">
+                            <thead dir="auto">
+                                <tr dir="auto">
+                                    <th>i</th>
+                                    <th>sign</th>
+                                    <th>result</th>
+                                </tr>
+                            </thead>
+                            <tbody dir="auto">
+                                <tr dir="auto">
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>0 + 1 = 1</td>
+                                </tr>
+                                <tr dir="auto">
+                                    <td>2</td>
+                                    <td>-1</td>
+                                    <td>1 + -2 = -1</td>
+                                </tr>
+                                <tr dir="auto">
+                                    <td>3</td>
+                                    <td>1</td>
+                                    <td>-1 + 3 = 2</td>
+                                </tr>
+                                <tr dir="auto">
+                                    <td>4</td>
+                                    <td>-1</td>
+                                    <td>2 + -4 = -2</td>
+                                </tr>
+                                <tr dir="auto">
+                                    <td>5</td>
+                                    <td>1</td>
+                                    <td>-2 + 5 = 3</td>
+                                </tr>
+                                <tr dir="auto">
+                                    <td>6</td>
+                                    <td>-1</td>
+                                    <td>3 + -6 = -3</td>
+                                </tr>
+                                <tr dir="auto">
+                                    <td>7</td>
+                                    <td>1</td>
+                                    <td>-3 + 7 = 4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+        <h2 dir="auto" id="4x-summary">4.X Summary</h2>
+        <p dir="auto">
+            In this topic, you've been introduced to another new tool, the environmental model to help assist you in
+            tracking the values of the variables.
+        </p>
+        <p dir="auto">A summary of topics so far:</p>
+        <ol dir="auto">
+            <li dir="auto"><strong>Topic 1</strong>: Substitution model, functions</li>
+            <li dir="auto"><strong>Topic 2</strong>: if-statements</li>
+            <li dir="auto"><strong>Topic 3</strong>: for-statements</li>
+            <li dir="auto"><strong>Topic 4</strong>: Environmental model.</li>
+        </ol>
+        <p dir="auto">
+            substitution mode, functions, if-statements, and for-statements provides you with the concepts needed in
+            understanding the sequence in which expressions are evaluated.
+        </p>
+        <p dir="auto">
+            Environmental model provides you with a means needed to keep track of the values as the program is
+            evaluated.
+        </p>
+        <p dir="auto">
+            In the next few topics, we will begin to build upon these concepts to create new forms of <code>Data</code>.
+        </p>
+        <p dir="auto">
+            That is, in the first chapter, it was briefly mentioned that
+            <em
+                >&quot;In every program, we deal with two kinds of elements: Data (as in values) and Functions (as in
+                description of the rules for manipulating data)&quot;</em
+            >. While we have worked with various primitive data such as <code>Numbers</code>, <code>Strings</code>, and
+            <code>Boolean</code>, we will begin to explore other forms of data, and create our own kinds of data too.
+        </p>
+    </body>
+</html>

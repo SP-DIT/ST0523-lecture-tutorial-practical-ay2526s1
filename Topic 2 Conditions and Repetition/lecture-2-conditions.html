@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css" />
+        <link rel="stylesheet" href="../math-style.css" />
+    </head>
+    <body class="markdown-body">
+        <h1 dir="auto" id="2-conditions">2. Conditions</h1>
+        <blockquote dir="auto">
+            <p dir="auto">
+                &quot;In mathematics we are usually concerned with declarative (what is) descriptions, whereas in
+                computer science we are usually concerned with imperative (how to) descriptions.&quot; (SICP, 2022)
+            </p>
+        </blockquote>
+        <p dir="auto">
+            Previously, we explored the elements of primitive expressions, means of combination, and means of
+            abstraction through operators, names, and functions.
+        </p>
+        <p dir="auto">
+            While they are powerful by itself, if we are to specific the how-to of solving more complex problems, it is
+            still very limited at this point.
+        </p>
+        <p dir="auto">
+            Take for example, we cannot declare a function that computes the absolute value of a number by first testing
+            whether the number is a positive or negative number, then taking certain actions accordingly. That is, the
+            absolute number is defined as:
+        </p>
+        <section>
+            <eqn
+                ><span class="katex-display"
+                    ><span class="katex"
+                        ><span class="katex-mathml"
+                            ><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"
+                                ><semantics
+                                    ><mtable rowspacing="0.1600em" columnspacing="1em"
+                                        ><mtr
+                                            ><mtd class="mtr-glue"></mtd
+                                            ><mtd
+                                                ><mstyle scriptlevel="0" displaystyle="true"
+                                                    ><mrow
+                                                        ><mi>a</mi><mi>b</mi><mi>s</mi><mi>o</mi><mi>l</mi><mi>u</mi
+                                                        ><mi>t</mi><mi>e</mi><mo stretchy="false">(</mo><mi>x</mi
+                                                        ><mo stretchy="false">)</mo><mo>=</mo
+                                                        ><mrow
+                                                            ><mo fence="true">{</mo
+                                                            ><mtable
+                                                                rowspacing="0.3600em"
+                                                                columnalign="left left"
+                                                                columnspacing="1em"
+                                                                ><mtr
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mi>x</mi></mstyle
+                                                                        ></mtd
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mrow
+                                                                                ><mtext>if </mtext
+                                                                                ><mstyle
+                                                                                    scriptlevel="0"
+                                                                                    displaystyle="false"
+                                                                                    ><mi>x</mi><mo>≥</mo
+                                                                                    ><mn>0</mn></mstyle
+                                                                                ></mrow
+                                                                            ></mstyle
+                                                                        ></mtd
+                                                                    ></mtr
+                                                                ><mtr
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mrow><mo>−</mo><mi>x</mi></mrow></mstyle
+                                                                        ></mtd
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mtext>otherwise</mtext></mstyle
+                                                                        ></mtd
+                                                                    ></mtr
+                                                                ></mtable
+                                                            ></mrow
+                                                        ></mrow
+                                                    ></mstyle
+                                                ></mtd
+                                            ><mtd class="mtr-glue"></mtd><mtd class="mml-eqn-num"></mtd></mtr></mtable
+                                    ><annotation encoding="application/x-tex"
+                                        >\begin{equation} absolute(x) = \begin{cases} x &amp; \text{if $x \geq 0 $} \\
+                                        -x &amp; \text{otherwise} \end{cases} \end{equation}
+                                    </annotation></semantics
+                                ></math
+                            ></span
+                        ><span class="katex-html" aria-hidden="true"
+                            ><span class="base"
+                                ><span
+                                    class="strut"
+                                    style="height: 3.0000299999999998em; vertical-align: -1.250015em"
+                                ></span
+                                ><span class="mtable"
+                                    ><span class="col-align-c"
+                                        ><span class="vlist-t vlist-t2"
+                                            ><span class="vlist-r"
+                                                ><span class="vlist" style="height: 1.7500149999999997em"
+                                                    ><span style="top: -3.7500149999999994em"
+                                                        ><span class="pstrut" style="height: 3.75em"></span
+                                                        ><span class="mord"
+                                                            ><span class="mord mathnormal">ab</span
+                                                            ><span class="mord mathnormal">so</span
+                                                            ><span
+                                                                class="mord mathnormal"
+                                                                style="margin-right: 0.01968em"
+                                                                >l</span
+                                                            ><span class="mord mathnormal">u</span
+                                                            ><span class="mord mathnormal">t</span
+                                                            ><span class="mord mathnormal">e</span
+                                                            ><span class="mopen">(</span
+                                                            ><span class="mord mathnormal">x</span
+                                                            ><span class="mclose">)</span
+                                                            ><span
+                                                                class="mspace"
+                                                                style="margin-right: 0.2777777777777778em"
+                                                            ></span
+                                                            ><span class="mrel">=</span
+                                                            ><span
+                                                                class="mspace"
+                                                                style="margin-right: 0.2777777777777778em"
+                                                            ></span
+                                                            ><span class="minner"
+                                                                ><span class="mopen delimcenter" style="top: 0em"
+                                                                    ><span class="delimsizing size4">{</span></span
+                                                                ><span class="mord"
+                                                                    ><span class="mtable"
+                                                                        ><span class="col-align-l"
+                                                                            ><span class="vlist-t vlist-t2"
+                                                                                ><span class="vlist-r"
+                                                                                    ><span
+                                                                                        class="vlist"
+                                                                                        style="height: 1.69em"
+                                                                                        ><span style="top: -3.69em"
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span
+                                                                                                    class="mord mathnormal"
+                                                                                                    >x</span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ><span style="top: -2.25em"
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span class="mord"
+                                                                                                    >−</span
+                                                                                                ><span
+                                                                                                    class="mord mathnormal"
+                                                                                                    >x</span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ></span
+                                                                                    ><span class="vlist-s"
+                                                                                        >​</span
+                                                                                    ></span
+                                                                                ><span class="vlist-r"
+                                                                                    ><span
+                                                                                        class="vlist"
+                                                                                        style="height: 1.19em"
+                                                                                        ><span></span></span></span></span></span
+                                                                        ><span
+                                                                            class="arraycolsep"
+                                                                            style="width: 1em"
+                                                                        ></span
+                                                                        ><span class="col-align-l"
+                                                                            ><span class="vlist-t vlist-t2"
+                                                                                ><span class="vlist-r"
+                                                                                    ><span
+                                                                                        class="vlist"
+                                                                                        style="height: 1.69em"
+                                                                                        ><span style="top: -3.69em"
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span class="mord text"
+                                                                                                    ><span class="mord"
+                                                                                                        >if </span
+                                                                                                    ><span
+                                                                                                        class="mord mathnormal"
+                                                                                                        >x</span
+                                                                                                    ><span
+                                                                                                        class="mspace"
+                                                                                                        style="
+                                                                                                            margin-right: 0.2777777777777778em;
+                                                                                                        "
+                                                                                                    ></span
+                                                                                                    ><span class="mrel"
+                                                                                                        >≥</span
+                                                                                                    ><span
+                                                                                                        class="mspace"
+                                                                                                        style="
+                                                                                                            margin-right: 0.2777777777777778em;
+                                                                                                        "
+                                                                                                    ></span
+                                                                                                    ><span class="mord"
+                                                                                                        >0</span
+                                                                                                    ></span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ><span style="top: -2.25em"
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span class="mord text"
+                                                                                                    ><span class="mord"
+                                                                                                        >otherwise</span
+                                                                                                    ></span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ></span
+                                                                                    ><span class="vlist-s"
+                                                                                        >​</span
+                                                                                    ></span
+                                                                                ><span class="vlist-r"
+                                                                                    ><span
+                                                                                        class="vlist"
+                                                                                        style="height: 1.19em"
+                                                                                        ><span></span></span></span></span></span></span></span
+                                                                ><span
+                                                                    class="mclose nulldelimiter"
+                                                                ></span></span></span></span></span
+                                                ><span class="vlist-s">​</span></span
+                                            ><span class="vlist-r"
+                                                ><span class="vlist" style="height: 1.250015em"
+                                                    ><span></span></span></span></span></span></span></span
+                            ><span class="tag"
+                                ><span class="vlist-t vlist-t2"
+                                    ><span class="vlist-r"
+                                        ><span class="vlist" style="height: 1.7500149999999997em"
+                                            ><span style="top: -3.7500149999999994em"
+                                                ><span class="pstrut" style="height: 3.75em"></span
+                                                ><span class="eqn-num"></span></span></span
+                                        ><span class="vlist-s">​</span></span
+                                    ><span class="vlist-r"
+                                        ><span class="vlist" style="height: 1.250015em"
+                                            ><span></span></span></span></span></span></span></span></span
+            ></eqn>
+        </section>
+        <p dir="auto">
+            To achieve such a behavior, we will need to introduce a new set of primitives and mechanisms. Let's dive in!
+        </p>
+        <h2 dir="auto" id="21-boolean">2.1 Boolean</h2>
+        <p dir="auto">
+            In the previous chapter, we focused solely on numbers. In this chapter, we will introduce a new type of
+            primitive known as Boolean, which very simply has only 2 possible value: <code>true</code> and
+            <code>false</code> (case-sensitive). Example:
+        </p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-literal">true</span>;
+</code></pre>
+        <h3 dir="auto" id="211-comparison-operators">2.1.1 Comparison Operators</h3>
+        <p dir="auto">
+            Like the equation above, there may be times where we want to compare 2 numbers, to test if perhaps one is
+            greater than the other. Apart from the usual arithmetic operators (<code>+</code>, <code>-</code>,
+            <code>*</code>, <code>/</code>, etc...), which produces another number. There is also a set of operators
+            known as Comparison Operators, and these operators produces Booleans.
+        </p>
+        <table dir="auto">
+            <thead dir="auto">
+                <tr dir="auto">
+                    <th>operator</th>
+                    <th>name</th>
+                    <th>purpose</th>
+                    <th>example</th>
+                </tr>
+            </thead>
+            <tbody dir="auto">
+                <tr dir="auto">
+                    <td><code>===</code></td>
+                    <td>Strict Equality</td>
+                    <td>Tests whether the left and right values are identical to one another</td>
+                    <td><code>5 === 3</code> (<code>false</code>)</td>
+                </tr>
+                <tr dir="auto">
+                    <td><code>!==</code></td>
+                    <td>Strict Non-Equality</td>
+                    <td>Tests whether the left and right values are <strong>not</strong> identical to one another</td>
+                    <td><code>8 !== 7</code> (<code>true</code>)</td>
+                </tr>
+                <tr dir="auto">
+                    <td><code>&lt;</code></td>
+                    <td>Less Than</td>
+                    <td>Tests whether the left value is smaller than the right one.</td>
+                    <td><code>5 &lt; 12</code> (<code>true</code>)</td>
+                </tr>
+                <tr dir="auto">
+                    <td><code>&gt;</code></td>
+                    <td>Greater Than</td>
+                    <td>Tests whether the left value is greater than the right one.</td>
+                    <td><code>5 &gt; 5</code> (<code>false</code>)</td>
+                </tr>
+                <tr dir="auto">
+                    <td><code>&lt;=</code></td>
+                    <td>Less Than</td>
+                    <td>Tests whether the left value is smaller than or equal to the right one.</td>
+                    <td><code>12 &lt;= 12</code> (<code>true</code>)</td>
+                </tr>
+                <tr dir="auto">
+                    <td><code>&gt;=</code></td>
+                    <td>Greater Than</td>
+                    <td>Tests whether the left value is greater than or equal to the right one.</td>
+                    <td><code>5 &gt;= 13</code> (<code>false</code>)</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 dir="auto" id="22-conditional-statements">2.2 Conditional Statements</h2>
+        <p dir="auto">
+            The Boolean values become especially useful when used with Conditional Statements to control the flow of the
+            program. Take the equation specified at the top, with Comparison Operator, we are now able to test whether a
+            number is greater or equal to (<code>&gt;=</code>) 0. Pair this with Conditional Statements, and we can now
+            control the flow of the program.
+        </p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">absolute</span>(<span class="hljs-params">x</span>) {
+    <span class="hljs-keyword">if</span> (x &gt;= <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">return</span> x;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> -x;
+    }
+}
+</code></pre>
+        <p dir="auto">More formally, a Conditional Statement can be understood to have the following:</p>
+        <pre><code dir="auto">if1️⃣ (condition2️⃣) {
+    consequent-statements3️⃣;
+} else4️⃣ {
+    alternative-statements5️⃣;
+}
+</code></pre>
+        <ol dir="auto">
+            <li dir="auto">The conditional statement start with the keyword <code>if</code></li>
+            <li dir="auto">It contains with the parenthesis the condition, a boolean.</li>
+            <li dir="auto">If the condition is true, it will then evaluate the consequent-statements</li>
+            <li dir="auto">The alternative flow is demarcated by the <code>else</code> keyword</li>
+            <li dir="auto">If the condition is false, it will then evaluate the alternative statements</li>
+        </ol>
+        <p dir="auto">So, if we execute the following function application expression:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-title function_">absolute</span>(<span class="hljs-number">4</span>);
+</code></pre>
+        <p dir="auto">When the function is evaluated it goes through the following procedure:</p>
+        <ol dir="auto">
+            <li dir="auto">Set the parameter <code>x</code> to <code>4</code>.</li>
+            <li dir="auto">
+                Test if <code>x &gt;= 0</code> returns <code>true</code>.
+                <ol dir="auto">
+                    <li dir="auto">
+                        First, we evaluate the left-hand-side of the operator, substituting <code>x</code> with the
+                        associated value of <code>4</code>.
+                    </li>
+                    <li dir="auto">Secondly, we evaluate the right-hand-side, which is just 0.</li>
+                    <li dir="auto">
+                        Then, we apply the operator to the values, which check if the left hand side is greater or equal
+                        to the right hand side, giving us: <code>4 &gt;= 0</code> → <code>true</code>
+                    </li>
+                </ol>
+            </li>
+            <li dir="auto">
+                Since the condition evaluates to <code>true</code>, we will execute the
+                <code>consequent-statements</code>.
+                <ol dir="auto">
+                    <li dir="auto">Which simply <code>returns x</code>, where <code>x</code> is <code>4</code>.</li>
+                </ol>
+            </li>
+            <li dir="auto">
+                Note that it will skip the <code>alternative-statements</code>, regardless whether it was a return
+                statement or not.
+            </li>
+        </ol>
+        <h2 dir="auto" id="23-nested-conditional-statements">2.3 Nested Conditional Statements</h2>
+        <p dir="auto">
+            Suppose you now want to implement a function that compares two value and returns either 1, 0, or -1
+            depending on whether the first value is greater, equal, or smaller. That is:
+        </p>
+        <section>
+            <eqn
+                ><span class="katex-display"
+                    ><span class="katex"
+                        ><span class="katex-mathml"
+                            ><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"
+                                ><semantics
+                                    ><mtable rowspacing="0.1600em" columnspacing="1em"
+                                        ><mtr
+                                            ><mtd class="mtr-glue"></mtd
+                                            ><mtd
+                                                ><mstyle scriptlevel="0" displaystyle="true"
+                                                    ><mrow
+                                                        ><mi>c</mi><mi>o</mi><mi>m</mi><mi>p</mi><mi>a</mi><mi>r</mi
+                                                        ><mi>e</mi><mo stretchy="false">(</mo><mi>x</mi
+                                                        ><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo
+                                                        ><mo>=</mo
+                                                        ><mrow
+                                                            ><mo fence="true">{</mo
+                                                            ><mtable
+                                                                rowspacing="0.3600em"
+                                                                columnalign="left left"
+                                                                columnspacing="1em"
+                                                                ><mtr
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mn>1</mn></mstyle
+                                                                        ></mtd
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mrow
+                                                                                ><mtext>if </mtext
+                                                                                ><mstyle
+                                                                                    scriptlevel="0"
+                                                                                    displaystyle="false"
+                                                                                    ><mi>x</mi><mo>&gt;</mo
+                                                                                    ><mi>y</mi></mstyle
+                                                                                ></mrow
+                                                                            ></mstyle
+                                                                        ></mtd
+                                                                    ></mtr
+                                                                ><mtr
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mn>0</mn></mstyle
+                                                                        ></mtd
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mrow
+                                                                                ><mtext>if </mtext
+                                                                                ><mstyle
+                                                                                    scriptlevel="0"
+                                                                                    displaystyle="false"
+                                                                                    ><mi>x</mi><mo>=</mo
+                                                                                    ><mi>y</mi></mstyle
+                                                                                ></mrow
+                                                                            ></mstyle
+                                                                        ></mtd
+                                                                    ></mtr
+                                                                ><mtr
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mrow><mo>−</mo><mn>1</mn></mrow></mstyle
+                                                                        ></mtd
+                                                                    ><mtd
+                                                                        ><mstyle scriptlevel="0" displaystyle="false"
+                                                                            ><mtext>otherwise</mtext></mstyle
+                                                                        ></mtd
+                                                                    ></mtr
+                                                                ></mtable
+                                                            ></mrow
+                                                        ></mrow
+                                                    ></mstyle
+                                                ></mtd
+                                            ><mtd class="mtr-glue"></mtd><mtd class="mml-eqn-num"></mtd></mtr></mtable
+                                    ><annotation encoding="application/x-tex"
+                                        >\begin{equation} compare(x, y) = \begin{cases} 1 &amp; \text{if $x \gt y $} \\
+                                        0 &amp; \text{if $x = y $} \\ -1 &amp; \text{otherwise} \end{cases}
+                                        \end{equation}
+                                    </annotation></semantics
+                                ></math
+                            ></span
+                        ><span class="katex-html" aria-hidden="true"
+                            ><span class="base"
+                                ><span
+                                    class="strut"
+                                    style="height: 4.32em; vertical-align: -1.9099999999999997em"
+                                ></span
+                                ><span class="mtable"
+                                    ><span class="col-align-c"
+                                        ><span class="vlist-t vlist-t2"
+                                            ><span class="vlist-r"
+                                                ><span class="vlist" style="height: 2.4100000000000006em"
+                                                    ><span style="top: -4.41em"
+                                                        ><span class="pstrut" style="height: 4.41em"></span
+                                                        ><span class="mord"
+                                                            ><span class="mord mathnormal">co</span
+                                                            ><span class="mord mathnormal">m</span
+                                                            ><span class="mord mathnormal">p</span
+                                                            ><span class="mord mathnormal">a</span
+                                                            ><span class="mord mathnormal">re</span
+                                                            ><span class="mopen">(</span
+                                                            ><span class="mord mathnormal">x</span
+                                                            ><span class="mpunct">,</span
+                                                            ><span
+                                                                class="mspace"
+                                                                style="margin-right: 0.16666666666666666em"
+                                                            ></span
+                                                            ><span
+                                                                class="mord mathnormal"
+                                                                style="margin-right: 0.03588em"
+                                                                >y</span
+                                                            ><span class="mclose">)</span
+                                                            ><span
+                                                                class="mspace"
+                                                                style="margin-right: 0.2777777777777778em"
+                                                            ></span
+                                                            ><span class="mrel">=</span
+                                                            ><span
+                                                                class="mspace"
+                                                                style="margin-right: 0.2777777777777778em"
+                                                            ></span
+                                                            ><span class="minner"
+                                                                ><span class="mopen"
+                                                                    ><span class="delimsizing mult"
+                                                                        ><span class="vlist-t vlist-t2"
+                                                                            ><span class="vlist-r"
+                                                                                ><span
+                                                                                    class="vlist"
+                                                                                    style="height: 2.3500199999999998em"
+                                                                                    ><span style="top: -2.19999em"
+                                                                                        ><span
+                                                                                            class="pstrut"
+                                                                                            style="height: 3.15em"
+                                                                                        ></span
+                                                                                        ><span
+                                                                                            class="delimsizinginner delim-size4"
+                                                                                            ><span>⎩</span></span
+                                                                                        ></span
+                                                                                    ><span style="top: -2.19199em"
+                                                                                        ><span
+                                                                                            class="pstrut"
+                                                                                            style="height: 3.15em"
+                                                                                        ></span
+                                                                                        ><span
+                                                                                            style="
+                                                                                                height: 0.31599999999999984em;
+                                                                                                width: 0.889em;
+                                                                                            "
+                                                                                            ><svg
+                                                                                                width="0.889em"
+                                                                                                height="0.31599999999999984em"
+                                                                                                style="width: 0.889em"
+                                                                                                viewBox="0 0 889 316"
+                                                                                                preserveAspectRatio="xMinYMin"
+                                                                                            >
+                                                                                                <path
+                                                                                                    d="M384 0 H504 V316 H384z M384 0 H504 V316 H384z"
+                                                                                                /></svg></span></span
+                                                                                    ><span style="top: -3.15001em"
+                                                                                        ><span
+                                                                                            class="pstrut"
+                                                                                            style="height: 3.15em"
+                                                                                        ></span
+                                                                                        ><span
+                                                                                            class="delimsizinginner delim-size4"
+                                                                                            ><span>⎨</span></span
+                                                                                        ></span
+                                                                                    ><span
+                                                                                        style="
+                                                                                            top: -4.292009999999999em;
+                                                                                        "
+                                                                                        ><span
+                                                                                            class="pstrut"
+                                                                                            style="height: 3.15em"
+                                                                                        ></span
+                                                                                        ><span
+                                                                                            style="
+                                                                                                height: 0.31599999999999984em;
+                                                                                                width: 0.889em;
+                                                                                            "
+                                                                                            ><svg
+                                                                                                width="0.889em"
+                                                                                                height="0.31599999999999984em"
+                                                                                                style="width: 0.889em"
+                                                                                                viewBox="0 0 889 316"
+                                                                                                preserveAspectRatio="xMinYMin"
+                                                                                            >
+                                                                                                <path
+                                                                                                    d="M384 0 H504 V316 H384z M384 0 H504 V316 H384z"
+                                                                                                /></svg></span></span
+                                                                                    ><span
+                                                                                        style="
+                                                                                            top: -4.600019999999999em;
+                                                                                        "
+                                                                                        ><span
+                                                                                            class="pstrut"
+                                                                                            style="height: 3.15em"
+                                                                                        ></span
+                                                                                        ><span
+                                                                                            class="delimsizinginner delim-size4"
+                                                                                            ><span>⎧</span></span
+                                                                                        ></span
+                                                                                    ></span
+                                                                                ><span class="vlist-s">​</span></span
+                                                                            ><span class="vlist-r"
+                                                                                ><span
+                                                                                    class="vlist"
+                                                                                    style="height: 1.8500199999999998em"
+                                                                                    ><span></span></span></span></span></span></span
+                                                                ><span class="mord"
+                                                                    ><span class="mtable"
+                                                                        ><span class="col-align-l"
+                                                                            ><span class="vlist-t vlist-t2"
+                                                                                ><span class="vlist-r"
+                                                                                    ><span
+                                                                                        class="vlist"
+                                                                                        style="height: 2.41em"
+                                                                                        ><span style="top: -4.41em"
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span class="mord"
+                                                                                                    >1</span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ><span style="top: -2.97em"
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span class="mord"
+                                                                                                    >0</span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ><span
+                                                                                            style="
+                                                                                                top: -1.5300000000000002em;
+                                                                                            "
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span class="mord"
+                                                                                                    >−</span
+                                                                                                ><span class="mord"
+                                                                                                    >1</span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ></span
+                                                                                    ><span class="vlist-s"
+                                                                                        >​</span
+                                                                                    ></span
+                                                                                ><span class="vlist-r"
+                                                                                    ><span
+                                                                                        class="vlist"
+                                                                                        style="
+                                                                                            height: 1.9099999999999997em;
+                                                                                        "
+                                                                                        ><span></span></span></span></span></span
+                                                                        ><span
+                                                                            class="arraycolsep"
+                                                                            style="width: 1em"
+                                                                        ></span
+                                                                        ><span class="col-align-l"
+                                                                            ><span class="vlist-t vlist-t2"
+                                                                                ><span class="vlist-r"
+                                                                                    ><span
+                                                                                        class="vlist"
+                                                                                        style="height: 2.41em"
+                                                                                        ><span style="top: -4.41em"
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span class="mord text"
+                                                                                                    ><span class="mord"
+                                                                                                        >if </span
+                                                                                                    ><span
+                                                                                                        class="mord mathnormal"
+                                                                                                        >x</span
+                                                                                                    ><span
+                                                                                                        class="mspace"
+                                                                                                        style="
+                                                                                                            margin-right: 0.2777777777777778em;
+                                                                                                        "
+                                                                                                    ></span
+                                                                                                    ><span class="mrel"
+                                                                                                        >&gt;</span
+                                                                                                    ><span
+                                                                                                        class="mspace"
+                                                                                                        style="
+                                                                                                            margin-right: 0.2777777777777778em;
+                                                                                                        "
+                                                                                                    ></span
+                                                                                                    ><span
+                                                                                                        class="mord mathnormal"
+                                                                                                        style="
+                                                                                                            margin-right: 0.03588em;
+                                                                                                        "
+                                                                                                        >y</span
+                                                                                                    ></span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ><span style="top: -2.97em"
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span class="mord text"
+                                                                                                    ><span class="mord"
+                                                                                                        >if </span
+                                                                                                    ><span
+                                                                                                        class="mord mathnormal"
+                                                                                                        >x</span
+                                                                                                    ><span
+                                                                                                        class="mspace"
+                                                                                                        style="
+                                                                                                            margin-right: 0.2777777777777778em;
+                                                                                                        "
+                                                                                                    ></span
+                                                                                                    ><span class="mrel"
+                                                                                                        >=</span
+                                                                                                    ><span
+                                                                                                        class="mspace"
+                                                                                                        style="
+                                                                                                            margin-right: 0.2777777777777778em;
+                                                                                                        "
+                                                                                                    ></span
+                                                                                                    ><span
+                                                                                                        class="mord mathnormal"
+                                                                                                        style="
+                                                                                                            margin-right: 0.03588em;
+                                                                                                        "
+                                                                                                        >y</span
+                                                                                                    ></span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ><span
+                                                                                            style="
+                                                                                                top: -1.5300000000000002em;
+                                                                                            "
+                                                                                            ><span
+                                                                                                class="pstrut"
+                                                                                                style="height: 3.008em"
+                                                                                            ></span
+                                                                                            ><span class="mord"
+                                                                                                ><span class="mord text"
+                                                                                                    ><span class="mord"
+                                                                                                        >otherwise</span
+                                                                                                    ></span
+                                                                                                ></span
+                                                                                            ></span
+                                                                                        ></span
+                                                                                    ><span class="vlist-s"
+                                                                                        >​</span
+                                                                                    ></span
+                                                                                ><span class="vlist-r"
+                                                                                    ><span
+                                                                                        class="vlist"
+                                                                                        style="
+                                                                                            height: 1.9099999999999997em;
+                                                                                        "
+                                                                                        ><span></span></span></span></span></span></span></span
+                                                                ><span
+                                                                    class="mclose nulldelimiter"
+                                                                ></span></span></span></span></span
+                                                ><span class="vlist-s">​</span></span
+                                            ><span class="vlist-r"
+                                                ><span class="vlist" style="height: 1.9099999999999997em"
+                                                    ><span></span></span></span></span></span></span></span
+                            ><span class="tag"
+                                ><span class="vlist-t vlist-t2"
+                                    ><span class="vlist-r"
+                                        ><span class="vlist" style="height: 2.4100000000000006em"
+                                            ><span style="top: -4.41em"
+                                                ><span class="pstrut" style="height: 4.41em"></span
+                                                ><span class="eqn-num"></span></span></span
+                                        ><span class="vlist-s">​</span></span
+                                    ><span class="vlist-r"
+                                        ><span class="vlist" style="height: 1.9099999999999997em"
+                                            ><span></span></span></span></span></span></span></span></span
+            ></eqn>
+        </section>
+        <p dir="auto">Using the above conditional statement we could implement it the following way:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">compare</span>(<span class="hljs-params">x, y</span>) {
+    <span class="hljs-keyword">if</span> (x &gt; y) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">if</span> (x === y) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        }
+    }
+}
+</code></pre>
+        <p dir="auto">An alternative way is to use the <code>else if</code> keyword as in the following:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">compare</span>(<span class="hljs-params">x, y</span>) {
+    <span class="hljs-keyword">if</span> (x &gt; y) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (x === y) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    }
+}
+</code></pre>
+        <p dir="auto">More formally,</p>
+        <pre><code dir="auto">if (condition1) {
+    consequent-statements1;
+} else if1️⃣ (condition2)2️⃣ {
+    consequent-statements23️⃣;
+} else if (condition3) {
+    consequent-statements3;
+} else if ...
+...
+} else {
+    final-alternative-statements4️⃣;
+}
+</code></pre>
+        <ol dir="auto">
+            <li dir="auto">The additional conditional statement start with the keyword <code>else if</code>.</li>
+            <li dir="auto">Like the first If-block, It contains with the parenthesis the condition, a boolean.</li>
+            <li dir="auto">
+                If any of the condition is true, it will then evaluate the corresponding consequent-statements
+            </li>
+            <li dir="auto">
+                If all conditions evaluates to false, it will then evaluate the final-alternative-statements.
+            </li>
+        </ol>
+        <h2 dir="auto" id="24-logical-composition-operators">2.4 Logical Composition Operators</h2>
+        <p dir="auto">
+            Apart from comparison operators, there is another set of operators called the Logical Composition Operators
+            which enable us to construct compound boolean expressions. The three most frequently used are:
+        </p>
+        <table dir="auto">
+            <thead dir="auto">
+                <tr dir="auto">
+                    <th>operator</th>
+                    <th>name</th>
+                    <th>purpose</th>
+                    <th>example</th>
+                </tr>
+            </thead>
+            <tbody dir="auto">
+                <tr dir="auto">
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>1</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">1</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                        <code>&amp;&amp;</code>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>2</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_2</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">2</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                    </td>
+                    <td>AND</td>
+                    <td>
+                        <code>true</code> if both
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>1</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">1</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                        AND
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>2</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_2</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">2</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                        are <code>true</code>. Otherwise, evaluates to <code>false</code>
+                    </td>
+                    <td><code>true &amp;&amp; false</code> (<code>false</code>)</td>
+                </tr>
+                <tr dir="auto">
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>1</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">1</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                        <code>||</code>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>2</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_2</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">2</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                    </td>
+                    <td>OR</td>
+                    <td>
+                        <code>true</code> as long as one of
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>1</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">1</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                        OR
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>2</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_2</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">2</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                        is <code>true</code>. Otherwise, evaluates to <code>false</code>
+                    </td>
+                    <td><code>true || false</code> (<code>true</code>)</td>
+                </tr>
+                <tr dir="auto">
+                    <td>
+                        <code>!</code>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>1</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">1</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                    </td>
+                    <td>NOT</td>
+                    <td>
+                        Inverts the boolean value. <code>true</code> if
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow
+                                                ><mi>o</mi><mi>p</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi
+                                                ><msub><mi>d</mi><mn>1</mn></msub></mrow
+                                            ><annotation encoding="application/x-tex">operand_1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.8888799999999999em; vertical-align: -0.19444em"
+                                        ></span
+                                        ><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span
+                                        ><span class="mord mathnormal" style="margin-right: 0.02778em">er</span
+                                        ><span class="mord mathnormal">an</span
+                                        ><span class="mord"
+                                            ><span class="mord mathnormal">d</span
+                                            ><span class="msupsub"
+                                                ><span class="vlist-t vlist-t2"
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.30110799999999993em"
+                                                            ><span
+                                                                style="
+                                                                    top: -2.5500000000000003em;
+                                                                    margin-left: 0em;
+                                                                    margin-right: 0.05em;
+                                                                "
+                                                                ><span class="pstrut" style="height: 2.7em"></span
+                                                                ><span class="sizing reset-size6 size3 mtight"
+                                                                    ><span class="mord mtight">1</span></span
+                                                                ></span
+                                                            ></span
+                                                        ><span class="vlist-s">​</span></span
+                                                    ><span class="vlist-r"
+                                                        ><span class="vlist" style="height: 0.15em"
+                                                            ><span></span></span></span></span></span></span></span></span></span
+                        ></eq>
+                        is <code>false</code>. <code>false</code> otherwise.
+                    </td>
+                    <td><code>!false</code> (<code>true</code>)</td>
+                </tr>
+            </tbody>
+        </table>
+        <p dir="auto">
+            As a trivial example, we can revisit the <code>absolute(x)</code> function, rewriting the condition with
+            logical composition operators:
+        </p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">absolute</span>(<span class="hljs-params">x</span>) {
+    <span class="hljs-keyword">if</span> (x &gt; <span class="hljs-number">0</span> &amp;&amp; x === <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">return</span> x;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> -x;
+    }
+}
+</code></pre>
+        <h2 dir="auto" id="25-truth-table">2.5 Truth Table</h2>
+        <p dir="auto">The following a some popular outcomes that may come in handy:</p>
+        <table dir="auto">
+            <thead dir="auto">
+                <tr dir="auto">
+                    <th>x</th>
+                    <th>y</th>
+                    <th>x &amp;&amp; y</th>
+                    <th>x || y</th>
+                    <th>!x</th>
+                </tr>
+            </thead>
+            <tbody dir="auto">
+                <tr dir="auto">
+                    <td>true</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>true</td>
+                    <td>false</td>
+                </tr>
+                <tr dir="auto">
+                    <td>true</td>
+                    <td>false</td>
+                    <td>false</td>
+                    <td>true</td>
+                    <td>false</td>
+                </tr>
+                <tr dir="auto">
+                    <td>false</td>
+                    <td>true</td>
+                    <td>false</td>
+                    <td>true</td>
+                    <td>true</td>
+                </tr>
+                <tr dir="auto">
+                    <td>false</td>
+                    <td>false</td>
+                    <td>false</td>
+                    <td>false</td>
+                    <td>true</td>
+                </tr>
+            </tbody>
+        </table>
+        <p dir="auto">
+            If we consider <code>true</code> as
+            <eq
+                ><span class="katex"
+                    ><span class="katex-mathml"
+                        ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                            ><semantics
+                                ><mrow><mn>1</mn></mrow
+                                ><annotation encoding="application/x-tex">1</annotation></semantics
+                            ></math
+                        ></span
+                    ><span class="katex-html" aria-hidden="true"
+                        ><span class="base"
+                            ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                            ><span class="mord">1</span></span
+                        ></span
+                    ></span
+                ></eq
+            >
+            and <code>false</code> as
+            <eq
+                ><span class="katex"
+                    ><span class="katex-mathml"
+                        ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                            ><semantics
+                                ><mrow><mn>0</mn></mrow
+                                ><annotation encoding="application/x-tex">0</annotation></semantics
+                            ></math
+                        ></span
+                    ><span class="katex-html" aria-hidden="true"
+                        ><span class="base"
+                            ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                            ><span class="mord">0</span></span
+                        ></span
+                    ></span
+                ></eq
+            >, we can also consider the <code>&amp;&amp;</code> operator as multiplication, and the
+            <code>||</code> operator as addition.
+        </p>
+        <table dir="auto">
+            <thead dir="auto">
+                <tr dir="auto">
+                    <th>x</th>
+                    <th>y</th>
+                    <th>x &amp;&amp; y</th>
+                    <th>x || y</th>
+                </tr>
+            </thead>
+            <tbody dir="auto">
+                <tr dir="auto">
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>1</mn></mrow
+                                            ><annotation encoding="application/x-tex">1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>1</mn></mrow
+                                            ><annotation encoding="application/x-tex">1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>1</mn><mo>×</mo><mn>1</mn><mo>=</mo><mn>1</mn></mrow
+                                            ><annotation encoding="application/x-tex"
+                                                >1 \times 1 = 1</annotation
+                                            ></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.72777em; vertical-align: -0.08333em"
+                                        ></span
+                                        ><span class="mord">1</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                                        ><span class="mbin">×</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span
+                                        ><span class="mrel">=</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>1</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>1</mn></mrow
+                                            ><annotation encoding="application/x-tex">1 + 1 = 1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.72777em; vertical-align: -0.08333em"
+                                        ></span
+                                        ><span class="mord">1</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                                        ><span class="mbin">+</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span
+                                        ><span class="mrel">=</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                </tr>
+                <tr dir="auto">
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>1</mn></mrow
+                                            ><annotation encoding="application/x-tex">1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>0</mn></mrow
+                                            ><annotation encoding="application/x-tex">0</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>1</mn><mo>×</mo><mn>0</mn><mo>=</mo><mn>0</mn></mrow
+                                            ><annotation encoding="application/x-tex"
+                                                >1 \times 0 = 0</annotation
+                                            ></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.72777em; vertical-align: -0.08333em"
+                                        ></span
+                                        ><span class="mord">1</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                                        ><span class="mbin">×</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span
+                                        ><span class="mrel">=</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>1</mn><mo>+</mo><mn>0</mn><mo>=</mo><mn>1</mn></mrow
+                                            ><annotation encoding="application/x-tex">1 + 0 = 1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.72777em; vertical-align: -0.08333em"
+                                        ></span
+                                        ><span class="mord">1</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                                        ><span class="mbin">+</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span
+                                        ><span class="mrel">=</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                </tr>
+                <tr dir="auto">
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>0</mn></mrow
+                                            ><annotation encoding="application/x-tex">0</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>1</mn></mrow
+                                            ><annotation encoding="application/x-tex">1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>0</mn><mo>×</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow
+                                            ><annotation encoding="application/x-tex"
+                                                >0 \times 1 = 0</annotation
+                                            ></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.72777em; vertical-align: -0.08333em"
+                                        ></span
+                                        ><span class="mord">0</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                                        ><span class="mbin">×</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span
+                                        ><span class="mrel">=</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>0</mn><mo>+</mo><mn>1</mn><mo>=</mo><mn>1</mn></mrow
+                                            ><annotation encoding="application/x-tex">0 + 1 = 1</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.72777em; vertical-align: -0.08333em"
+                                        ></span
+                                        ><span class="mord">0</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                                        ><span class="mbin">+</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span
+                                        ><span class="mrel">=</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">1</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                </tr>
+                <tr dir="auto">
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>0</mn></mrow
+                                            ><annotation encoding="application/x-tex">0</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>0</mn></mrow
+                                            ><annotation encoding="application/x-tex">0</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>0</mn><mo>×</mo><mn>0</mn><mo>=</mo><mn>0</mn></mrow
+                                            ><annotation encoding="application/x-tex"
+                                                >0 \times 0 = 0</annotation
+                                            ></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.72777em; vertical-align: -0.08333em"
+                                        ></span
+                                        ><span class="mord">0</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                                        ><span class="mbin">×</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span
+                                        ><span class="mrel">=</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                    <td>
+                        <eq
+                            ><span class="katex"
+                                ><span class="katex-mathml"
+                                    ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                        ><semantics
+                                            ><mrow><mn>0</mn><mo>+</mo><mn>0</mn><mo>=</mo><mn>0</mn></mrow
+                                            ><annotation encoding="application/x-tex">0 + 0 = 0</annotation></semantics
+                                        ></math
+                                    ></span
+                                ><span class="katex-html" aria-hidden="true"
+                                    ><span class="base"
+                                        ><span
+                                            class="strut"
+                                            style="height: 0.72777em; vertical-align: -0.08333em"
+                                        ></span
+                                        ><span class="mord">0</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                                        ><span class="mbin">+</span
+                                        ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span
+                                        ><span class="mrel">=</span
+                                        ><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span
+                                    ><span class="base"
+                                        ><span class="strut" style="height: 0.64444em; vertical-align: 0em"></span
+                                        ><span class="mord">0</span></span
+                                    ></span
+                                ></span
+                            ></eq
+                        >
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 dir="auto" id="2x-summary">2.X Summary</h2>
+        <p dir="auto">
+            We started with the problem where with only functions and variables, we are limited to a linear, sequential
+            manner of executing the program. With the introduction of Boolean, Conditional Statements, and Logical
+            Composition Operators, we now have the tools to take different actions based on different conditions.
+        </p>
+        <p dir="auto">
+            In the next topic, we will look at how we can make use of other mechanisms that would allow the repetition
+            of code.
+        </p>
+    </body>
+</html>

@@ -1,0 +1,409 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+<link rel="stylesheet" href="../math-style.css">
+
+</head>
+<body class="markdown-body">
+<h1 dir="auto" id="1-the-elements-of-programming">1. The elements of Programming</h1>
+<h2 dir="auto" id="11-what-is-a-program">1.1 What is a program?</h2>
+<blockquote dir="auto">
+<p dir="auto">Script --&gt; Computer --&gt; Action</p>
+</blockquote>
+<p dir="auto">One way to understand a program, is the conversion of a script, written in a programming language, by a computer to perform some action. In modern computer, what the computer does is to use an existing software (either a compiler or an interpreter), to process the script, break it down into individual steps, and executes them.</p>
+<p dir="auto">The script that is to be processed by the computer, hence have to contain instructions, written in a specific ways in which the computer can understand, and sequenced in a manner than bring the computer to achieve the desirable outcome.</p>
+<p dir="auto">The following is an example of a script written using a specific language, with instructions sequences a specific manner, to have the computer compute the average score of a course:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">calculateAverage</span>(<span class="hljs-params">scores</span>) {
+    <span class="hljs-keyword">if</span> (scores.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">let</span> sum = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; scores.<span class="hljs-property">length</span>; i++) {
+        sum = sum + scores[i];
+    }
+
+    <span class="hljs-keyword">return</span> sum / scores.<span class="hljs-property">length</span>;
+}
+
+<span class="hljs-keyword">const</span> average = <span class="hljs-title function_">calculateAverage</span>([<span class="hljs-number">78</span>, <span class="hljs-number">82</span>, <span class="hljs-number">61</span>, <span class="hljs-number">94</span>, <span class="hljs-number">66</span>, <span class="hljs-number">54</span>, <span class="hljs-number">83</span>]);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(average);
+</code></pre>
+<blockquote dir="auto">
+<p dir="auto">&quot;A powerful programming language is more than just a means for instructing a computer to perform tasks. The language also serves as a framework within which we organize our ideas about processes.&quot; (SICP, 2022)</p>
+</blockquote>
+<p dir="auto">Thus, in any programming language, it would provide us with means to combine simple ideas to build more complex ideas. That is, every programming language would provide:</p>
+<ol dir="auto">
+<li dir="auto"><strong>primitive expression</strong>: The smallest unit in which the language defines and is concerned with.</li>
+<li dir="auto"><strong>means of combination</strong>: A way to combine multiple elements to form bigger elements.</li>
+<li dir="auto"><strong>means of abstraction</strong>: A way to which these combined elements may be named and manipulated as a single unit.</li>
+</ol>
+<p dir="auto">We will seek to build up the understanding of each of the 3 mechanism to one day return to the script above to understand how they all piece together.</p>
+<h2 dir="auto" id="12-expressions">1.2 Expressions</h2>
+<h3 dir="auto" id="121-expression-statement">1.2.1 Expression Statement</h3>
+<p dir="auto">A script (like the one above), is made up of several statements, and one type of statement is called a <strong>expression statement</strong>.</p>
+<p dir="auto">The following is one such expression statement:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">123</span>;
+</code></pre>
+<p dir="auto">Where the statement is composed of an <code>expression</code> and a semi-colon (which indicates the end of the statement). In this case, the number <code>123</code> is an example of a <code>primitive expression</code>, defined by the language to be a number in base 10.</p>
+<h3 dir="auto" id="122-operator-combination">1.2.2 Operator Combination</h3>
+<p dir="auto">We can combine a few of these primitive expressions (e.g. <code>123</code>), together with other primitive expressions through the use of <code>operators</code>. Also known as <code>operator combination</code>. The value of an <code>operator combination</code> is obtained by applying the function specified by the operator to the arguments that are the values of the operands. for e.g.:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">123</span> + <span class="hljs-number">234</span>;
+</code></pre>
+<p dir="auto">The above combines 2 <code>primitive expressions</code> (<code>123</code>, and <code>234</code>) and the value of this operator combination is the sum (<code>+</code>) of <code>123</code> and <code>234</code>, giving us <code>369</code></p>
+<p dir="auto">More examples:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">99</span> - <span class="hljs-number">12</span>;
+</code></pre>
+<p dir="auto">Value: 87</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">2</span> * <span class="hljs-number">9</span>;
+</code></pre>
+<p dir="auto">Value: 18</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">22</span> / <span class="hljs-number">11</span>;
+</code></pre>
+<p dir="auto">Value: 2</p>
+<h3 dir="auto" id="123-syntax-error">1.2.3 Syntax Error</h3>
+<p dir="auto">In the above example, one of the rule is that the <code>operator</code> has to be in the middle of two <code>expressions</code>, for example, the following would not be valid:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">2</span> + * <span class="hljs-number">3</span>;
+</code></pre>
+<p dir="auto">As the operator <code>+</code> would expect the left-hand-side and the right-hand to be <code>expressions</code> rather than another operator. When the program executes this expression, it would then produce the following error:</p>
+<pre><code dir="auto">&gt; 2 + * 3
+2 + * 3
+    ^
+
+Uncaught SyntaxError: Unexpected token '*'
+</code></pre>
+<p dir="auto">The above state that there is an <code>SyntaxError</code>, indicating that you have violated a rule of the language (a.k.a the syntax), where the <code>+</code> operator did not expect to see <code>*</code> on it's right-hand-side.</p>
+<h3 dir="auto" id="124-nested-operator-combination">1.2.4 Nested operator combination</h3>
+<p dir="auto">As briefly mentioned, each operator expects <code>expressions</code> on its left and right. We've seen the use of <code>primitive expressions</code>. It can also be <em>nested</em>, that the left and right hand side can also be other <code>operator combination</code></p>
+<pre><code class="code-line language-js" dir="auto">(<span class="hljs-number">1</span> + <span class="hljs-number">2</span>) * (<span class="hljs-number">3</span> + <span class="hljs-number">4</span>);
+</code></pre>
+<p dir="auto">Parentheses (round brackets) here serves to avoid confusion of which operator combination to be evaluated first. But JavaScript also allow the omission of round brackets. It follows 2 rules to determine the order of which the various operator combinations are evaluated.</p>
+<ol dir="auto">
+<li dir="auto">Order of precedence</li>
+<li dir="auto">left or right-associative</li>
+</ol>
+<p dir="auto">Take the following expression as an example:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1</span> - (<span class="hljs-number">5</span> / <span class="hljs-number">2</span>) * <span class="hljs-number">4</span> + <span class="hljs-number">3</span>;
+</code></pre>
+<p dir="auto">By following the rules of order-of-precedence, and left or right-associative, the program would evaluate the expression in the following order:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1</span> - (<span class="hljs-number">5</span> / <span class="hljs-number">2</span>) * <span class="hljs-number">4</span> + <span class="hljs-number">3</span>;
+</code></pre>
+<ol dir="auto">
+<li dir="auto">Operators <code>/</code> and <code>*</code> have a higher weight than <code>+</code> and <code>-</code>, hence they would be the first to be evaluated.</li>
+<li dir="auto">Between <code>/</code> and <code>*</code>, since these operators are <code>left-associative</code>, they are hence evaluated from left-to-right</li>
+</ol>
+<p dir="auto">Let's see an example of a right-associative operator:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">2</span> ** (<span class="hljs-number">3</span> ** <span class="hljs-number">2</span>);
+</code></pre>
+<p dir="auto"><code>**</code> here is the power operator (i.e. <code>2 ** 3 = 2 * 2 * 2 = 8</code>, and <code>3 ** 2 = 3 * 3 = 9</code>)</p>
+<p dir="auto">if <code>**</code> was left-associative, then the order of evaluation would be:</p>
+<pre><code class="code-line language-js" dir="auto">(<span class="hljs-number">2</span> ** <span class="hljs-number">3</span>) ** <span class="hljs-number">2</span>;
+</code></pre>
+<p dir="auto">Evaluated as <code>8 ** 2 = 64</code></p>
+<p dir="auto">if it was right-associative instead:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">2</span> ** (<span class="hljs-number">3</span> ** <span class="hljs-number">2</span>);
+</code></pre>
+<p dir="auto">It would be evaluated as <code>2 ** 9 = 512</code>.</p>
+<p dir="auto">If you test out the evaluation of <code>2 ** 3 ** 2</code> you would notice that it results in <code>512</code>, suggesting that the operator <code>**</code> is right-associative.</p>
+<h3 dir="auto" id="12x-summary">1.2.X Summary</h3>
+<p dir="auto">We started with the claim at the start that every programming language would provide:</p>
+<ol dir="auto">
+<li dir="auto"><strong>primitive expression</strong>: The smallest unit in which the language defines and is concerned with.</li>
+<li dir="auto"><strong>means of combination</strong>: A way to combine multiple elements to form bigger elements.</li>
+<li dir="auto"><strong>means of abstraction</strong>: A way to which these combined elements may be named and manipulated as a single unit.</li>
+</ol>
+<p dir="auto">We have seen numbers as an example of primitive expression, and operators as a means of combination. In the next section, we will see how abstraction is achieved with means of providing names.</p>
+<h2 dir="auto" id="13-naming">1.3 Naming</h2>
+<h3 dir="auto" id="131-constant-declaration">1.3.1 Constant Declaration</h3>
+<p dir="auto">An important aspect of programming is the ability to name the result of a computation and to refer to it again by its name later. One such mechanism is the use of <code>variables</code>. Specifically, we will first limit ourselves to the means of a <code>constant</code> variable (one that doesn't change).</p>
+<p dir="auto">In JavaScript, we name a constant with a <code>constant declaration</code></p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> age = <span class="hljs-number">17</span>;
+</code></pre>
+<p dir="auto">The const keyword above would indicate to the program to associate the value <code>17</code> with the name <code>age</code>. Once it has been associated, we can refer to the value by name.</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">2025</span> - age;
+</code></pre>
+<p dir="auto">The above would evaluate to <code>2025 - 17 = 2008</code>.</p>
+<h3 dir="auto" id="122-reference-error">1.2.2 Reference Error</h3>
+<p dir="auto">Note the sequence of events:</p>
+<ol dir="auto">
+<li dir="auto">Naming a value</li>
+<li dir="auto">Referencing the value by name</li>
+</ol>
+<p dir="auto">If you try to reference value by name before it was associated with the name, you would encounter an error:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">2025</span> - age;
+<span class="hljs-keyword">const</span> age = <span class="hljs-number">17</span>;
+</code></pre>
+<pre><code dir="auto">&gt; 2025 - age;
+Uncaught ReferenceError: age is not defined
+</code></pre>
+<p dir="auto">The above error <code>ReferenceError</code> indicate that there was an error when trying to reference a value by name. In this case <code>age is not defined</code> suggests that the name age is not yet defined (a.k.a. created) and associated with any value.</p>
+<h3 dir="auto" id="133-more-examples">1.3.3 More examples</h3>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> pi = <span class="hljs-number">3.14159</span>;
+<span class="hljs-keyword">const</span> radius = <span class="hljs-number">10</span>;
+<span class="hljs-keyword">const</span> surfaceArea = pi * radius * radius;
+<span class="hljs-keyword">const</span> radius = <span class="hljs-number">2</span> * pi * radius;
+
+<span class="hljs-keyword">const</span> height = <span class="hljs-number">4</span>;
+<span class="hljs-keyword">const</span> volumeOfCylinder = surfaceArea * height;
+</code></pre>
+<h3 dir="auto" id="134-mutable-variable-declaration">1.3.4 Mutable variable declaration</h3>
+<p dir="auto">Constant as the name suggests means that the variable can't be changed or re-assigned.</p>
+<p dir="auto">Another keyword apart from <code>const</code> would be <code>let</code></p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">let</span> age = <span class="hljs-number">17</span>;
+age = <span class="hljs-number">18</span>;
+</code></pre>
+<blockquote dir="auto">
+<p dir="auto">In practice, it is ideal for developers to be defensive, that is to start with <code>const</code>, the strictest level, and &quot;down-grading&quot; to <code>let</code> only if you are sure that your variables will be modified.</p>
+</blockquote>
+<h3 dir="auto" id="135-error-with-modifying-const-variables">1.3.5 Error with modifying <code>const</code> variables</h3>
+<pre><code dir="auto">&gt; const age = 13
+&gt; age = 14
+Uncaught TypeError: Assignment to constant variable.
+</code></pre>
+<p dir="auto"><code>TypeError</code> as the name suggests is thrown when an operation could not be performed, typically (but not exclusively) when a value is not of the expected type. In this case, a the assignment operator (<code>=</code>) cannot be performed on an constant variable.</p>
+<h2 dir="auto" id="13x-summary">1.3.X Summary</h2>
+<p dir="auto">We started with the claim at the start that every programming language would provide:</p>
+<ol dir="auto">
+<li dir="auto"><strong>primitive expression</strong>: The smallest unit in which the language defines and is concerned with.</li>
+<li dir="auto"><strong>means of combination</strong>: A way to combine multiple elements to form bigger elements.</li>
+<li dir="auto"><strong>means of abstraction</strong>: A way to which these combined elements may be named and manipulated as a single unit.</li>
+</ol>
+<p dir="auto">In 1.2, we saw how numbers as a primitive expression can be combined with operators. Then in 1.3, we saw how we can obtain a simple form of abstraction through constant declarations.</p>
+<p dir="auto">These basic mechanism, illustrates how we can combine simple ideas to build more complex ideas, like the example in 1.3.3, starting with simple ideas of <code>pi</code> and <code>radius</code>, we can combine them into <code>surfaceArea</code>. We then use the given name to form a more complex idea in the form of <code>volumeOfCylinder</code>.</p>
+<blockquote dir="auto">
+<p dir="auto">&quot;In general, computational objects may have very complex structures, and it would be extremely inconvenient to have to remember and repeat their details each time we want to use them. Indeed, complex programs are constructed by building, step by step, computational objects of increasing complexity. (SICP, 2022)&quot;</p>
+</blockquote>
+<p dir="auto">This suggest that writing a complex program requires first construction of basic building blocks, incrementally combining them together to eventually form the more complex parts.</p>
+<p dir="auto">One aspect that we will revisit later is that of <code>memory</code>. The possibility of associating value with a name and retrieving it later suggests that the program needs to keep track of the name-value pairs. This <code>memory</code> is called the environment which we will revisit at a later chapter.</p>
+<h2 dir="auto" id="14-function-as-abstraction">1.4 Function as Abstraction</h2>
+<p dir="auto">In every program, we deal with two kinds of elements: Data (as in values) and Functions (as in description of the rules for manipulating data). Take the <code>+</code> operator as an example, it is a <code>function</code> which describes the summation of the left and right-hand side (the data).</p>
+<p dir="auto">Just as how we can associate a value with a name and use it in combination with other values to create more complex values (e.g. radius --&gt; area --&gt; volume), we too can combine various operations and give it a name to create more complex operations from simpler operations.</p>
+<h3 dir="auto" id="141-function-declaration">1.4.1 Function Declaration</h3>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">square</span>(<span class="hljs-params">x</span>) {
+    <span class="hljs-keyword">return</span> x * x;
+}
+</code></pre>
+<p dir="auto">The above example is an illustration of taking the <code>*</code> (multiply) operator and creating a <code>compound function</code> which has been given the name <code>square</code>. This function represents the operation of multiplying the number by itself. The thing to be multiplied is given a local name <code>x</code>.</p>
+<p dir="auto">This is called a <code>Function Declaration</code>. Evaluating this declaration <strong>creates</strong> this compound function and associates it with the name <code>square</code>. The structure of a function declaration is as follows:</p>
+<pre><code class="code-line language-js" dir="auto">function1️⃣ name2️⃣ (parameter1, parameter2, ...)<span class="hljs-number">3</span>️⃣ {
+    ...
+    statements4️⃣;
+    ...
+
+    <span class="hljs-keyword">return</span> expression5️⃣;
+}
+</code></pre>
+<ol dir="auto">
+<li dir="auto">The function declaration starts with the keyword <code>function</code>.</li>
+<li dir="auto">It is given a name to be referenced by.</li>
+<li dir="auto">It contains within the round bracket, parameters, separated by comma.</li>
+<li dir="auto">Followed by the body which is a series of other statements</li>
+<li dir="auto">The program will process each of the statements sequentially until:
+<ol dir="auto">
+<li dir="auto">All statements are processed.</li>
+<li dir="auto">A return statement is encountered.</li>
+</ol>
+</li>
+</ol>
+<h3 dir="auto" id="142-function-application-expression">1.4.2 Function Application Expression</h3>
+<p dir="auto">Having declared the compound function <code>square</code>, we can now use it in a <code>function application expression</code>, which we turn it into a statement like:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-title function_">square</span>(<span class="hljs-number">3</span>);
+</code></pre>
+<p dir="auto">Value: 9</p>
+<p dir="auto">The value that substitutes the function application expression is dependent on the returned value in the function declaration.</p>
+<p dir="auto"><code>Function application expression</code> are the second kind of mechanism for the combination of expression, the general form of a <code>function application</code> is:</p>
+<p dir="auto"><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mi>u</mi><mi>n</mi><mi>c</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>−</mo><mi>e</mi><mi>x</mi><mi>p</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo stretchy="false">(</mo><mi>a</mi><mi>r</mi><mi>g</mi><mi>u</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>−</mo><mi>e</mi><mi>x</mi><mi>p</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">function-expression(argument-expressions)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord mathnormal">c</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mord mathnormal">p</span><span class="mord mathnormal">ress</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">gu</span><span class="mord mathnormal">m</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mord mathnormal">p</span><span class="mord mathnormal">ress</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span><span class="mclose">)</span></span></span></span></eq></p>
+<p dir="auto">Where <code>function-expression</code> is the name of the function to be applied, followed by the <code>argument-expressions</code>, a series of comma-separated list of expressions. The number of expressions within the <code>argument-expressions</code> is dependent on the number of parameters expected in the function declaration. (See 3️⃣ in above example).</p>
+<p dir="auto">Like the nesting of operator combination described in 1.2.4, the program follows the following procedure to evaluate the expression part by part:</p>
+<ol dir="auto">
+<li dir="auto">Evaluate the function-expression to obtain the function associated to the name.</li>
+<li dir="auto">Evaluate the expressions in the parenthesis from left-to-right.</li>
+<li dir="auto">Apply the function to the values of the argument-expressions.</li>
+</ol>
+<p dir="auto">Using the following as an example:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> a = <span class="hljs-number">3</span>;
+<span class="hljs-keyword">const</span> b = <span class="hljs-number">6</span>;
+<span class="hljs-title function_">square</span>(a + b);
+</code></pre>
+<ol dir="auto">
+<li dir="auto">First we evaluate the function-expression, it retrieves the function associated with the name <code>square</code>.</li>
+<li dir="auto">Once the program confirms that <code>square</code> is a function, it will evaluate the only argument-expression <code>a + b</code>:
+<ol dir="auto">
+<li dir="auto"><code>a + b</code>: first, it evaluates the left-hand-side of the operator, replacing <code>a</code> with its associated value of <code>3</code></li>
+<li dir="auto"><code>3 + b</code>: then, it evaluates the right-hand-side, replacing <code>b</code> with its associated value of <code>6</code></li>
+<li dir="auto"><code>3 + 6</code>: then, it applies the <code>+</code> operator's function on the 2 operand, producing a value of <code>9</code>.</li>
+</ol>
+</li>
+<li dir="auto">Finally, we apply the function to the value of the argument expression (i.e. square of 9) producing the outcome of <code>81</code></li>
+</ol>
+<p dir="auto">As each argument-expression is an expression, it can be another function-application-expression. E.g.:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-title function_">square</span>(<span class="hljs-title function_">square</span>(<span class="hljs-number">3</span>));
+</code></pre>
+<p dir="auto"><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msup><mn>3</mn><mn>2</mn></msup><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>=</mo><msup><mn>9</mn><mn>2</mn></msup><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">(3^2)^2 = 9^2 = 81</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">9</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">81</span></span></span></span></eq></p>
+<h3 dir="auto" id="143-error">1.4.3 Error</h3>
+<p dir="auto">If you try to apply a function that does not exists, such as the example below, in the first step where the program tries to evaluate the function-expression, where it tries to retrieve the function associated with the name, it will fail and throw a <code>ReferenceError</code> (Recall that <code>ReferenceError</code> was also thrown when you try to reference an unknown variable):</p>
+<pre><code dir="auto">&gt; function foo (x) {
+... return x + 1;
+... }
+&gt; fooooooooo(2)
+Uncaught ReferenceError: fooooooooo is not defined
+</code></pre>
+<p dir="auto">Also, if you try to use function-application expressions on variables that are not functions, at the second step of the evaluation, the program will also fail and throw an <code>TypeError</code></p>
+<pre><code dir="auto">&gt; const price = 123;
+&gt; price(123)
+Uncaught TypeError: price is not a function
+</code></pre>
+<p dir="auto"><code>TypeError</code> as the name suggests is thrown when an operation could not be performed, typically (but not exclusively) when a value is not of the expected type. In this case, a function-application expression can only be applied to functions and not number.</p>
+<h3 dir="auto" id="143-more-examples">1.4.3 More examples</h3>
+<p dir="auto">We can build more complex compound function with the <code>square</code> compound function we've created. For example we can create something to compute the following:</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><msup><mi>y</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">x^2 + y^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9474379999999999em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.0585479999999998em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></eqn></section></math>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">square</span>(<span class="hljs-params">x</span>) {
+    <span class="hljs-keyword">return</span> x * x;
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sumOfSquares</span>(<span class="hljs-params">x, y</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">square</span>(x) + <span class="hljs-title function_">square</span>(y);
+}
+</code></pre>
+<p dir="auto">and applying it:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-title function_">sumOfSquares</span>(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+</code></pre>
+<p dir="auto">25</p>
+<h3 dir="auto" id="14x-summary">1.4.X Summary</h3>
+<p dir="auto">We started with the claim at the start that every programming language would provide:</p>
+<ol dir="auto">
+<li dir="auto"><strong>primitive expression</strong>: The smallest unit in which the language defines and is concerned with.</li>
+<li dir="auto"><strong>means of combination</strong>: A way to combine multiple elements to form bigger elements.</li>
+<li dir="auto"><strong>means of abstraction</strong>: A way to which these combined elements may be named and manipulated as a single unit.</li>
+</ol>
+<p dir="auto">That is, we started with understand what are primitive expression:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">123</span>;
+</code></pre>
+<p dir="auto">Then we found ways to <strong>combine</strong> through means of operator combination</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-number">123</span> + <span class="hljs-number">234</span>;
+</code></pre>
+<p dir="auto">We were then introduced to the mechanism of <strong>names</strong> to provide us with a means of abstractions</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> netPrice = <span class="hljs-number">123</span> + <span class="hljs-number">234</span>;
+</code></pre>
+<p dir="auto">This then allowed us to reference the value by using the name.</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> afterServiceCharge = netPrice * <span class="hljs-number">1.1</span>;
+<span class="hljs-keyword">const</span> afterGst = afterServiceCharge * <span class="hljs-number">1.09</span>;
+</code></pre>
+<p dir="auto">Values are not the only elements in programming, there are also Functions. We can create abstraction of functions through our own compound-function:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">calculateTotalPrice</span>(<span class="hljs-params">netPrice</span>) {
+    <span class="hljs-keyword">const</span> afterServiceCharge = netPrice * <span class="hljs-number">1.1</span>;
+    <span class="hljs-keyword">const</span> afterGst = afterServiceCharge * <span class="hljs-number">1.09</span>;
+    <span class="hljs-keyword">return</span> afterGst;
+}
+</code></pre>
+<p dir="auto">In which, we may <strong>apply</strong> it by means of <code>function-application</code> expressions</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> apple = <span class="hljs-number">0.5</span>;
+<span class="hljs-keyword">const</span> pear = <span class="hljs-number">0.7</span>;
+<span class="hljs-title function_">calculateTotalPrice</span>(apple * <span class="hljs-number">3</span> + pear * <span class="hljs-number">5</span>);
+</code></pre>
+<p dir="auto">We will wrap up this chapter, which focuses on primitive, combination, and abstraction by considering a more concrete illustration of how expressions are evaluated procedurally by an interpreter.</p>
+<h2 dir="auto" id="15-substitution-model-of-evaluation">1.5 Substitution Model of evaluation</h2>
+<p dir="auto">This section aims to provide a more concrete model to help us think about how an interpreter functions. Note that it provides merely a mental model and not necessarily how it <em>really</em> works.</p>
+<p dir="auto">When an expression is evaluated, you can imagine that parts are gradually being <em>substituted</em>, hence the name of the model: The Substitution Model.</p>
+<h3 dir="auto" id="151-evaluating-operator-combination">1.5.1 Evaluating Operator Combination</h3>
+<p dir="auto">Take this expression as an example:</p>
+<pre><code class="code-line language-js" dir="auto">(<span class="hljs-number">2</span> + <span class="hljs-number">4</span> * <span class="hljs-number">6</span>) * (<span class="hljs-number">3</span> + <span class="hljs-number">12</span>);
+</code></pre>
+<p dir="auto">Visually you should recognize that the bracket on the left and right hand side has to be substituted with their corresponding value before performing the final multiplication.</p>
+<p dir="auto">That is:</p>
+<pre><code class="code-line language-js" dir="auto">(<span class="hljs-number">2</span> + <span class="hljs-number">4</span> * <span class="hljs-number">6</span>) * (<span class="hljs-number">3</span> + <span class="hljs-number">12</span>);
+&gt; <span class="hljs-number">26</span> * <span class="hljs-number">15</span>
+</code></pre>
+<p dir="auto">But how did <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>26</mn></mrow><annotation encoding="application/x-tex">26</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">26</span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn></mrow><annotation encoding="application/x-tex">15</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">15</span></span></span></span></eq> came about?</p>
+<p dir="auto"><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn></mrow><annotation encoding="application/x-tex">15</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">15</span></span></span></span></eq> is straight-forward, you sum <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></eq> and <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn></mrow><annotation encoding="application/x-tex">12</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">12</span></span></span></span></eq> together producing <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>15</mn></mrow><annotation encoding="application/x-tex">15</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">15</span></span></span></span></eq>.</p>
+<p dir="auto">How about 26? It is again a process of substitution:</p>
+<ol dir="auto">
+<li dir="auto"><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>+</mo><mn>4</mn><mo>∗</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">2 + 4 * 6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span></span></span></span></eq>: we first substitute the produced value of <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>∗</mo><mn>6</mn><mo>=</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">4 * 6 = 24</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">24</span></span></span></span></eq></li>
+<li dir="auto"><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>+</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">2 + 24</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">24</span></span></span></span></eq>: we then substitute this with the summed value of $26</li>
+</ol>
+<p dir="auto">Visualizing it as a tree:</p>
+<pre><code dir="auto">                26
+                |
+        -------------------
+        |       |         |
+        26      *        15
+        |                 |
+    ---------          -------
+    |   |   |          |  |  |
+    2   +   24         3  +  12
+            |
+         -------
+         |  |  |
+         4  *  6
+</code></pre>
+<h3 dir="auto" id="152-for-variables-and-function-application">1.5.2 For Variables and Function Application</h3>
+<p dir="auto">This way of substitution is similar with variables and function-application expressions</p>
+<p dir="auto">Take the following code as example:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">areaOfCircle</span>(<span class="hljs-params">radius</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">3.1415</span> * radius * radius;
+}
+
+<span class="hljs-keyword">const</span> diameter = <span class="hljs-number">6</span>;
+<span class="hljs-keyword">const</span> height = <span class="hljs-number">5</span>;
+<span class="hljs-title function_">areaOfCircle</span>(diameter / <span class="hljs-number">2</span>) * height;
+</code></pre>
+<p dir="auto">In evaluating the last line <code>areaOfCircle(radius) * height</code>, which calculates the volume of a cylinder, it follows a series of substitution:</p>
+<ol dir="auto">
+<li dir="auto">First, as functions-application expressions are the lowest in the order-of-precedence, we will first want to process the <code>*</code> (multiply) operator.</li>
+<li dir="auto">We will need to substitute the Left and right hand side with their corresponding values.
+<ol dir="auto">
+<li dir="auto">Starting with the left: <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>e</mi><mi>a</mi><mi>O</mi><mi>f</mi><mi>C</mi><mi>i</mi><mi>r</mi><mi>c</mi><mi>l</mi><mi>e</mi><mo stretchy="false">(</mo><mi>d</mi><mi>i</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">areaOfCircle(diameter / 2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">re</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">i</span><span class="mord mathnormal">rc</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mord mathnormal">iam</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord">/2</span><span class="mclose">)</span></span></span></span></eq> is a function-application expression, hence following the steps in 1.3.1:
+<ol dir="auto">
+<li dir="auto">Evaluate <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>e</mi><mi>a</mi><mi>O</mi><mi>f</mi><mi>C</mi><mi>i</mi><mi>r</mi><mi>c</mi><mi>l</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">areaOfCircle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">re</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">i</span><span class="mord mathnormal">rc</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span></span></span></span></eq> and substitute it with the function the name is associated with.</li>
+<li dir="auto">Evaluate the <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>g</mi><mi>u</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>−</mo><mi>e</mi><mi>x</mi><mi>p</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">argument-expressions</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">gu</span><span class="mord mathnormal">m</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mord mathnormal">p</span><span class="mord mathnormal">ress</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mord mathnormal">s</span></span></span></span></eq> one-by-one, in our case, we only have 1 such expression: <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>i</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">diameter / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">iam</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord">/2</span></span></span></span></eq>
+<ol dir="auto">
+<li dir="auto"><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>i</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">diameter / 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">iam</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord">/2</span></span></span></span></eq> is a operator combination expression, so we will again evaluate the left and right hand side.
+<ol dir="auto">
+<li dir="auto">Starting with the left: <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>i</mi><mi>a</mi><mi>m</mi><mi>e</mi><mi>t</mi><mi>e</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">diameter</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">iam</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span></span></span></span></eq> is a variable name, hence we will substitute it with the value associated with this name (<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span></span></span></span></eq>)</li>
+<li dir="auto">Then the right: <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span></eq> is just a primitive-expression, so no further substitution needed.</li>
+</ol>
+</li>
+<li dir="auto">We then evaluate the expression and substitute it with the produced value: <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mi mathvariant="normal">/</mi><mn>2</mn><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">6 / 2 = 3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">6/2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></eq></li>
+</ol>
+</li>
+<li dir="auto">We then apply the function to the argument-expressions: <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>r</mi><mi>e</mi><mi>a</mi><mi>O</mi><mi>f</mi><mi>C</mi><mi>i</mi><mi>r</mi><mi>c</mi><mi>l</mi><mi>e</mi><mo stretchy="false">(</mo><mn>3</mn><mo stretchy="false">)</mo><mo>=</mo><mn>3.1415</mn><mo>∗</mo><mn>3</mn><mo>∗</mo><mn>3</mn><mo>=</mo><mn>28.2735</mn></mrow><annotation encoding="application/x-tex">areaOfCircle(3) = 3.1415 * 3 * 3 = 28.2735</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">re</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">i</span><span class="mord mathnormal">rc</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mopen">(</span><span class="mord">3</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3.1415</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">28.2735</span></span></span></span></eq>
+<ol dir="auto">
+<li dir="auto">Note that <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3.1415</mn><mo>∗</mo><mn>3</mn><mo>∗</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3.1415 * 3 * 3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3.1415</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span></eq> goes through its own series of substitution which we will omit and leave it as your own practice.</li>
+</ol>
+</li>
+<li dir="auto">So the left-hand-side is being substituted with <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>28.2735</mn></mrow><annotation encoding="application/x-tex">28.2735</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">28.2735</span></span></span></span></eq></li>
+</ol>
+</li>
+<li dir="auto">Now the right: <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mi>e</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">height</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span></span></span></span></eq> is a variable name, hence we will substitute it with the value associated with this name (<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span></eq>)</li>
+</ol>
+</li>
+<li dir="auto">With the left and right evaluated, we then evaluate the expression and further substitute3 it with the produced valued: <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>28.2735</mn><mo>∗</mo><mn>5</mn><mo>=</mo><mn>141.3675</mn></mrow><annotation encoding="application/x-tex">28.2735 * 5 = 141.3675</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">28.2735</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">141.3675</span></span></span></span></eq></li>
+</ol>
+<h2 dir="auto" id="16-summary">1.6 Summary</h2>
+<p dir="auto">In this chapter, we have covered the following key ideas:</p>
+<ol dir="auto">
+<li dir="auto">That every programming language would provide:
+<ol dir="auto">
+<li dir="auto"><strong>primitive expression</strong>: The smallest unit in which the language defines and is concerned with.</li>
+<li dir="auto"><strong>means of combination</strong>: A way to combine multiple elements to form bigger elements.</li>
+<li dir="auto"><strong>means of abstraction</strong>: A way to which these combined elements may be named and manipulated as a single unit.</li>
+</ol>
+</li>
+<li dir="auto">That every program handles 2 elements:
+<ol dir="auto">
+<li dir="auto">Data - The values</li>
+<li dir="auto">Function - The description of the rules for manipulating data</li>
+</ol>
+</li>
+<li dir="auto">The Substitution Model of evaluation
+<ol dir="auto">
+<li dir="auto">That we can think of evaluation as a gradual substitution of expressions with values.</li>
+</ol>
+</li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css" />
+        <link rel="stylesheet" href="../math-style.css" />
+    </head>
+    <body class="markdown-body">
+        <h1 dir="auto" id="tutorial-1">Tutorial 1</h1>
+        <p dir="auto">In this tutorial, we will experience for ourselves the application of the 3 key elements:</p>
+        <ol dir="auto">
+            <li dir="auto">
+                <strong>primitive expression</strong>: The smallest unit in which the language defines and is concerned
+                with.
+            </li>
+            <li dir="auto">
+                <strong>means of combination</strong>: A way to combine multiple elements to form bigger elements.
+            </li>
+            <li dir="auto">
+                <strong>means of abstraction</strong>: A way to which these combined elements may be named and
+                manipulated as a single unit.
+            </li>
+        </ol>
+        <h2 dir="auto" id="11-strings">1.1 Strings</h2>
+        <p dir="auto">
+            In the lesson materials, we have already seen <code>numbers</code> as one form of primitive expression, in
+            this tutorial we will introduce another form of primitive expression, the <code>string</code> primitive
+            expression.
+        </p>
+        <p dir="auto">
+            A string primitive expression, also known as string literals, is written by encapsulating characters within
+            a quotation mark (<code>'</code> or <code>&quot;</code>).
+        </p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-string">&#x27;hello world&#x27;</span>;
+</code></pre>
+        <p dir="auto">
+            One such <code>operator combination</code> possible with <code>strings</code> is the
+            <code>+</code> operator, which combines two string together into a single string:
+        </p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-string">&#x27;hello&#x27;</span> + <span class="hljs-string">&#x27;world&#x27;</span>;
+</code></pre>
+        <p dir="auto">'helloworld'</p>
+        <h2 dir="auto" id="111-escape-character">1.1.1 Escape character</h2>
+        <p dir="auto">
+            Within a string literal, most characters can be entered literally. Sometimes, you would want a character to
+            be interpreted differently. For example, if I want to display the following message:
+        </p>
+        <blockquote dir="auto">
+            <p dir="auto">The movie name is 'Lion King'</p>
+        </blockquote>
+        <p dir="auto">The following code would not work correctly:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-string">&#x27;The movie name is &#x27;</span><span class="hljs-title class_">Lion</span> <span class="hljs-title class_">King</span><span class="hljs-string">&#x27;&#x27;</span>
+</code></pre>
+        <p dir="auto">It would produce the following error instead:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-string">&#x27;The movie name is &#x27;</span><span class="hljs-title class_">Lion</span> <span class="hljs-title class_">King</span><span class="hljs-string">&#x27;&#x27;</span>
+                    ^^^^
+
+<span class="hljs-title class_">Uncaught</span> <span class="hljs-title class_">SyntaxError</span>: <span class="hljs-title class_">Unexpected</span> identifier <span class="hljs-string">&#x27;Lion&#x27;</span>
+</code></pre>
+        <p dir="auto">
+            What happened is that the second <code>'</code> right before the word Lion is treated as the closing
+            quotation of the first <code>'</code> at the start of the string.
+        </p>
+        <p dir="auto">
+            The error <code>SyntaxError: Unexpected identifier 'Lion'</code> suggest that the word <code>Lion</code> is
+            processed as an separate identifier and not part of the string. The identifier is unexpected because it is
+            not a valid means of combination for combining strings.
+        </p>
+        <p dir="auto">
+            So instead, we need a mechanism instead to signal to the program to treat the quotation around Lion King
+            differently.
+        </p>
+        <p dir="auto">
+            We would hence use the backslash <code>\</code> (Not to be confused with the forward-slash
+            <code>/</code> character) to create an escape sequence.
+        </p>
+        <div dir="auto"></div>
+        <!-- prettier-ignore -->
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-string">&#x27;The movie name is \&#x27;Lion King\&#x27;&#x27;</span>;
+</code></pre>
+        <p dir="auto">
+            The following are other escape sequence useful for building more complex strings, try them out to see the
+            effect for yourself:
+        </p>
+        <table dir="auto">
+            <thead dir="auto">
+                <tr dir="auto">
+                    <th>escape sequence</th>
+                    <th>purpose</th>
+                    <th>example</th>
+                </tr>
+            </thead>
+            <tbody dir="auto">
+                <tr dir="auto">
+                    <td><code>\n</code></td>
+                    <td>Break line</td>
+                    <td><code>'first line\nsecond line'</code></td>
+                </tr>
+                <tr dir="auto">
+                    <td><code>\t</code></td>
+                    <td>tab</td>
+                    <td><code>'first\tsecond'</code></td>
+                </tr>
+                <tr dir="auto">
+                    <td><code>\\</code></td>
+                    <td>Display a backslash</td>
+                    <td><code>'3\\5'</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <p dir="auto">Try creating a string to create the following pattern:</p>
+        <pre><code dir="auto"> ____
+/.  .\
+| \/ |
+\____/
+</code></pre>
+        <h2 dir="auto" id="12-variables-and-functions">1.2 Variables and Functions</h2>
+        <p dir="auto">
+            We have so far seen another example of a primitive express and how they can be combined using the
+            <code>+</code> operator. Let's now focus on the means of abstraction through variables and functions.
+        </p>
+        <p dir="auto">Like with numbers, we can declare a constant with a constant declaration:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> movie = <span class="hljs-string">&#x27;Lion King&#x27;</span>;
+</code></pre>
+        <p dir="auto">
+            The above would associate the value <code>'Lion King'</code> with the name <code>movie</code>, and we can
+            then reference it in subsequent expressions:
+        </p>
+        <div dir="auto"></div>
+        <!-- prettier-ignore -->
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> movie = <span class="hljs-string">&#x27;Lion King&#x27;</span>;
+
+<span class="hljs-string">&#x27;The movie name is \&#x27;&#x27;</span> + movie + <span class="hljs-string">&#x27;\&#x27;&#x27;</span>;
+</code></pre>
+        <p dir="auto">The above could similarly be abstracted through the use of a function like the following:</p>
+        <div dir="auto"></div>
+        <!-- prettier-ignore -->
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">createMessage</span>(<span class="hljs-params">movie</span>) {
+    <span class="hljs-keyword">const</span> message = <span class="hljs-string">&#x27;The movie name is \&#x27;&#x27;</span> + movie + <span class="hljs-string">&#x27;\&#x27;&#x27;</span>;
+    <span class="hljs-keyword">return</span> message;
+}
+
+<span class="hljs-title function_">createMessage</span>(<span class="hljs-string">&#x27;Lion King&#x27;</span>);
+</code></pre>
+        <h2 dir="auto" id="13-try-it-out">1.3 Try it out!</h2>
+        <h3 dir="auto" id="131-menu-item">1.3.1 Menu item</h3>
+        <p dir="auto">Complete the following function to achieve the expected output:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">menuItem</span>(<span class="hljs-params">number, message</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">menuItem</span>(<span class="hljs-number">1</span>, <span class="hljs-string">&#x27;apple&#x27;</span>));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">menuItem</span>(<span class="hljs-number">2</span>, <span class="hljs-string">&#x27;orange&#x27;</span>));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">menuItem</span>(<span class="hljs-number">3</span>, <span class="hljs-string">&#x27;pear&#x27;</span>));
+</code></pre>
+        <p dir="auto">Expected output:</p>
+        <pre><code dir="auto">1. apple
+2. orange
+3. pear
+</code></pre>
+        <h3 dir="auto" id="132-menu-item">1.3.2 Menu item</h3>
+        <p dir="auto">Complete the following function to print out the menu items</p>
+        <blockquote dir="auto">
+            <p dir="auto">Make use of <code>menuItem</code> to complete the task</p>
+        </blockquote>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">generateMenu</span>(<span class="hljs-params">item1, item2, item3</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">generateMenu</span>(<span class="hljs-string">&#x27;apple&#x27;</span>, <span class="hljs-string">&#x27;orange&#x27;</span>, <span class="hljs-string">&#x27;pear&#x27;</span>));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">generateMenu</span>(<span class="hljs-string">&#x27;basketball&#x27;</span>, <span class="hljs-string">&#x27;volleyball&#x27;</span>, <span class="hljs-string">&#x27;soccer&#x27;</span>));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">generateMenu</span>(<span class="hljs-string">&#x27;FED&#x27;</span>, <span class="hljs-string">&#x27;FOP&#x27;</span>, <span class="hljs-string">&#x27;FOC&#x27;</span>));
+</code></pre>
+        <p dir="auto">Expected output:</p>
+        <pre><code dir="auto">1. apple
+2. orange
+3. pear
+
+1. basketball
+2. volleyball
+3. soccer
+
+1. FED
+2. FOP
+3. FOC
+</code></pre>
+        <h2 dir="auto" id="14-operator-overloading-using-the--operator-on-number-and-strings">
+            1.4 Operator Overloading: Using the <code>+</code> operator on number and strings
+        </h2>
+        <p dir="auto">So far, we have seen that the <code>+</code> can be used for numbers and strings, e.g.:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1</span> + <span class="hljs-number">2</span>;
+
+<span class="hljs-string">&#x27;hello&#x27;</span> + <span class="hljs-string">&#x27;world&#x27;</span>;
+</code></pre>
+        <p dir="auto">What happens when you combine values of different types? e.g.:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1</span> + <span class="hljs-string">&#x27;hello&#x27;</span>;
+</code></pre>
+        <p dir="auto">
+            This is called <code>overloading</code>, where an operator or function can be used for different combination
+            of value types. When using operators on different types, do test and check the behavior.
+        </p>
+        <p dir="auto">For the <code>+</code> operator, the rule is simple:</p>
+        <ol dir="auto">
+            <li dir="auto">If one side is a string, the other side would also be converted to a string.</li>
+            <li dir="auto">Otherwise, both side is converted to numbers.</li>
+        </ol>
+        <p dir="auto">Which explains why the above code would be evaluated to <code>1hello</code>.</p>
+        <p dir="auto">
+            That is, as the right-hand-side is a string, the left-hand-side is also converted to a string (i.e.
+            <code>1</code> is converted to <code>'1'</code>). The two strings are then combined together.
+        </p>
+        <h3 dir="auto" id="141-try-it-out">1.4.1 Try it out</h3>
+        <p dir="auto">For the following:</p>
+        <ol dir="auto">
+            <li dir="auto">Guess the outcome first</li>
+            <li dir="auto">Tests it out</li>
+            <li dir="auto">Develop your own explanation for the behavior</li>
+        </ol>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1</span> + <span class="hljs-string">&#x27;hello&#x27;</span> + <span class="hljs-number">2</span>;
+</code></pre>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-string">&#x27;hello&#x27;</span> + <span class="hljs-number">1</span> + <span class="hljs-number">2</span>;
+</code></pre>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1</span> + <span class="hljs-number">2</span> + <span class="hljs-string">&#x27;hello&#x27;</span>;
+</code></pre>
+        <h2 dir="auto" id="1x-summary">1.X Summary</h2>
+        <p dir="auto">In this tutorial, we explored the application of the 3 key elements:</p>
+        <ol dir="auto">
+            <li dir="auto">
+                <strong>primitive expression</strong>: The smallest unit in which the language defines and is concerned
+                with.
+            </li>
+            <li dir="auto">
+                <strong>means of combination</strong>: A way to combine multiple elements to form bigger elements.
+            </li>
+            <li dir="auto">
+                <strong>means of abstraction</strong>: A way to which these combined elements may be named and
+                manipulated as a single unit.
+            </li>
+        </ol>
+        <p dir="auto">
+            We also introduced <code>string</code> another primitive expression for representing a sequence of
+            characters.
+        </p>
+    </body>
+</html>
