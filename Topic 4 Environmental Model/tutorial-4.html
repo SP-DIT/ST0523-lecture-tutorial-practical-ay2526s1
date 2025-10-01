@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css" />
+        <link
+            rel="stylesheet"
+            href="file:///c:\Users\s43500\.vscode\extensions\goessner.mdmath-2.7.4\themes\default\style.css"
+        />
+    </head>
+    <body class="markdown-body">
+        <h1 dir="auto" id="tutorial-4">Tutorial 4</h1>
+        <p dir="auto">
+            In this tutorial, we will aim to gain more fluency with using the environmental model in tracing the
+            execution flow while keeping track of the memory states.
+        </p>
+        <h2 dir="auto" id="41-environmental-model">4.1 Environmental Model</h2>
+        <p dir="auto">
+            A recap, the environment of a program is made up of <code>frames</code>, where each frame have the
+            following:
+        </p>
+        <ol dir="auto">
+            <li dir="auto">A name-value pairing, where each name in the frame is associated with a value.</li>
+            <li dir="auto">
+                A <code>enclosing environment</code> pointer which reference the environment in which it would look to
+                if a particular name is not found within the frame.
+            </li>
+            <li dir="auto">
+                Each frame is created whenever codes are enclosed by curly braces <code>{ }</code>, for example in
+                functions declarations, if-statements, and for-statements.
+            </li>
+        </ol>
+        <h2 dir="auto" id="42-try-it-out">4.2 Try it out</h2>
+        <blockquote dir="auto">
+            <p dir="auto">You might want to prepare paper/pencil or whiteboard/marker for this exercise</p>
+            <p dir="auto">You will need to write and erase as you trace.</p>
+        </blockquote>
+        <p dir="auto">Trace the execution of the following and draw out the environment as it changes.</p>
+        <h3 dir="auto" id="421-bank-account">4.2.1 Bank account</h3>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1.</span>  <span class="hljs-keyword">let</span> balance = <span class="hljs-number">0</span>;
+
+<span class="hljs-number">2.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">deposit</span>(<span class="hljs-params">amount</span>) {
+<span class="hljs-number">3.</span>      balance = balance + amount;
+<span class="hljs-number">4.</span>  }
+
+<span class="hljs-number">5.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">canWithdraw</span>(<span class="hljs-params">amount</span>) {
+<span class="hljs-number">6.</span>      <span class="hljs-keyword">let</span> current = balance;
+<span class="hljs-number">7.</span>      current = current - amount;
+<span class="hljs-number">8.</span>      <span class="hljs-keyword">return</span> current &gt;= <span class="hljs-number">0</span>;
+<span class="hljs-number">9.</span>  }
+
+<span class="hljs-number">10.</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">withdraw</span>(<span class="hljs-params">amount</span>) {
+<span class="hljs-number">11.</span>     <span class="hljs-keyword">const</span> isCanWithdraw = <span class="hljs-title function_">canWithdraw</span>(amount);
+<span class="hljs-number">12.</span>     <span class="hljs-keyword">if</span> (isCanWithdraw) {
+<span class="hljs-number">13.</span>         balance = balance - amount;
+<span class="hljs-number">14.</span>         <span class="hljs-keyword">return</span> amount;
+<span class="hljs-number">15.</span>     } <span class="hljs-keyword">else</span> {
+<span class="hljs-number">16.</span>         <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+<span class="hljs-number">17.</span>     }
+<span class="hljs-number">18.</span> }
+
+<span class="hljs-number">19.</span> <span class="hljs-title function_">deposit</span>(<span class="hljs-number">100</span>);
+<span class="hljs-number">20.</span> <span class="hljs-title function_">withdraw</span>(<span class="hljs-number">50</span>);
+<span class="hljs-number">21.</span> <span class="hljs-title function_">withdraw</span>(<span class="hljs-number">60</span>);
+</code></pre>
+        <h3 dir="auto" id="422-bank-account-with-logs">4.2.2 Bank account with logs</h3>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1.</span>  <span class="hljs-keyword">let</span> balance = <span class="hljs-number">0</span>;
+<span class="hljs-number">2.</span>  <span class="hljs-keyword">let</span> logLines = <span class="hljs-number">0</span>;
+<span class="hljs-number">3.</span>  <span class="hljs-keyword">let</span> logs = <span class="hljs-string">&#x27;&#x27;</span>;
+
+<span class="hljs-number">4.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">log</span>(<span class="hljs-params">message</span>) {
+<span class="hljs-number">5.</span>      logLines = logLines + <span class="hljs-number">1</span>;
+<span class="hljs-number">6.</span>      logs = logs + <span class="hljs-string">&#x27;\n&#x27;</span> + message;
+<span class="hljs-number">7.</span>  }
+
+<span class="hljs-number">8.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">printLogs</span>(<span class="hljs-params"></span>) {
+<span class="hljs-number">9.</span>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(logs);
+<span class="hljs-number">10.</span> }
+
+<span class="hljs-number">11.</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">deposit</span>(<span class="hljs-params">amount</span>) {
+<span class="hljs-number">12.</span>     balance = balance + amount;
+<span class="hljs-number">13.</span>     <span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Deposited &#x27;</span> + amount + <span class="hljs-string">&#x27;, current balance: &#x27;</span> + balance);
+<span class="hljs-number">14.</span> }
+
+<span class="hljs-number">15.</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">canWithdraw</span>(<span class="hljs-params">amount</span>) {
+<span class="hljs-number">16.</span>     <span class="hljs-keyword">let</span> current = balance;
+<span class="hljs-number">17.</span>     current = current - amount;
+<span class="hljs-number">18.</span>     <span class="hljs-keyword">return</span> current &gt;= <span class="hljs-number">0</span>;
+<span class="hljs-number">19.</span> }
+
+<span class="hljs-number">20.</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">withdraw</span>(<span class="hljs-params">amount</span>) {
+<span class="hljs-number">21.</span>     <span class="hljs-keyword">const</span> isCanWithdraw = <span class="hljs-title function_">canWithdraw</span>(amount);
+<span class="hljs-number">22.</span>     <span class="hljs-keyword">if</span> (isCanWithdraw) {
+<span class="hljs-number">23.</span>         balance = balance - amount;
+<span class="hljs-number">24.</span>         <span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Withdraw &#x27;</span> + amount + <span class="hljs-string">&#x27;, current balance: &#x27;</span> + balance);
+<span class="hljs-number">25.</span>         <span class="hljs-keyword">return</span> amount;
+<span class="hljs-number">26.</span>     } <span class="hljs-keyword">else</span> {
+<span class="hljs-number">27.</span>         <span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Failed to Withdraw &#x27;</span> + amount + <span class="hljs-string">&#x27;, Insufficient value!&#x27;</span>);
+<span class="hljs-number">28.</span>         <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+<span class="hljs-number">29.</span>     }
+<span class="hljs-number">30.</span> }
+
+<span class="hljs-number">31.</span> <span class="hljs-title function_">deposit</span>(<span class="hljs-number">100</span>);
+<span class="hljs-number">32.</span> <span class="hljs-title function_">withdraw</span>(<span class="hljs-number">50</span>);
+<span class="hljs-number">33.</span> <span class="hljs-title function_">withdraw</span>(<span class="hljs-number">60</span>);
+<span class="hljs-number">34.</span> <span class="hljs-title function_">printLogs</span>();
+</code></pre>
+        <h3 dir="auto" id="4221-which-line-is-it">4.2.2.1 Which line is it?</h3>
+        <p dir="auto">At which line will we have the following environment?</p>
+
+        <img
+            style="background-color: #fff"
+            src="https://www.plantuml.com/plantuml/svg/TP4zJmCn38Rt_0hhzaO7KZjKjAe4WgNCB2o-YpbI-PpJ9LK7rF-Euli2H4S_Tfx4RmunOP_EBPjGdQXEyCAXGeOl0m1WhJLNqs87h-XbX2GrX-YbWTrUGOMCKXFizh0kbN1eZbuePdG_4QsA9-f2z8aSt9MbjVPTtdpwT3rU1DOP5DDy7l_GekkzfEDe690RD0keSHOjyFAB39lCxCOss8Qpg7WpBEFZunytSgJHbjzvGzHIZDXeBCKpUYO7AIpNRqhGRQ_6Z9a_h5QQytOxkupcdXlJkN-R79gV_43YyfT-0m00"
+        />
+        <h3 dir="auto" id="423-is-odd">4.2.3. Is odd?</h3>
+        <p dir="auto">
+            Without executing the code, what outcome do you think the following code will produce? Try using the
+            environment model to trace the execution to explain your choice.
+        </p>
+        <blockquote dir="auto">
+            <p dir="auto">
+                Hint: Recall that the frame is destroyed once the code within the <code>{ }</code> has finished
+                executing. (e.g. when the functions returns or reaching the end of the for-loop/if-else)
+            </p>
+        </blockquote>
+        <ol dir="auto">
+            <li dir="auto"><code>true</code> - No errors</li>
+            <li dir="auto"><code>ReferenceError</code> - <code>num</code> is not defined</li>
+            <li dir="auto"><code>TypeError</code> - Assignment to constant variable <code>num</code></li>
+            <li dir="auto"><code>ReferenceError</code> - <code>i</code> is not defined</li>
+        </ol>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">1.</span>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">isOdd</span>(<span class="hljs-params">num</span>) {
+<span class="hljs-number">2.</span>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = num; i &gt; <span class="hljs-number">0</span>; i = i - <span class="hljs-number">2</span>) {
+<span class="hljs-number">3.</span>          <span class="hljs-comment">// do nothing</span>
+<span class="hljs-number">4.</span>      }
+<span class="hljs-number">5.</span>      <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) {
+<span class="hljs-number">6.</span>          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+<span class="hljs-number">7.</span>      } <span class="hljs-keyword">else</span> {
+<span class="hljs-number">8.</span>          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+<span class="hljs-number">9.</span>      }
+<span class="hljs-number">10.</span> }
+
+<span class="hljs-number">11.</span> <span class="hljs-keyword">const</span> num = <span class="hljs-number">11</span>;
+<span class="hljs-number">12.</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isOdd</span>(num));
+</code></pre>
+        <h3 dir="auto" id="4x-summary">4.X Summary</h3>
+        <p dir="auto">With the environmental model, you should now be equipped to trace and evaluate code.</p>
+        <p dir="auto">
+            In the second half of the module, we will now focus on how data is being stored, organized, and used to aid
+            in the solving of problems.
+        </p>
+    </body>
+</html>
