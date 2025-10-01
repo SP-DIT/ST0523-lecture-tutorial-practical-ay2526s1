@@ -1,0 +1,389 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+<link rel="stylesheet" href="file:///c:\Users\s43500\.vscode\extensions\goessner.mdmath-2.7.4\themes\default\style.css">
+
+</head>
+<body class="markdown-body">
+<h1 dir="auto" id="5-thinking-about-data">5. Thinking about data</h1>
+<p dir="auto">In the previous 4 topics, we have focused on basic elements of programming, namely:</p>
+<ol dir="auto">
+<li dir="auto"><strong>Primitives</strong> - Strings, numbers, booleans</li>
+<li dir="auto"><strong>Means of combination</strong> - operator combinations, function applications</li>
+<li dir="auto"><strong>Means of abstraction</strong> - Variables, Functions</li>
+<li dir="auto"><strong>Various statements to control the flow of a program</strong> - If-statements, for-statements</li>
+<li dir="auto"><strong>Means of evaluating a program</strong> - Substitution Model, Environmental Model.</li>
+</ol>
+<p dir="auto">In the subsequent topics, we will focus instead on means of storing and acting on data.</p>
+<p dir="auto">In the tutorial 4, we had a glimpse of this using the <code>Bank</code> example, where there were <code>data</code> such as <code>balance</code> and <code>logs</code>, and there were actions to work on these data such as <code>log</code>, <code>withdraw</code>, and <code>deposit</code>.</p>
+<p dir="auto">In your daily life, your wardrobe for example, is another example of the presence of <code>data</code> and <code>actions</code>. You have the ability to <code>keep</code> clothes into specific position, and <code>retrieve</code> a piece of clothe from a specific position. The way you store your clothes would affect the way you perform the <code>keep</code> and <code>retrieve</code> action.</p>
+<p dir="auto">Another example, your phone's contact list. The contact number of your family and friends are the <code>data</code> to be stored. The actions you can take includes <code>add</code>, <code>remove</code>, and perhaps <code>modify</code>. We will see again that the way the data is stored would affect how the actions are taken.</p>
+<p dir="auto">But before that, let's first introduce a new mechanism that would facilitate the storing of data. <code>Objects</code>.</p>
+<p dir="auto">Specifically, we will be looking at the following:</p>
+<ol dir="auto">
+<li dir="auto">What is object</li>
+<li dir="auto">Creating Object</li>
+<li dir="auto">Accessing properties of an Object</li>
+<li dir="auto">Objects as reference-type</li>
+<li dir="auto">Functions as Object</li>
+<li dir="auto">Functions in Object</li>
+</ol>
+<h2 dir="auto" id="51-objects">5.1 Objects</h2>
+<p dir="auto">Objects, in JavaScript, is a structure that helps store data using a key-value pair mechanism. You have already experienced this sort of structure in the environmental model.</p>
+<p dir="auto">The following is a sample of this <code>Object</code> data structure:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">isMarried</span>: <span class="hljs-literal">false</span>,
+};
+</code></pre>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/FOx12i8m38RlUOempoteSRXU1M4FaSxOTMIjhDj9V7T9BTxoVoJv_kmNddQyIVOa-0P4H6ijV01MUk58CJNAQP9SOWeuk0goNtHicvfE4iEyUpcutIHQ6GU7tJtFgQk8GYNdIqsnZBHjaH_AdYI5zLzhSpMc5kZxlnj-MMN6gHE-"><h2 dir="auto" id="52-object-initializer-expression">5.2 Object initializer expression</h2>
+<p dir="auto">To create an object, you may use the <code>object initializer</code> expression.</p>
+<p dir="auto">The <code>object initializer</code> expression is a comma-separated list of property-value pair enclosed in curly braces <code>{}</code>:</p>
+<pre><code dir="auto">{
+    property1: value-expression1,
+    property2: value-expression2,
+    ...
+}
+</code></pre>
+<p dir="auto">In this module, we will simply assume that every <code>property</code> is a String. That is, even without the quotations, the properties are treated as string.</p>
+<blockquote dir="auto">
+<p dir="auto">Though strictly speaking, properties are also allowed to be <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbols</a>, which is not covered in this module.</p>
+</blockquote>
+<p dir="auto">Also, <code>value-expression</code> can be any expression. Hence, the following is also a valid object initializer expression:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">a, b</span>) {
+    <span class="hljs-keyword">return</span> a + b;
+}
+
+<span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-number">123</span>: <span class="hljs-number">1</span> + <span class="hljs-number">2</span> + <span class="hljs-number">3</span>,
+    <span class="hljs-attr">sum123</span>: <span class="hljs-title function_">sum</span>(<span class="hljs-number">1</span>, <span class="hljs-title function_">sum</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)),
+};
+</code></pre>
+<p dir="auto">In the above example, <code>123</code> while written as a number is converted into a string. <code>1 + 2 + 3</code>, and <code>sum(1, sum(2, 3))</code> are evaluated first before being associated with their respective properties.</p>
+<h2 dir="auto" id="53-property-accessors">5.3 Property Accessors</h2>
+<p dir="auto">To access the values within an object, you may use either the <code>dot</code> or <code>square bracket</code> notation. Both methods are operators, and hence a <code>means of combination</code>, and can be evaluated like any other operator using the substitution model and environmental model.</p>
+<pre><code dir="auto">obj.propertyName
+obj[expression]
+</code></pre>
+<h3 dir="auto" id="531-dot-notation">5.3.1 Dot notation</h3>
+<p dir="auto">In the <code>obj.propertyName</code> syntax, also known as the <code>dot notation</code>, the <code>propertyName</code> must be a valid identifier</p>
+<blockquote dir="auto">
+<p dir="auto"><strong>Recap</strong> from topic 1:</p>
+<p dir="auto"><code>Identifiers</code>:</p>
+<ol dir="auto">
+<li dir="auto">Are commonly made of alphanumeric characters (<code>a-zA-Z0-9</code>), underscores (<code>_</code>), and dollar signs (<code>$</code>).</li>
+<li dir="auto">Does not contain any whitespace</li>
+<li dir="auto">Are not allowed to start with numbers.</li>
+<li dir="auto">Cannot be a reserved <code>Keyword</code></li>
+</ol>
+</blockquote>
+<p dir="auto">example:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> person = {
+    <span class="hljs-attr">age</span>: <span class="hljs-number">19</span>,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
+};
+
+<span class="hljs-keyword">const</span> message = <span class="hljs-string">&#x27;The person &#x27;</span> + person.<span class="hljs-property">name</span> + <span class="hljs-string">&#x27; is &#x27;</span> + person.<span class="hljs-property">age</span> + <span class="hljs-string">&#x27; years old&#x27;</span>;
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(message);
+</code></pre>
+<p dir="auto">There may however be situation where the property name either:</p>
+<ol dir="auto">
+<li dir="auto">Is not a valid identifier (e.g. a number) or</li>
+<li dir="auto">Needs to be computed</li>
+</ol>
+<p dir="auto">Then you can utilize the <code>square-bracket notation</code></p>
+<h3 dir="auto" id="532-square-bracket-notation">5.3.2 Square-bracket notation</h3>
+<pre><code dir="auto">obj[expression]
+</code></pre>
+<p dir="auto">For example, if you have the following object:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;Tom&#x27;</span>,
+    <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
+    <span class="hljs-number">3</span>: <span class="hljs-string">&#x27;Sally&#x27;</span>,
+};
+</code></pre>
+<p dir="auto">Then you can't access the properties via the <code>dot-notation</code> as <code>1</code>, <code>2</code>, and <code>3</code> are numbers are not valid <code>identifiers</code>.</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;Tom&#x27;</span>,
+    <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
+    <span class="hljs-number">3</span>: <span class="hljs-string">&#x27;Sally&#x27;</span>,
+};
+
+obj<span class="hljs-number">.1</span>
+   ^^
+<span class="hljs-title class_">Uncaught</span> <span class="hljs-title class_">SyntaxError</span>: <span class="hljs-title class_">Unexpected</span> number
+</code></pre>
+<p dir="auto">As the program here expects an <code>identifier</code>, a number is unexpected.</p>
+<p dir="auto">In this case, you can use the <code>square-bracket notation</code> instead:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;Tom&#x27;</span>,
+    <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
+    <span class="hljs-number">3</span>: <span class="hljs-string">&#x27;Sally&#x27;</span>,
+};
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;First place: &#x27;</span> + obj[<span class="hljs-number">1</span>] + <span class="hljs-string">&#x27; Second place: &#x27;</span> + obj[<span class="hljs-number">2</span>] + <span class="hljs-string">&quot; Third place: &quot;</span> + obj[<span class="hljs-number">3</span>];
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(message);
+</code></pre>
+<p dir="auto">Alternatively, perhaps you need to programmatically compute the keys:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-attr">item1</span>: <span class="hljs-string">&#x27;Apple&#x27;</span>,
+    <span class="hljs-attr">item2</span>: <span class="hljs-string">&#x27;Orange&#x27;</span>,
+    <span class="hljs-attr">item3</span>: <span class="hljs-string">&#x27;Pear&#x27;</span>,
+};
+
+<span class="hljs-keyword">let</span> message = <span class="hljs-string">&#x27;&#x27;</span>;
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">3</span>; i++) {
+    <span class="hljs-keyword">const</span> property = <span class="hljs-string">&#x27;item&#x27;</span> + i;
+    <span class="hljs-keyword">const</span> newLine = i + <span class="hljs-string">&#x27;. &#x27;</span> + obj[property];
+    message = message + newLine + <span class="hljs-string">&#x27;\n&#x27;</span>;
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(message);
+</code></pre>
+<h3 dir="auto" id="533-accessing-a-property-that-does-not-exists">5.3.3 Accessing a property that does not exists</h3>
+<p dir="auto">When accessing a property that is not defined, the program would return undefined.</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-attr">abc</span>: <span class="hljs-number">123</span>,
+    <span class="hljs-attr">def</span>: <span class="hljs-number">456</span>,
+};
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-property">ghi</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj[<span class="hljs-string">&#x27;ghi&#x27;</span>]);
+</code></pre>
+<p dir="auto">Both <code>console.log</code> above would return <code>undefined</code>.</p>
+<h3 dir="auto" id="534-assigning-properties-after-initialization">5.3.4 Assigning properties after initialization</h3>
+<p dir="auto">After the object has been initialized, you can later assign or update values simply by using the <code>=</code> operator and any of the accessor methods. e.g.:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-attr">abc</span>: <span class="hljs-number">123</span>,
+    <span class="hljs-attr">def</span>: <span class="hljs-number">456</span>,
+};
+
+<span class="hljs-comment">// new properties</span>
+obj[<span class="hljs-string">&#x27;hij&#x27;</span>] = <span class="hljs-number">789</span>;
+obj.<span class="hljs-property">klm</span> = <span class="hljs-number">101112</span>;
+
+<span class="hljs-comment">// updating properties</span>
+obj[<span class="hljs-string">&#x27;abc&#x27;</span>] = <span class="hljs-number">131415</span>;
+obj.<span class="hljs-property">def</span> = <span class="hljs-number">161718</span>;
+</code></pre>
+<h3 dir="auto" id="535-common-errors">5.3.5 Common errors</h3>
+<h4 dir="auto" id="5351-mixing-up-identifier-with-expressions">5.3.5.1 Mixing up identifier with expressions</h4>
+<p dir="auto">Recall that in the <code>dot notation</code>, you provide an <code>identifier</code>, whereas in the <code>square-bracket notation</code>, you provide an <code>expression</code>.</p>
+<p dir="auto">The following example mixes up the two:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-attr">abc</span>: <span class="hljs-number">123</span>,
+    <span class="hljs-attr">def</span>: <span class="hljs-number">456</span>
+}
+
+<span class="hljs-comment">// a</span>
+obj.<span class="hljs-string">&quot;abc&quot;</span>
+
+<span class="hljs-comment">// b</span>
+obj[abc]
+</code></pre>
+<p dir="auto">Here are the output of the above negative example:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-comment">// a</span>
+&gt; obj.<span class="hljs-string">&quot;abc&quot;</span>
+obj.<span class="hljs-string">&quot;abc&quot;</span>
+    ^^^^^
+
+<span class="hljs-title class_">Uncaught</span> <span class="hljs-title class_">SyntaxError</span>: <span class="hljs-title class_">Unexpected</span> string
+</code></pre>
+<p dir="auto">The program expects an <code>identifier</code>, but was given a <code>string</code> instead.</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-comment">// b</span>
+&gt; obj[abc]
+<span class="hljs-title class_">Uncaught</span> <span class="hljs-title class_">ReferenceError</span>: abc is not defined
+</code></pre>
+<p dir="auto">The program would evaluate <code>abc</code> as a variable, and find that the variable <code>abc</code> is not defined.</p>
+<h4 dir="auto" id="5352-unable-to-access-property-of-undefined">5.3.5.2 Unable to access property of undefined</h4>
+<p dir="auto">If you have a variable that is not defined and you try to access its property, you would be faced with the following error:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">getAge</span>(<span class="hljs-params">object</span>) {
+    <span class="hljs-keyword">return</span> object.<span class="hljs-property">age</span>;
+}
+
+<span class="hljs-keyword">let</span> obj; <span class="hljs-comment">// obj is undefined</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">getAge</span>(obj));
+</code></pre>
+<pre><code dir="auto">Uncaught TypeError: Cannot read properties of undefined (reading 'age')
+    at getAge (REPL3:2:19)
+</code></pre>
+<p dir="auto">The above message suggests that you are trying to read the property of something that is undefined. In the context of <code>object.age</code>, the variable that is undefined is <code>object</code> and not <code>age</code>.</p>
+<h2 dir="auto" id="54-primitive-vs-objects-pass-by-reference">5.4 Primitive vs Objects: Pass by Reference</h2>
+<p dir="auto">Referencing the diagram back in 5.1.1 (replicated below), we note that unlike primitive value like <code>string</code>, <code>numbers</code>, and <code>boolean</code>, an <code>Object</code> is not stored as value in the frame, but rather an <em>&quot;arrow&quot;</em> points to it:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj = {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">isMarried</span>: <span class="hljs-literal">false</span>,
+};
+</code></pre>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/FOx12i8m38RlUOempoteSRXU1M4FaSxOTMIjhDj9V7T9BTxoVoJv_kmNddQyIVOa-0P4H6ijV01MUk58CJNAQP9SOWeuk0goNtHicvfE4iEyUpcutIHQ6GU7tJtFgQk8GYNdIqsnZBHjaH_AdYI5zLzhSpMc5kZxlnj-MMN6gHE-"><p dir="auto">The significance of it can be illustrated with the following example:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> students = {
+    <span class="hljs-attr">p1234</span>: <span class="hljs-string">&#x27;John&#x27;</span>,
+    <span class="hljs-attr">p2345</span>: <span class="hljs-string">&#x27;Mary&#x27;</span>,
+    <span class="hljs-attr">p3456</span>: <span class="hljs-string">&#x27;Tom&#x27;</span>,
+};
+<span class="hljs-keyword">let</span> numberOfStudents = <span class="hljs-number">3</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">addStudent</span>(<span class="hljs-params">id, name, allStudents, totalStudents</span>) {
+    allStudents[studentId] = studentName;
+    totalStudent = totalStudent + <span class="hljs-number">1</span>;
+}
+
+<span class="hljs-title function_">addStudent</span>(<span class="hljs-string">&#x27;p4567&#x27;</span>, <span class="hljs-string">&#x27;Larry&#x27;</span>, students, numberOfStudents);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(students.<span class="hljs-property">p4567</span>); <span class="hljs-comment">// &quot;Larry&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(numberOfStudents); <span class="hljs-comment">// 3</span>
+</code></pre>
+<p dir="auto">When the <code>addStudent(...)</code> function is applied, we have the following environment:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/NP3B3e8m44Nt_Oe9xanOoCk4A1zW92xm1mPR7abR29I5CVwxQIa5MVPqSi-T4TX3Zgs43m406DL4cLGZN3FpbfCesV2eYfL3Q7wGKWirguxaIuZ0VaquyBPkLCadPhFxKn16UjYxTOtqPXQ4KMnOZiFRiZ2A4yEUdV1qhYwOfYxPpvnbTcwwp2ecNxmRMralUxJK1FPHd9ndYqJ13BlZi9YHys9t0DKfvF_Rsq9myVsDEKsTbBYc-v6DWFm0"><p dir="auto">That is, when evaluating <code>allStudents[studentId] = studentName</code>, the variable <code>allStudents</code> is <em>pointing</em> to the same <code>students</code> object, the assignment expression would hence modify the original <code>students</code> object.</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/NP1D2i8m48NtESLGTq8NzaUXg0SGnOLU89fH2ycaf2aYujqbFzReCb_UlFTc5EzWnrk29mC0wEqWa6mFgxL_qw1EQFQNmvT3wN-u414wTfco5sEATr-7YMolDtkI0qRlRbQKbHDd6tsZBB2Yh6hFTjmy8YkhUkxPKQk8gdg-y6ZBZTEz62Dj4OpBYFw4Tq2ovW6PrsV9WAkBmesvPPjcR9clnyQXVx9Ni4KwIzstTFtSf1NUE6I4PAumRUVl8-NXxvXMMov_BnaBmJBFa-Ic6KFPsFHVaWImDm00"><p dir="auto">Whereas, the expression <code>totalStudent = totalStudent + 1</code> is treated differently. That is, while the value of <code>numberOfStudents</code> and <code>totalStudents</code> are the same, they are separate memory space. Reassigning to <code>totalStudents</code> would not affect <code>numberOfStudents</code></p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/PP2xRW8n44LxVyK8EgGjWhr4MWKAIWHA0Jymn0Oi-R7oZeieujyZUytYaDB7L_Sn5diue7Rmmm001efIEHfWlSbl5-rPXS_BySc1vn-Kii34BWjsPynY_tIO6tszqTb4LRpxjoKNIJpR-PkRZMp9HPlP0SDtOLoqgynEtXOasjLxHdiCINTdBBNkkYcksKpHOv6gu9Ylt9VnWtRNnpWjisKs7tCSMbN7vA7675-kGfwmXY1I8UT9GKYZI-1VMUmbaf907aJ-taRwVz-WB6et01BmnqhuQ9fgJjTDIzWq_rLIjMQ_"><p dir="auto">Here we describe that <code>Objects</code> are <code>pass-by-reference</code> whereas <code>Primitives</code> are <code>pass-by-value</code>. That like the example above, instead of duplicating the <code>students</code> object, the reference to the <code>students</code> object is being passed around instead. Similarly, primitives like the <code>numberOfStudents</code> value is being duplicated instead of passed using a reference.</p>
+<h2 dir="auto" id="55-functions-as-objects">5.5 Functions as Objects</h2>
+<p dir="auto">All these while, we've treated functions as primitives, representing them as <code>f*</code> in environmental models. But more accurately, functions are objects and the following would be a more representative model:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> num1 = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> num2 = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">a, b</span>) {
+    <span class="hljs-keyword">return</span> a + b;
+}
+
+<span class="hljs-title function_">sum</span>(num1, num2);
+</code></pre>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/JOqn2iCm40JxUyLYroxiKiZtW_mWZHBaME0xcqYN9kJlGSA1bBFipaeuS0b9yIO0K9CHCsFyqLHfQfHDC3DzY2GSwBnVJEybxSfyrMpI8UHQMj1lwR6MssOHfpVgAprtbQZbTDHJvwfpuBPg2VpGmBc_1Nq1"><p dir="auto">This <code>environment</code> key helps points the newly created frame to the right enclosing environment</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/JOv13eCW54Jtd6AYQnUw9CWDUeDkqA8bWOyHwQRnxisd9NKvy_wVcM0st8mZl0K0K0uzHes-ge7LK5JA0QCMfn31R6YKMZBDXukazPrI3WrCugC5hNVhyvXyjlZbMdgvFLAmT5moEB7osSVaQ6NAXlclcBuJJY5ug9JyrUdIL1oehWWfhotjRXyL5ywubXJu0G00"><p dir="auto">For simplicity and to keep the diagrams neat, we will simplify the function object with a circle with bi-directional arrow:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/HO-zZW8n38HxFyK8chiY1PGhsEAAw-uXiea1dn9dbHzjSUBTJmaWoh4zu_cYNV5ZHV570A0j7d2USNYfOrV7eKgBECzq9_hunAwqk8CjVNh1FiZrLfVGc4XJPUIkdvdVJLsLf4ZBBxiAAT2q8VEQkR1MzjYatc3X9Bl0msJLeqXSWrpaTV0bnalc4MO3RCvfwtMYNKUvnpjM5r8HlVQo8-eDj3nexaI3-MHysjHqypIzVVlCVXnCKuyzcK5ZvYThtz8_"><p dir="auto">Take the following as an example:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">let</span> count = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">a, b</span>) {
+    count = count + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> a + b;
+}
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">minus</span>(<span class="hljs-params">a, b</span>) {
+    count = count + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> a - b;
+}
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">combine</span>(<span class="hljs-params">a, b, c, op1, op2</span>) {
+    <span class="hljs-keyword">const</span> result1 = <span class="hljs-title function_">op1</span>(a, b);
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">op2</span>(result1, c);
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">combine</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, sum, minus)); <span class="hljs-comment">// (2 + 3) - 4</span>
+</code></pre>
+<p dir="auto">When the <code>combine</code> function application is evaluated, we have the following environment:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/RL5Bhi8m3Dpx51PiO149objLfU82729j0qJAfsgI5UBko4x2HxpTs3EnnvDJY7A9oHemwX8nUbpqzHPnqeiQe_OEh9pnBBN3Eo0YZZwvYCSUTro6PF7OCxJQfL2BqTj1EqNb0s2pnLL8TeKoq8iBhWrj6KnIpF5JPXdzy6KQAmh-qW0PR5ioqmdHyuxIowwucsUNVZN8p6ichXSr0TzS1VbivKRZWtRNUg2a31g60y53FflW7qC_xwlMpqq9WeFi16SiwegsVK_F1ZYZJj2NVAZyl8UIppzS0t1IRgAlV080"><p dir="auto">Notice how there are arrows <em>pointing</em> from <code>op1</code> and <code>op2</code> to <code>sum</code> and <code>minus</code> respectively, this shows that the functions <code>sum</code> and <code>minus</code> are being passed as referenced to the <code>combine</code> function, that is, <code>sum</code> and <code>op1</code> are <em>pointing</em> to the exact same function.</p>
+<p dir="auto">If we do an strict comparison of <code>op1</code> and <code>sum</code>, it will return <code>true</code>:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">sum</span>(<span class="hljs-params">a, b</span>) {} <span class="hljs-comment">// truncated for simplicity</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">minus</span>(<span class="hljs-params">a, b</span>) {} <span class="hljs-comment">// truncated for simplicity</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">combine</span>(<span class="hljs-params">a, b, c, op1, op2</span>) {
+    <span class="hljs-keyword">return</span> op1 === sum;
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">combine</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, sum, minus)); <span class="hljs-comment">// true</span>
+</code></pre>
+<p dir="auto">and when <code>op1</code> (which is <code>sum</code>) is applied:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/ZLAxRiCm3Dpv5KIwD8E0siraE4P-81yXsqeYG0_3agOY_nwGaWgtoP3jw2EFTvHF8Ser9cl0g4l4w77Lrrl4MQzgYjexi7B1izGEVm0HSVB9HJmE-CLbI1QF0qEhNGgrcBmTjLDKtW4-zxWBoUvG1fguu8UXBQD9YZaUPPRH4r_KkAFWFpr01hkEpFH236N7gkP2P6jCvGNbUtN9J1K6Zbofd5gvoVYWtRNcatI2bk58y3kd9dXWw9UczlgbBNSWOJBvjkWzHyDUyBE8QglhVeU1m_Q2tc_3-wM1SimNNFjVDoIxqSotWvDoC_qQ3m00"><p dir="auto">Notice how <code>sum</code>, despite being called within <code>combine</code> knows to point its enclosing environment to <code>Main</code>. This is because, within the <code>sum</code> function object, it stores within it the environment in which it was created.</p>
+<p dir="auto">Now that we have a more accurate representation of <code>functions</code> as object, we can talk about having <code>functions</code> as values of `objects</p>
+<h2 dir="auto" id="56-functions-in-objects-methods">5.6 Functions in Objects: Methods</h2>
+<p dir="auto">So far, we have seen objects and function, and in the beginning of the topic we have also described how in every program, there is always the <code>data</code> and the <code>actions</code>.</p>
+<p dir="auto">When data are represented as an <code>Object</code>, we can also create functions that adjust their behavior based on which object they are attached to. These functions, called methods, use the <code>this</code> keyword to refer to the object they belong to, allowing the same function to work with different objects depending on how it is called.</p>
+<p dir="auto">Take the following example where an object represents a bank account, and there's a function that helps update the balance when money is being deposited:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> max = <span class="hljs-number">1000000</span>; <span class="hljs-comment">// max account value</span>
+
+<span class="hljs-comment">// function to update bank balance</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">deposit</span>(<span class="hljs-params">amount</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">balance</span> + amount &gt; max) {
+        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">balance</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">balance</span> + amount;
+    }
+}
+
+<span class="hljs-comment">// bank accounts</span>
+<span class="hljs-keyword">const</span> account1 = {
+    <span class="hljs-attr">balance</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">deposit</span>: deposit,
+};
+<span class="hljs-keyword">const</span> account2 = {
+    <span class="hljs-attr">balance</span>: <span class="hljs-number">30</span>,
+    <span class="hljs-attr">deposit</span>: deposit,
+};
+
+account1.<span class="hljs-title function_">deposit</span>(<span class="hljs-number">100</span>);
+account2.<span class="hljs-title function_">deposit</span>(<span class="hljs-number">50</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(account1.<span class="hljs-property">balance</span>); <span class="hljs-comment">// 100</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(account2.<span class="hljs-property">balance</span>); <span class="hljs-comment">// 80</span>
+</code></pre>
+<p dir="auto">After the creation of the <code>bank</code> object, we have the following environment:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/VP512eCm44NtSug1Rbfe8AOxgS4Bz12ZnbQ8KKoaXTAxbuY95ekBG6Ro__mt9BUE1ZUs6bhgyKQDmJSW8hRqmanYSkQS-pCrgIoxqRW4CxckHQWhrNUsSRxy01nFiK4sN6iywER-S8KU5O0FJDEWkhAgUnecenOcgfYwiiwK1MaofVAaV4kmCejzy-MFUuQBwKohsZ4PSNxV1RB1pry40e9osN2pOD3kI79bAlz1Nm00"><p dir="auto">and when the <code>deposit</code> function is applied through the <code>account1.deposit(100)</code> function application expression, the following frame is created:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/VL913eCW4BppYarwQPEI8BsPblY1FW8LbGJH2APDclwz0GLjRJoGiBipkpCicR5yi6EhKCjxk7EfuOK005h-X1k3v4m8SSSdUL5qexO9tDWwfY4kHTyPQLtuHkXuYWbkmhM2Wv9rOtCr2eJSm3GDg2ikkuV6R8KTH8cyj3XwnP-bvbnnNGWdbsnbhCXqdtpvmvuLnkbOYSfY5kLyrodWmVLV01G5v6BprsM0q1s8jn6gatAX2zKPgUlm-hQH9cwcTHtz1WbnFcPkcYuqFFQOJJltxnmXlj76QIPqwJxA1m00"><p dir="auto">With these set of arrows, we can now make sense of how the <code>deposit</code> function will be executed:</p>
+<ol dir="auto">
+<li dir="auto">It starts with an if-statement, checking if <code>this.balance + amount</code> exceeds <code>max</code>.
+<ol dir="auto">
+<li dir="auto">We first evaluate <code>this.balance</code>: <code>this</code> is <em>pointing</em> to the <code>account1</code> object, hence <code>this.balance</code> is utilizing the <code>dot-notation</code> to access the <code>balance</code> property from the <code>account1</code> object. Which is <code>0</code>.</li>
+<li dir="auto">We then evaluate <code>amount</code>, which is found within the <code>deposit</code> frame, which is <code>100</code>.</li>
+<li dir="auto">Adding them gives us <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>+</mo><mn>100</mn><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">0 + 100 = 100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">100</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">100</span></span></span></span></eq>.</li>
+<li dir="auto">Thereafter we evaluate <code>max</code>: Following the <code>enclosing environment</code> <em>pointer</em>, it reaches the <code>Main</code> frame and finds <code>max</code>, which is <code>1000000</code></li>
+<li dir="auto">Finally we compare the two <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mo>&gt;</mo><mn>1000000</mn></mrow><annotation encoding="application/x-tex">100 &gt; 1000000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord">100</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1000000</span></span></span></span></eq> which gives us <code>false</code></li>
+</ol>
+</li>
+<li dir="auto">Since it's false, we will go to the alternative-statements, <code>this.balance = this.balance + amount</code>
+<ol dir="auto">
+<li dir="auto">Again, <code>this</code> is the <em>pointer</em> to the <code>account1</code> object, hence <code>this.balance</code> is the <code>balance</code> property of the <code>account1</code> object.</li>
+<li dir="auto"><code>Amount</code> is <code>100</code></li>
+<li dir="auto">Hence, this statement updates the <code>balance</code> in the <code>account1</code> object by incrementing it by <code>100</code>.</li>
+</ol>
+</li>
+</ol>
+<p dir="auto">Giving us this resulting environment:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/VP512eCm44NtSug1RbfeGDETrE05UeWnYQqGesYaXTAxbuY9IekBG6Ro__mtf1WSzMvi33JKuOrgYsz0H6peXRd0z9maYJzJawHiH-jIpCMwvg5Mkck7sldo0t0ynGODuLhXmTJtXolDg05yO9O5rPMfzccPY5gOg6BgoZfJbcJ8IZsHpemRXfMTxzilVzmpNindHbUEYGYqVUV8UZz_4N08ocN7dnM3TaTIQAly5tq1"><h3 dir="auto" id="561-what-is-this">5.6.1 What is <code>this</code>?</h3>
+<p dir="auto">If you look back at the function, you would suddenly realize that there's a <code>this</code> that is magically <em>pointing</em> at the <code>bank</code> object.</p>
+<p dir="auto">The keyword <code>this</code> is the mechanism that allows a function to apply the same behavior to whichever object that is bound to it.</p>
+<p dir="auto">In simple terms, when a function is applied as a property of an object (e.g. <code>object.function()</code> or <code>object[function]()</code>), the <code>object</code> is bounded to the <code>this</code> variable within the function's frame. For example:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> obj1 = { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;John&#x27;</span> };
+<span class="hljs-keyword">const</span> obj2 = { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Tom&#x27;</span> };
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">x</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>;
+}
+
+obj1.<span class="hljs-property">x</span> = x;
+obj2.<span class="hljs-property">x</span> = x;
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj1.<span class="hljs-title function_">x</span>()); <span class="hljs-comment">// &quot;John&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj2.<span class="hljs-title function_">x</span>()); <span class="hljs-comment">// &quot;Tom&quot;</span>
+</code></pre>
+<h2 dir="auto" id="5x-summary">5.X Summary</h2>
+<p dir="auto">In this lecture, we've explored deeply into one of the mechanism that would allow us to represent our data, and how we might apply actions on it.</p>
+<p dir="auto">We covered the mechanisms of objects:</p>
+<ol dir="auto">
+<li dir="auto">How it can store value as properties</li>
+<li dir="auto">How we can create an object using <code>object initializer</code> or also known as <code>object literal</code></li>
+<li dir="auto">How we might access them using property accessor operators (i.e. <code>dot-notation</code> and <code>square-bracket notation</code>)</li>
+<li dir="auto">How they are treated differently from primitives, that they are passed around by copying the reference rather than the copying the entire object.</li>
+<li dir="auto">How functions are actually objects and also passed around as reference.</li>
+<li dir="auto">How functions can be inside objects, serving as method, and how it uses <code>this</code> to adapt to different objects.</li>
+</ol>
+<p dir="auto">With these, we can then look to another structure that is built on-top of this, and how it may help us in solving problems.</p>
+
+</body>
+</html>

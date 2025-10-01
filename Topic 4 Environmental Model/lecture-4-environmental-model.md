@@ -35,16 +35,16 @@ object Global {
 }
 map Main {
     enclosing =>
-    sum => f
-    square => f
-    sumOfSquare => f
+    sum => f*
+    square => f*
+    sumOfSquare => f*
 }
 
 Global <-- Main::enclosing
 @enduml
 ```
 
-> `f` represents that it's a function
+> **Note:** For simplicity, `f*` here simply represents that it's a function, we will in topic 5 explore a more accurate representation of how a function is stored in the program.
 
 Thereafter, in line 10, we have our first `function application` expression, which invokes the `sumOfSquare` functions. This creates another frame:
 
@@ -55,9 +55,9 @@ object Global {
 }
 map Main {
     enclosing =>
-    sum => f
-    square => f
-    sumOfSquare => f
+    sum => f*
+    square => f*
+    sumOfSquare => f*
 }
 map sumOfSquare {
     enclosing =>
@@ -79,9 +79,9 @@ object Global {
 }
 map Main {
     enclosing =>
-    sum => f
-    square => f
-    sumOfSquare => f
+    sum => f*
+    square => f*
+    sumOfSquare => f*
 }
 map sumOfSquare {
     enclosing =>
@@ -136,8 +136,8 @@ object Global {
 map Main {
     enclosing =>
     count => 0
-    increment => f
-    decrement => f
+    increment => f*
+    decrement => f*
 }
 
 Global <-- Main::enclosing
@@ -154,8 +154,8 @@ object Global {
 map Main {
     enclosing =>
     count => 0
-    increment => f
-    decrement => f
+    increment => f*
+    decrement => f*
 }
 map increment {
     enclosing =>
@@ -184,8 +184,8 @@ object Global {
 map Main {
     enclosing =>
     count => 5
-    increment => f
-    decrement => f
+    increment => f*
+    decrement => f*
 }
 
 note right {
@@ -208,8 +208,8 @@ object Global {
 map Main {
     enclosing =>
     count => 5
-    increment => f
-    decrement => f
+    increment => f*
+    decrement => f*
 }
 map increment {
     enclosing =>
@@ -236,8 +236,8 @@ object Global {
 map Main {
     enclosing =>
     count => 8
-    increment => f
-    decrement => f
+    increment => f*
+    decrement => f*
 }
 
 note right {
@@ -258,8 +258,8 @@ object Global {
 map Main {
     enclosing =>
     count => 8
-    increment => f
-    decrement => f
+    increment => f*
+    decrement => f*
 }
 map decrement {
     enclosing =>
@@ -286,8 +286,8 @@ object Global {
 map Main {
     enclosing =>
     count => 2
-    increment => f
-    decrement => f
+    increment => f*
+    decrement => f*
 }
 
 note right {
@@ -342,9 +342,9 @@ object Global {
 map Main {
     enclosing =>
     sign => 1
-    resetSign => f
-    flipSign => f
-    computeAlternatingSum => f
+    resetSign => f*
+    flipSign => f*
+    computeAlternatingSum => f*
 }
 
 Global <-- Main::enclosing
@@ -361,9 +361,9 @@ object Global {
 map Main {
     enclosing =>
     sign => 1
-    resetSign => f
-    flipSign => f
-    computeAlternatingSum => f
+    resetSign => f*
+    flipSign => f*
+    computeAlternatingSum => f*
 }
 
 map computeAlternatingSum {
@@ -386,9 +386,9 @@ object Global {
 map Main {
     enclosing =>
     sign => 1
-    resetSign => f
-    flipSign => f
-    computeAlternatingSum => f
+    resetSign => f*
+    flipSign => f*
+    computeAlternatingSum => f*
 }
 
 map computeAlternatingSum {
@@ -412,9 +412,9 @@ object Global {
 map Main {
     enclosing =>
     sign => 1
-    resetSign => f
-    flipSign => f
-    computeAlternatingSum => f
+    resetSign => f*
+    flipSign => f*
+    computeAlternatingSum => f*
 }
 
 map computeAlternatingSum {
@@ -452,9 +452,9 @@ In this loop, it does a few things:
             map Main {
                 enclosing =>
                 sign => 1
-                resetSign => f
-                flipSign => f
-                computeAlternatingSum => f
+                resetSign => f*
+                flipSign => f*
+                computeAlternatingSum => f*
             }
 
             map computeAlternatingSum {
@@ -487,9 +487,9 @@ In this loop, it does a few things:
             map Main {
                 enclosing =>
                 sign => 1
-                resetSign => f
-                flipSign => f
-                computeAlternatingSum => f
+                resetSign => f*
+                flipSign => f*
+                computeAlternatingSum => f*
             }
 
             map computeAlternatingSum {
@@ -528,9 +528,9 @@ In this loop, it does a few things:
             map Main {
                 enclosing =>
                 sign => 1
-                resetSign => f
-                flipSign => f
-                computeAlternatingSum => f
+                resetSign => f*
+                flipSign => f*
+                computeAlternatingSum => f*
             }
 
             map computeAlternatingSum {
@@ -574,9 +574,9 @@ In this loop, it does a few things:
             map Main {
                 enclosing =>
                 sign => -1
-                resetSign => f
-                flipSign => f
-                computeAlternatingSum => f
+                resetSign => f*
+                flipSign => f*
+                computeAlternatingSum => f*
             }
 
             note right {
@@ -613,9 +613,9 @@ In this loop, it does a few things:
             map Main {
                 enclosing =>
                 sign => -1
-                resetSign => f
-                flipSign => f
-                computeAlternatingSum => f
+                resetSign => f*
+                flipSign => f*
+                computeAlternatingSum => f*
             }
 
             map computeAlternatingSum {
@@ -654,9 +654,9 @@ In this loop, it does a few things:
             map Main {
                 enclosing =>
                 sign => 1
-                resetSign => f
-                flipSign => f
-                computeAlternatingSum => f
+                resetSign => f*
+                flipSign => f*
+                computeAlternatingSum => f*
             }
             note right {
                 sign flipped from -1 to 1

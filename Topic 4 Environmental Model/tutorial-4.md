@@ -107,11 +107,11 @@ map Main {
     balance => 50
     logLines => 2
     logs => "Deposited 100...\nWithdrawn 50..."
-    log => f
-    printLogs => f
-    deposit => f
-    canWithdraw => f
-    withdraw => f
+    log => f*
+    printLogs => f*
+    deposit => f*
+    canWithdraw => f*
+    withdraw => f*
 }
 map withdraw {
     enclosing =>

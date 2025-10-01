@@ -440,13 +440,42 @@ calculateTotalPrice(apple * 3 + pear * 5);
 
 We will wrap up this chapter, which focuses on primitive, combination, and abstraction by considering a more concrete illustration of how expressions are evaluated procedurally by an interpreter.
 
-## 1.5 Substitution Model of evaluation
+### 1.5 Identifiers and Keywords
+
+In a program, words are either `Identifiers` which associates a value to a name (e.g. functions and variables), or reserved `Keywords` that holds special meaning (e.g. the word `function`, `const`, and `let`).
+
+`Identifiers`:
+
+1. Are commonly made of alphanumeric characters (`a-zA-Z0-9`), underscores (`_`), and dollar signs (`$`).
+2. Does not contain any whitespace
+3. Are not allowed to start with numbers.
+4. Cannot be a reserved `Keyword`
+
+The following are valid identifiers:
+
+```js
+const alphaNumeric123;
+const _under_score_;
+const $dollarSign$;
+```
+
+But the following is not:
+
+```js
+const const;
+const function;
+const 123startWithNumber;
+const contains spaces;
+const -other-special-characters
+```
+
+## 1.6 Substitution Model of evaluation
 
 This section aims to provide a more concrete model to help us think about how an interpreter functions. Note that it provides merely a mental model and not necessarily how it _really_ works.
 
 When an expression is evaluated, you can imagine that parts are gradually being _substituted_, hence the name of the model: The Substitution Model.
 
-### 1.5.1 Evaluating Operator Combination
+### 1.6.1 Evaluating Operator Combination
 
 Take this expression as an example:
 
@@ -490,7 +519,7 @@ Visualizing it as a tree:
          4  *  6
 ```
 
-### 1.5.2 For Variables and Function Application
+### 1.6.2 For Variables and Function Application
 
 This way of substitution is similar with variables and function-application expressions
 
@@ -523,7 +552,7 @@ In evaluating the last line `areaOfCircle(radius) * height`, which calculates th
     2. Now the right: $height$ is a variable name, hence we will substitute it with the value associated with this name ($5$)
 3. With the left and right evaluated, we then evaluate the expression and further substitute3 it with the produced valued: $28.2735 * 5 = 141.3675$
 
-## 1.6 Summary
+## 1.X Summary
 
 In this chapter, we have covered the following key ideas:
 
