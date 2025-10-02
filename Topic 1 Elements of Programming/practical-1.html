@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css" />
+        <link rel="stylesheet" href="../math-style.css" />
+    </head>
+    <body class="markdown-body">
+        <h1 dir="auto" id="practical-1">Practical 1</h1>
+        <h2 dir="auto" id="1-make-a-message">1. Make a message</h2>
+        <p dir="auto">
+            Given the name, year of birth, and current year, return a message indicating the person's name and age.
+        </p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">makeMessage</span>(<span class="hljs-params">name, yearOfBirth, currentYear</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">makeMessage</span>(<span class="hljs-string">&#x27;John&#x27;</span>, <span class="hljs-number">1994</span>, <span class="hljs-number">2025</span>)); <span class="hljs-comment">// &quot;John (31)&quot;</span>
+</code></pre>
+        <h2 dir="auto" id="2-make-3-messages">2. Make 3 messages</h2>
+        <p dir="auto">
+            Given the name and the year of birth of 3 different person, along with the current year, return a message
+            listing the name and age of the 3 person, each separated by a comma.
+        </p>
+        <blockquote dir="auto">
+            <p dir="auto">Hint: You should reuse your code from the previous question</p>
+        </blockquote>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">makeMessage</span>(<span class="hljs-params">name, yearOfBirth, currentYear</span>) {}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">make3Messages</span>(<span class="hljs-params">name1, yearOfBirth1, name2, yearOfBirth2, name3, yearOfBirth3, currentYear</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">make3Messages</span>(<span class="hljs-string">&#x27;John&#x27;</span>, <span class="hljs-number">1994</span>, <span class="hljs-string">&#x27;Mary&#x27;</span>, <span class="hljs-number">1999</span>, <span class="hljs-string">&#x27;Tom&#x27;</span>, <span class="hljs-number">1986</span>, <span class="hljs-number">2025</span>)); <span class="hljs-comment">// &quot;John (31), Mary (26), Tom (39)&quot;</span>
+</code></pre>
+        <h2 dir="auto" id="3-calculate">
+            3. Calculate
+            <eq
+                ><span class="katex"
+                    ><span class="katex-mathml"
+                        ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                            ><semantics
+                                ><mrow
+                                    ><msup><mi>a</mi><mn>2</mn></msup
+                                    ><mo>−</mo><msup><mi>b</mi><mn>2</mn></msup></mrow
+                                ><annotation encoding="application/x-tex">a^2 - b^2</annotation></semantics
+                            ></math
+                        ></span
+                    ><span class="katex-html" aria-hidden="true"
+                        ><span class="base"
+                            ><span class="strut" style="height: 0.897438em; vertical-align: -0.08333em"></span
+                            ><span class="mord"
+                                ><span class="mord mathnormal">a</span
+                                ><span class="msupsub"
+                                    ><span class="vlist-t"
+                                        ><span class="vlist-r"
+                                            ><span class="vlist" style="height: 0.8141079999999999em"
+                                                ><span style="top: -3.063em; margin-right: 0.05em"
+                                                    ><span class="pstrut" style="height: 2.7em"></span
+                                                    ><span class="sizing reset-size6 size3 mtight"
+                                                        ><span class="mord mtight">2</span></span
+                                                    ></span
+                                                ></span
+                                            ></span
+                                        ></span
+                                    ></span
+                                ></span
+                            ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                            ><span class="mbin">−</span
+                            ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                        ><span class="base"
+                            ><span class="strut" style="height: 0.8141079999999999em; vertical-align: 0em"></span
+                            ><span class="mord"
+                                ><span class="mord mathnormal">b</span
+                                ><span class="msupsub"
+                                    ><span class="vlist-t"
+                                        ><span class="vlist-r"
+                                            ><span class="vlist" style="height: 0.8141079999999999em"
+                                                ><span style="top: -3.063em; margin-right: 0.05em"
+                                                    ><span class="pstrut" style="height: 2.7em"></span
+                                                    ><span class="sizing reset-size6 size3 mtight"
+                                                        ><span class="mord mtight">2</span></span
+                                                    ></span
+                                                ></span
+                                            ></span
+                                        ></span
+                                    ></span
+                                ></span
+                            ></span
+                        ></span
+                    ></span
+                ></eq
+            >
+        </h2>
+        <blockquote dir="auto">
+            <p dir="auto">
+                Hint:
+                <eq
+                    ><span class="katex"
+                        ><span class="katex-mathml"
+                            ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                                ><semantics
+                                    ><mrow
+                                        ><mi>a</mi><mo>×</mo><mi>a</mi><mo>=</mo><msup><mi>a</mi><mn>2</mn></msup></mrow
+                                    ><annotation encoding="application/x-tex">a \times a = a^2</annotation></semantics
+                                ></math
+                            ></span
+                        ><span class="katex-html" aria-hidden="true"
+                            ><span class="base"
+                                ><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em"></span
+                                ><span class="mord mathnormal">a</span
+                                ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                                ><span class="mbin">×</span
+                                ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                            ><span class="base"
+                                ><span class="strut" style="height: 0.43056em; vertical-align: 0em"></span
+                                ><span class="mord mathnormal">a</span
+                                ><span class="mspace" style="margin-right: 0.2777777777777778em"></span
+                                ><span class="mrel">=</span
+                                ><span class="mspace" style="margin-right: 0.2777777777777778em"></span></span
+                            ><span class="base"
+                                ><span class="strut" style="height: 0.8141079999999999em; vertical-align: 0em"></span
+                                ><span class="mord"
+                                    ><span class="mord mathnormal">a</span
+                                    ><span class="msupsub"
+                                        ><span class="vlist-t"
+                                            ><span class="vlist-r"
+                                                ><span class="vlist" style="height: 0.8141079999999999em"
+                                                    ><span style="top: -3.063em; margin-right: 0.05em"
+                                                        ><span class="pstrut" style="height: 2.7em"></span
+                                                        ><span class="sizing reset-size6 size3 mtight"
+                                                            ><span class="mord mtight">2</span></span
+                                                        ></span
+                                                    ></span
+                                                ></span
+                                            ></span
+                                        ></span
+                                    ></span
+                                ></span
+                            ></span
+                        ></span
+                    ></eq
+                >
+            </p>
+        </blockquote>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">aSquareMinusBSquare</span>(<span class="hljs-params">a, b</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">aSquareMinusBSquare</span>(<span class="hljs-number">10</span>, <span class="hljs-number">1</span>)); <span class="hljs-comment">// 99</span>
+</code></pre>
+        <h2 dir="auto" id="4-calculate">
+            4. Calculate
+            <eq
+                ><span class="katex"
+                    ><span class="katex-mathml"
+                        ><math xmlns="http://www.w3.org/1998/Math/MathML"
+                            ><semantics
+                                ><mrow
+                                    ><mo stretchy="false">(</mo><msup><mi>a</mi><mn>2</mn></msup
+                                    ><mo>−</mo><msup><mi>b</mi><mn>2</mn></msup
+                                    ><msup><mo stretchy="false">)</mo><mn>2</mn></msup
+                                    ><mo>−</mo><mo stretchy="false">(</mo><msup><mi>c</mi><mn>2</mn></msup
+                                    ><mo>−</mo><msup><mi>d</mi><mn>2</mn></msup
+                                    ><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow
+                                ><annotation encoding="application/x-tex"
+                                    >(a^2 - b^2)^2 - (c^2 - d^2)^2</annotation
+                                ></semantics
+                            ></math
+                        ></span
+                    ><span class="katex-html" aria-hidden="true"
+                        ><span class="base"
+                            ><span class="strut" style="height: 1.064108em; vertical-align: -0.25em"></span
+                            ><span class="mopen">(</span
+                            ><span class="mord"
+                                ><span class="mord mathnormal">a</span
+                                ><span class="msupsub"
+                                    ><span class="vlist-t"
+                                        ><span class="vlist-r"
+                                            ><span class="vlist" style="height: 0.8141079999999999em"
+                                                ><span style="top: -3.063em; margin-right: 0.05em"
+                                                    ><span class="pstrut" style="height: 2.7em"></span
+                                                    ><span class="sizing reset-size6 size3 mtight"
+                                                        ><span class="mord mtight">2</span></span
+                                                    ></span
+                                                ></span
+                                            ></span
+                                        ></span
+                                    ></span
+                                ></span
+                            ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                            ><span class="mbin">−</span
+                            ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                        ><span class="base"
+                            ><span class="strut" style="height: 1.064108em; vertical-align: -0.25em"></span
+                            ><span class="mord"
+                                ><span class="mord mathnormal">b</span
+                                ><span class="msupsub"
+                                    ><span class="vlist-t"
+                                        ><span class="vlist-r"
+                                            ><span class="vlist" style="height: 0.8141079999999999em"
+                                                ><span style="top: -3.063em; margin-right: 0.05em"
+                                                    ><span class="pstrut" style="height: 2.7em"></span
+                                                    ><span class="sizing reset-size6 size3 mtight"
+                                                        ><span class="mord mtight">2</span></span
+                                                    ></span
+                                                ></span
+                                            ></span
+                                        ></span
+                                    ></span
+                                ></span
+                            ><span class="mclose"
+                                ><span class="mclose">)</span
+                                ><span class="msupsub"
+                                    ><span class="vlist-t"
+                                        ><span class="vlist-r"
+                                            ><span class="vlist" style="height: 0.8141079999999999em"
+                                                ><span style="top: -3.063em; margin-right: 0.05em"
+                                                    ><span class="pstrut" style="height: 2.7em"></span
+                                                    ><span class="sizing reset-size6 size3 mtight"
+                                                        ><span class="mord mtight">2</span></span
+                                                    ></span
+                                                ></span
+                                            ></span
+                                        ></span
+                                    ></span
+                                ></span
+                            ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                            ><span class="mbin">−</span
+                            ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                        ><span class="base"
+                            ><span class="strut" style="height: 1.064108em; vertical-align: -0.25em"></span
+                            ><span class="mopen">(</span
+                            ><span class="mord"
+                                ><span class="mord mathnormal">c</span
+                                ><span class="msupsub"
+                                    ><span class="vlist-t"
+                                        ><span class="vlist-r"
+                                            ><span class="vlist" style="height: 0.8141079999999999em"
+                                                ><span style="top: -3.063em; margin-right: 0.05em"
+                                                    ><span class="pstrut" style="height: 2.7em"></span
+                                                    ><span class="sizing reset-size6 size3 mtight"
+                                                        ><span class="mord mtight">2</span></span
+                                                    ></span
+                                                ></span
+                                            ></span
+                                        ></span
+                                    ></span
+                                ></span
+                            ><span class="mspace" style="margin-right: 0.2222222222222222em"></span
+                            ><span class="mbin">−</span
+                            ><span class="mspace" style="margin-right: 0.2222222222222222em"></span></span
+                        ><span class="base"
+                            ><span class="strut" style="height: 1.064108em; vertical-align: -0.25em"></span
+                            ><span class="mord"
+                                ><span class="mord mathnormal">d</span
+                                ><span class="msupsub"
+                                    ><span class="vlist-t"
+                                        ><span class="vlist-r"
+                                            ><span class="vlist" style="height: 0.8141079999999999em"
+                                                ><span style="top: -3.063em; margin-right: 0.05em"
+                                                    ><span class="pstrut" style="height: 2.7em"></span
+                                                    ><span class="sizing reset-size6 size3 mtight"
+                                                        ><span class="mord mtight">2</span></span
+                                                    ></span
+                                                ></span
+                                            ></span
+                                        ></span
+                                    ></span
+                                ></span
+                            ><span class="mclose"
+                                ><span class="mclose">)</span
+                                ><span class="msupsub"
+                                    ><span class="vlist-t"
+                                        ><span class="vlist-r"
+                                            ><span class="vlist" style="height: 0.8141079999999999em"
+                                                ><span style="top: -3.063em; margin-right: 0.05em"
+                                                    ><span class="pstrut" style="height: 2.7em"></span
+                                                    ><span class="sizing reset-size6 size3 mtight"
+                                                        ><span class="mord mtight">2</span></span
+                                                    ></span
+                                                ></span
+                                            ></span
+                                        ></span
+                                    ></span
+                                ></span
+                            ></span
+                        ></span
+                    ></span
+                ></eq
+            >
+        </h2>
+        <blockquote dir="auto">
+            <p dir="auto">Hint: Reuse <code>aSquareMinusBSquare</code></p>
+        </blockquote>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">aSquareMinusBSquare</span>(<span class="hljs-params">a, b</span>) {}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">multipleSquareMinusSquare</span>(<span class="hljs-params">a, b, c, d</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">multipleSquareMinusSquare</span>(<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)); <span class="hljs-comment">// 40</span>
+</code></pre>
+        <h2 dir="auto" id="5-multiple-wrapper">5. Multiple wrapper</h2>
+        <p dir="auto">
+            Implement a function <code>wrapper(a, b, c, message)</code> that returns a string which wraps the message in
+            a specific pattern of characters.
+        </p>
+        <p dir="auto">
+            <code>a</code>, <code>b</code>, and <code>c</code> are single-character strings used as wrapping characters.
+        </p>
+        <p dir="auto">The output string should be constructed as follows:</p>
+        <ol dir="auto">
+            <li dir="auto">The string starts with three repetitions of character <code>a</code>.</li>
+            <li dir="auto">This is followed by two repetitions of character <code>b</code>.</li>
+            <li dir="auto">Then a single instance of character <code>c</code>.</li>
+            <li dir="auto">Next comes the original <code>message</code> string.</li>
+            <li dir="auto">After the message, repeat character <code>c</code> once again.</li>
+            <li dir="auto">Then repeat character <code>b</code> twice.</li>
+            <li dir="auto">Finally, end the string with three repetitions of character <code>a</code>.</li>
+        </ol>
+        <p dir="auto">Example 1:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-title function_">wrapper</span>(<span class="hljs-string">&#x27;#&#x27;</span>, <span class="hljs-string">&#x27;%&#x27;</span>, <span class="hljs-string">&#x27;*&#x27;</span>, <span class="hljs-string">&#x27;message&#x27;</span>);
+</code></pre>
+        <p dir="auto">Output 1:</p>
+        <pre><code class="code-line language-js" dir="auto">###%%*message*%%###
+</code></pre>
+        <p dir="auto">Example 2:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-title function_">wrapper</span>(<span class="hljs-string">&#x27;@&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;(&#x27;</span>, <span class="hljs-string">&#x27;message&#x27;</span>);
+</code></pre>
+        <p dir="auto">Output 2:</p>
+        <pre><code dir="auto">@@@BB(message(BB@@@
+</code></pre>
+        <p dir="auto">Code</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">wrapper</span>(<span class="hljs-params">a, b, c, message</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">wrapper</span>(<span class="hljs-string">&#x27;#&#x27;</span>, <span class="hljs-string">&#x27;%&#x27;</span>, <span class="hljs-string">&#x27;*&#x27;</span>, <span class="hljs-string">&#x27;message&#x27;</span>)); <span class="hljs-comment">// &quot;###%%*message*%%###&quot;</span>
+</code></pre>
+        <h2 dir="auto" id="6-challenge">6. Challenge</h2>
+        <p dir="auto">
+            Same question as 5, but using as little <code>+</code> operator in the entire program as possible.
+        </p>
+        <p dir="auto">
+            You can use as many variables and functions as you want, and you cannot use anything else not taught in the
+            module so far.
+        </p>
+        <p dir="auto">i.e. Apart from creating variables and functions, you can't use things like:</p>
+        <ol dir="auto">
+            <li dir="auto">for-loop</li>
+            <li dir="auto">template literals (e.g. <code>${a}${a}${a}</code>)</li>
+            <li dir="auto">String methods (e.g. <code>'a'.repeat(3)</code>)</li>
+            <li dir="auto">Or any other mechanisms not taught in the module.</li>
+        </ol>
+        <blockquote dir="auto">
+            <p dir="auto">
+                Hint: It is possible to achieve this with just 1 <code>+</code> operator. You can use new functions and
+                variables to recreate the above behaviors.
+            </p>
+        </blockquote>
+    </body>
+</html>

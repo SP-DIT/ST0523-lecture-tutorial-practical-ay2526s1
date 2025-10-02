@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+<link rel="stylesheet" href="../math-style.css">
+
+</head>
+<body class="markdown-body">
+<h1 dir="auto" id="tutorial-5">Tutorial 5</h1>
+<p dir="auto">In this tutorial, we will focus on gaining more fluency about Object and Functions. We will focus on the following:</p>
+<ol dir="auto">
+<li dir="auto">How we can create an object using <code>object initializer</code> or also known as <code>object literal</code></li>
+<li dir="auto">How <code>Objects</code> can store value as properties</li>
+<li dir="auto">How we might access them using property accessor operators (i.e. <code>dot-notation</code> and <code>square-bracket notation</code>)</li>
+<li dir="auto">How they are treated differently from primitives, that they are passed around by copying the reference rather than the copying the entire object.</li>
+<li dir="auto">How functions are actually objects and also passed around as reference.</li>
+<li dir="auto">How functions can be inside objects, serving as method, and how it uses <code>this</code> to adapt to different objects.</li>
+</ol>
+<h2 dir="auto" id="51-working-with-objects">5.1 Working with Objects</h2>
+<p dir="auto">In the pre class material, the following mechanism of an Object was explored:</p>
+<ol dir="auto">
+<li dir="auto">Object initializer</li>
+<li dir="auto">Assigning new/Updating property</li>
+<li dir="auto">Property Accessor - Square notation</li>
+<li dir="auto">Property Accessor - Dot notation</li>
+</ol>
+<h3 dir="auto" id="511-test-yourself">5.1.1 Test yourself</h3>
+<p dir="auto">The following code is labelled (<code>a</code>-<code>e</code>), identify the mechanism used in each of the labelled sections.</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-comment">// a</span>
+<span class="hljs-keyword">const</span> laptop = {
+    <span class="hljs-attr">brand</span>: <span class="hljs-string">&#x27;apple&#x27;</span>,
+    <span class="hljs-attr">cost</span>: <span class="hljs-number">1999</span>,
+    <span class="hljs-string">&#x27;99SalePrice&#x27;</span>: <span class="hljs-number">1000</span>,
+};
+
+<span class="hljs-comment">// b</span>
+<span class="hljs-keyword">let</span> message = <span class="hljs-string">&#x27;The brand of the laptop is: &#x27;</span> + laptop.<span class="hljs-property">brand</span>;
+message = message + <span class="hljs-string">&#x27;\nthe original price is: &#x27;</span> + laptop.<span class="hljs-property">cost</span>;
+
+<span class="hljs-comment">// c</span>
+message = message + <span class="hljs-string">&#x27;\nthe discounted price on 9.9 is: &#x27;</span> + laptop[<span class="hljs-string">&#x27;99SalePrice&#x27;</span>];
+
+<span class="hljs-comment">// d</span>
+laptop.<span class="hljs-property">discount</span> = laptop[<span class="hljs-string">&#x27;cost&#x27;</span>] - laptop[<span class="hljs-string">&#x27;99SalePrice&#x27;</span>];
+
+<span class="hljs-comment">// e</span>
+message = message + <span class="hljs-string">&#x27;\nYou will save: &#x27;</span> + laptop[<span class="hljs-string">&#x27;discount&#x27;</span>];
+</code></pre>
+<h3 dir="auto" id="512-dot-notation-vs-square-notation">5.1.2 Dot-notation vs Square-notation</h3>
+<p dir="auto">The following are wrong methods of accessing properties. Identify the reasons for each of the situation.</p>
+<p dir="auto">The possible reasons are:</p>
+<ol dir="auto">
+<li dir="auto">Invalid identifier - Cannot start with number</li>
+<li dir="auto">Syntax Error - Unexpected String</li>
+<li dir="auto">Reference Error - Variable is not defined</li>
+</ol>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> laptop = {
+    <span class="hljs-attr">brand</span>: <span class="hljs-string">&quot;apple&quot;</span>,
+    <span class="hljs-attr">cost</span>: <span class="hljs-number">1999</span>,
+    <span class="hljs-string">&quot;99SalePrice&quot;</span>: <span class="hljs-number">1000</span>,
+}
+
+<span class="hljs-comment">// a</span>
+laptop[cost]
+
+<span class="hljs-comment">// b</span>
+laptop.<span class="hljs-string">&quot;cost&quot;</span>
+
+<span class="hljs-comment">// c</span>
+laptop.99SalePrice
+</code></pre>
+<h3 dir="auto" id="513-try-it-out">5.1.3 Try it out</h3>
+<p dir="auto">Complete the following functions, refer to the comments in the function for the expected behaviors:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">createPlayer</span>(<span class="hljs-params">playerName</span>) {
+    <span class="hljs-comment">// Creates and returns an object</span>
+    <span class="hljs-comment">// with a &quot;name&quot; property set to playerName,</span>
+    <span class="hljs-comment">// and an &quot;exp&quot; property initialized to 0</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">earnExp</span>(<span class="hljs-params">player, exp</span>) {
+    <span class="hljs-comment">// Adds `exp` to the player&#x27;s &quot;exp&quot; property</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getLevel</span>(<span class="hljs-params">player</span>) {
+    <span class="hljs-comment">// Returns player level: 1 level per 10 exp, rounded down</span>
+    <span class="hljs-comment">// Hint: You can use the roundDown function provided.</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getDisplayName</span>(<span class="hljs-params">player</span>) {
+    <span class="hljs-comment">// Returns the name and the level of the player (e.g. &quot;John (Level 12)&quot;)</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">roundDown</span>(<span class="hljs-params">number</span>) {
+    <span class="hljs-comment">// Round down a number (e.g. 10.1 =&gt; 10, 11.5 =&gt; 11, 13.9 =&gt; 13)</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(number);
+}
+
+<span class="hljs-keyword">const</span> player1 = <span class="hljs-title function_">createPlayer</span>(<span class="hljs-string">&#x27;Tom&#x27;</span>);
+<span class="hljs-keyword">const</span> player2 = <span class="hljs-title function_">createPlayer</span>(<span class="hljs-string">&#x27;John&#x27;</span>);
+<span class="hljs-title function_">earnExp</span>(player1, <span class="hljs-number">100</span>);
+<span class="hljs-title function_">earnExp</span>(player2, <span class="hljs-number">55</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">getLevel</span>(player1)); <span class="hljs-comment">// 10</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">getLevel</span>(player2)); <span class="hljs-comment">// 5</span>
+
+<span class="hljs-title function_">earnExp</span>(player1, <span class="hljs-number">35</span>);
+<span class="hljs-title function_">earnExp</span>(player2, <span class="hljs-number">150</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">getDisplayName</span>(player1)); <span class="hljs-comment">// Tom (Level 13)</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">getDisplayName</span>(player2)); <span class="hljs-comment">// John (Level 20)</span>
+</code></pre>
+<h2 dir="auto" id="52-pass-by-reference">5.2 Pass by Reference</h2>
+<p dir="auto">Objects are passed around from functions to functions by reference.</p>
+<p dir="auto">Consider the following 2 pieces of code, the first without object and the second with object.</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> tehC = <span class="hljs-number">0.8</span>;
+<span class="hljs-keyword">const</span> kopiBeng = <span class="hljs-number">1.5</span>;
+<span class="hljs-keyword">const</span> strawberryMilkTea = <span class="hljs-number">3.2</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">calculatePriceDiff</span>(<span class="hljs-params">drinkA, drinkB</span>) {
+    drinkA = drinkA - drinkB;
+    <span class="hljs-keyword">return</span> drinkA;
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculatePriceDiff</span>(tehC, kopiBing));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculatePriceDiff</span>(tehC, strawBerryMilkTea));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculatePriceDiff</span>(tehC, kopiBing));
+</code></pre>
+<p dir="auto">If you tried executing the code below you would obtain the following output:</p>
+<pre><code dir="auto">-0.7
+-2.4
+-0.7
+</code></pre>
+<p dir="auto">Now, consider the following and guess the output before executing it</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">const</span> tehC = {
+    <span class="hljs-attr">price</span>: <span class="hljs-number">0.8</span>,
+};
+<span class="hljs-keyword">const</span> kopiBing = {
+    <span class="hljs-attr">price</span>: <span class="hljs-number">1.5</span>,
+};
+<span class="hljs-keyword">const</span> strawberryMilkTea = {
+    <span class="hljs-attr">price</span>: <span class="hljs-number">3.2</span>,
+};
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">calculatePriceDiff</span>(<span class="hljs-params">drinkA, drinkB</span>) {
+    drinkA.<span class="hljs-property">price</span> = drinkA.<span class="hljs-property">price</span> - drinkB.<span class="hljs-property">price</span>;
+    <span class="hljs-keyword">return</span> drinkA.<span class="hljs-property">price</span>;
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculatePriceDiff</span>(tehC, kopiBing));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculatePriceDiff</span>(tehC, strawberryMilkTea));
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculatePriceDiff</span>(tehC, kopiBing));
+</code></pre>
+<p dir="auto">Once you have your guess, go ahead and try running the code.</p>
+<p dir="auto">Using the environmental model, come up with a reasoning as to why the output is different from the first code.</p>
+<p dir="auto">At the first console.log, you should have the following environment:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/TPBDYi8m483lUOe1Btf8SLqMbgB1hLu53xv0J4SDZJ6aAIABxoxvQTsbxIsJ-PBvPf9rxRXrpLMHApUmurB3Bm40S7ZPm8g5TNKpif3wtCQri_n-H6iVEwcg0_8s8RWIZU8EzrOAtChJoMUUX4ndGpbUWp0bJ9GyNznHDKY2HIZztan2nX-35ODvzasU0Uoynk6Fx2l1VUdnKv_PmblxSUHvqA4iQAMjhZ1bdKHAzSjGrg-Tu86PB2cBGx5Ond4CG54NjL2t-i-xb5RgwkTVLAG7w5-IvmcdZMcx6wMAH7ND3f5ldmY7tnJxMACk_ITx0G00"><h2 dir="auto" id="53-enclosing-function-in-object">5.3 Enclosing function in object</h2>
+<p dir="auto">In the above example, the functions are separated from the object. That is, when I pass the object around, it does not bring the function along.</p>
+<p dir="auto">Sometimes, we might want to package the function in together with the objects. For example, the JavaScript language comes with a few Objects that carries useful functions to assist us.</p>
+<p dir="auto">For example:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>();
+</code></pre>
+<p dir="auto"><code>console</code> here is an object, the object that represents the terminal, and it carries with it the method <code>log(...)</code> which prints something onto the terminal.</p>
+<p dir="auto">Other examples includes:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>(); <span class="hljs-comment">// generates a random number from 0 to 0.99999...</span>
+<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">abs</span>(); <span class="hljs-comment">// returns the absolute of a number</span>
+<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(); <span class="hljs-comment">// round down a number</span>
+<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">ceil</span>(); <span class="hljs-comment">// round up a number</span>
+</code></pre>
+<p dir="auto">If you want a function that applies the same behavior but uses the values of specific object, you can use the <code>this</code> variable in the function:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">let</span> gst = <span class="hljs-number">1.08</span>; <span class="hljs-comment">// GST in 2023</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">calculatePriceAfterGst</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">nettPrice</span> * gst;
+}
+
+<span class="hljs-keyword">const</span> iphone = {
+    <span class="hljs-attr">nettPrice</span>: <span class="hljs-number">1500</span>,
+    <span class="hljs-attr">calculatePriceAfterGst</span>: calculatePriceAfterGst,
+};
+<span class="hljs-keyword">const</span> ps5 = {
+    <span class="hljs-attr">nettPrice</span>: <span class="hljs-number">700</span>,
+    <span class="hljs-attr">calculatePriceAfterGst</span>: calculatePriceAfterGst,
+};
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;2023&#x27;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Price of iphone w/ GST: &#x27;</span> + iphone.<span class="hljs-title function_">calculatePriceAfterGst</span>());
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Price of ps5 w/ GST: &#x27;</span> + ps5.<span class="hljs-title function_">calculatePriceAfterGst</span>());
+
+gst = <span class="hljs-number">1.09</span>; <span class="hljs-comment">// GST in 2024</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;2024&#x27;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Price of iphone w/ GST: &#x27;</span> + iphone.<span class="hljs-title function_">calculatePriceAfterGst</span>());
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Price of ps5 w/ GST: &#x27;</span> + ps5.<span class="hljs-title function_">calculatePriceAfterGst</span>());
+</code></pre>
+<p dir="auto">The <code>this</code> is bounded to the object whenever it is called as a method of that object. i.e.</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-title function_">calculatePriceAfterGst</span>(); <span class="hljs-comment">// &#x27;this&#x27; not bounded to any object</span>
+iphone.<span class="hljs-title function_">calculatePriceAfterGst</span>(); <span class="hljs-comment">// &#x27;this&#x27; bounded to iphone</span>
+ps5.<span class="hljs-title function_">calculatePriceAfterGst</span>(); <span class="hljs-comment">// &#x27;this&#x27; bounded to ps5</span>
+</code></pre>
+<p dir="auto">The environment model illustrates the binding effects:</p>
+
+<img style="background-color:#FFF;" src="https://www.plantuml.com/plantuml/svg/hLAnRiCW4DtlAqxgqWvKpc2fiXgKJ9qYzHS8ljf812DpLeUg_nvnnieIb2KJtF7Uk_U0Gs8pytBnS34HJyO5_0D4n24nxZNktfiFgMDgSQzbw-8u1TegQxnTl67wdfsbum_J_2LS-0TuVQkTcuGscW5Vl1j6Flk5G2mKyLkx-0d4B0hYgcsQXyEpMdRz12d85zDr5SYdwgVVe7G9D5DVy7cwqjb4QPHmIfUO0EjQbLP55M9g7uCaSWMqHgTW_PHS6BRNuz6bal4-iUjk7BL4fTTF8Ybh315TmLlE0uK-_x8h"><h3 dir="auto" id="531-try-it-out">5.3.1 Try it out</h3>
+<p dir="auto">Complete the following functions:</p>
+<pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">calculateArea</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// returns the height multiplied by the width of the object</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">calculateVolume</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// returns the area multiplied by the length of the object</span>
+}
+
+<span class="hljs-keyword">let</span> shippingFee = <span class="hljs-number">1.15</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">calculateShippingFee</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// returns the volume multiplied by the shipping fee</span>
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">createParcel</span>(<span class="hljs-params">width, length, height</span>) {
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">width</span>: width,
+        <span class="hljs-attr">length</span>: length,
+        <span class="hljs-attr">height</span>: height,
+        <span class="hljs-attr">calculateArea</span>: calculateArea,
+        <span class="hljs-attr">calculateVolume</span>: calculateVolume,
+        <span class="hljs-attr">calculateShippingFee</span>: calculateShippingFee,
+    };
+}
+
+<span class="hljs-keyword">const</span> boosterPack = <span class="hljs-title function_">createParcel</span>(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">10</span>);
+<span class="hljs-keyword">const</span> computer = <span class="hljs-title function_">createParcel</span>(<span class="hljs-number">50</span>, <span class="hljs-number">100</span>, <span class="hljs-number">50</span>);
+<span class="hljs-keyword">const</span> sofa = <span class="hljs-title function_">createParcel</span>(<span class="hljs-number">100</span>, <span class="hljs-number">100</span>, <span class="hljs-number">50</span>);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Booster Pack area:&#x27;</span> + boosterPack.<span class="hljs-title function_">calculateArea</span>()); <span class="hljs-comment">// 100</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Computer volume:&#x27;</span> + computer.<span class="hljs-title function_">calculateVolume</span>()); <span class="hljs-comment">// 250000</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Sofa Shipping Fee:&#x27;</span> + sofa.<span class="hljs-title function_">calculateShippingFee</span>()); <span class="hljs-comment">// 575000</span>
+
+shippingFee = <span class="hljs-number">2.4</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Computer ShippingFee:&#x27;</span> + computer.<span class="hljs-title function_">calculateShippingFee</span>()); <span class="hljs-comment">//600000</span>
+</code></pre>
+<h2 dir="auto" id="5x-summary">5.X Summary</h2>
+<p dir="auto">Now that we have a more complex data structure to store our data, we can now use it to solve problems.</p>
+<p dir="auto">For example, imagine building a system to perform computation on fractions.</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>×</mo><mfrac><mn>3</mn><mn>4</mn></mfrac></mrow><annotation encoding="application/x-tex">
+\frac{1}{2} \times \frac{3}{4}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section></math>
+<p dir="auto">We can begin to think about</p>
+<ol dir="auto">
+<li dir="auto">How do we store and represent out data? - i.e. The numerator and denominator</li>
+<li dir="auto">How do we implement the actions that can be acted on these data? - e.g. Addition of fraction, multiplication, and so on...</li>
+</ol>
+
+</body>
+</html>

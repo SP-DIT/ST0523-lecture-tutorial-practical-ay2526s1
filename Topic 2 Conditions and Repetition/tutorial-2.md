@@ -128,7 +128,11 @@ if (1 > 0) {
 }
 ```
 
-Using the above strategy, implement the following function that compares 3 different values `a`, `b`, and `c` of the same type. That if `a` is the smallest, return `0`, else, if `b` is the smallest, return `1`, otherwise, return `2` indicating that `c` is the smallest.
+Using the above strategy, implement the following function that compares 3 different values `a`, `b`, and `c` of the same type. That:
+
+1. if `a` is the smallest, return `0`,
+2. else, if `b` is the smallest, return `1`,
+3. otherwise, return `2` indicating that `c` is the smallest.
 
 ```js
 function compareThreeValues(a, b, c) {}
@@ -166,4 +170,6 @@ Just as how numbers have `+`, `-`, `*`, `/` to combine multiple numbers, boolean
 
 Implement `compareThreeValue` again, but instead of using if-in-a-if, use logical composition operators instead.
 
-That is, `a` can be considered smallest if the following is true: `a` is lesser than `b` AND `a` is lesser than `c`.
+That is, `a` can be considered smallest if the following is true:
+
+-   (`a` is lesser than `b`) AND (`a` is lesser than `c`).

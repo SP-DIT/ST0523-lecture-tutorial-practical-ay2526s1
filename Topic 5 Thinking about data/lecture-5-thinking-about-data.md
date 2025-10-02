@@ -830,8 +830,8 @@ In this lecture, we've explored deeply into one of the mechanism that would allo
 
 We covered the mechanisms of objects:
 
-1. How it can store value as properties
-2. How we can create an object using `object initializer` or also known as `object literal`
+1. How we can create an object using `object initializer` or also known as `object literal`
+2. How it can store value as properties
 3. How we might access them using property accessor operators (i.e. `dot-notation` and `square-bracket notation`)
 4. How they are treated differently from primitives, that they are passed around by copying the reference rather than the copying the entire object.
 5. How functions are actually objects and also passed around as reference.

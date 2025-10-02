@@ -1,14 +1,23 @@
-p { text-align: justify; }
+body {
+    max-width: 900px; /* Set your preferred maximum width */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px 0;
+}
+
+p {
+    text-align: justify;
+}
 
 table {
     display: table !important;
     width: auto !important;
     margin-left: auto !important;
-    margin-right: auto !important; 
+    margin-right: auto !important;
     border-collapse: collapse !important;
 }
 
-table th, table td {
+table th,
+table td {
     border-left: none !important;
     border-right: none !important;
     border-top: 1px solid #000 !important;
@@ -23,7 +32,7 @@ figure > img {
     margin: 0 auto;
     page-break-inside: avoid;
 }
-figcaption { 
+figcaption {
     display: block;
     text-align: center;
     margin-top: 0.5em;

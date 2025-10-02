@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css" />
+        <link rel="stylesheet" href="..\math-style.css" />
+    </head>
+    <body class="markdown-body">
+        <h1 dir="auto" id="practical-2">Practical 2</h1>
+        <p dir="auto">This is just a sample of what can be in the practicals</p>
+        <h2 dir="auto" id="1-is-even">1. Is Even?</h2>
+        <p dir="auto">
+            Apart from the usual <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> operators, there is also
+            the modulo (<code>%</code>) operator that calculates the <code>remainder</code>.
+        </p>
+        <p dir="auto">example:</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-number">10</span> % <span class="hljs-number">4</span> = <span class="hljs-number">2</span>
+</code></pre>
+        <p dir="auto">Because 10 when divided by 4, has a remainder of 2.</p>
+        <p dir="auto">
+            Implement the function <code>isEven(x)</code> that returns <code>true</code> if a number is even, and
+            <code>false</code> otherwise.
+        </p>
+        <blockquote dir="auto">
+            <p dir="auto">Hint: a number is even if the remainder when divided by 2 is 0.</p>
+        </blockquote>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">isEven</span>(<span class="hljs-params">x</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isEven</span>(<span class="hljs-number">2</span>)); <span class="hljs-comment">// true</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isEven</span>(<span class="hljs-number">3</span>)); <span class="hljs-comment">// false</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isEven</span>(<span class="hljs-number">4</span>)); <span class="hljs-comment">// true</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isEven</span>(<span class="hljs-number">5</span>)); <span class="hljs-comment">// false</span>
+</code></pre>
+        <h2 dir="auto" id="2-isdivisiblebyx-y">2. isDivisibleBy(x, y)</h2>
+        <p dir="auto">Let's generalize it further.</p>
+        <p dir="auto">
+            Implement the function <code>isDivisibleBy(x, y)</code> that returns <code>true</code> is <code>x</code> is
+            divisible by <code>y</code>.
+        </p>
+        <p dir="auto"><code>x</code> is considered divisible by <code>y</code> if <code>x % y = 0</code>.</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-params">x, y</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>)); <span class="hljs-comment">// false, 5 divided by 3 has remainder of 2</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>)); <span class="hljs-comment">// false, 10 divided by 3 has remainder of 1</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-number">10</span>, <span class="hljs-number">4</span>)); <span class="hljs-comment">// false, 10 divided by 4 has remainder of 2</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-number">13</span>, <span class="hljs-number">5</span>)); <span class="hljs-comment">// false, 13 divided by 5 has remainder of 3</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-number">15</span>, <span class="hljs-number">5</span>)); <span class="hljs-comment">// true, 15 divided by 5 has remainder of 0</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-number">21</span>, <span class="hljs-number">7</span>)); <span class="hljs-comment">// true, 21 divided by 7 has remainder of 0</span>
+</code></pre>
+        <h2 dir="auto" id="2-fizzbuzz">2. fizzbuzz</h2>
+        <p dir="auto">
+            Implement the function <code>fizzbuzz(x)</code> that returns a value based on the following rule:
+        </p>
+        <ol dir="auto">
+            <li dir="auto"><code>fizz</code> - if the number is divisible by 3</li>
+            <li dir="auto"><code>buzz</code> - if the number is divisible by 5</li>
+            <li dir="auto"><code>fizzbuzz</code> - if the number is divisible by both 3 and 5.</li>
+            <li dir="auto">The original value - if the number is NOT divisible by both 3 or 5</li>
+        </ol>
+        <blockquote dir="auto">
+            <p dir="auto">
+                Hint: A number is divisible by another if the remainder is 0 e.g. Since <code>15 % 5 = 0</code>, that
+                means that 15 is divisible by 5 and I should return <code>&quot;buzz&quot;</code>
+            </p>
+        </blockquote>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">fizzbuzz</span>(<span class="hljs-params">x</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">fizzbuzz</span>(<span class="hljs-number">3</span>)); <span class="hljs-comment">// &quot;fizz&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">fizzbuzz</span>(<span class="hljs-number">5</span>)); <span class="hljs-comment">// &quot;buzz&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">fizzbuzz</span>(<span class="hljs-number">15</span>)); <span class="hljs-comment">// &quot;fizzbuzz&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">fizzbuzz</span>(<span class="hljs-number">16</span>)); <span class="hljs-comment">// 16</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">fizzbuzz</span>(<span class="hljs-number">9</span>)); <span class="hljs-comment">// &quot;fizz&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">fizzbuzz</span>(<span class="hljs-number">10</span>)); <span class="hljs-comment">// &quot;buzz&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">fizzbuzz</span>(<span class="hljs-number">30</span>)); <span class="hljs-comment">// &quot;fizzbuzz&quot;</span>
+</code></pre>
+        <h2 dir="auto" id="3-chickenbananaa-b-c">3. ChickenBanana(a, b, c)</h2>
+        <p dir="auto">Given 3 strings <code>a</code>, <code>b</code>, and <code>c</code>.</p>
+        <ol dir="auto">
+            <li dir="auto">If all of the string is &quot;chicken&quot;, returns &quot;CHICKEN!&quot;</li>
+            <li dir="auto">If all of the string is &quot;banana&quot;, returns &quot;BANANA!&quot;</li>
+            <li dir="auto">
+                If none of the string is either &quot;chicken&quot; or &quot;banana&quot;, returns &quot;none&quot;
+            </li>
+            <li dir="auto">
+                Otherwise, if the strings contain a mix of &quot;chicken&quot; and/or &quot;banana&quot; along with
+                other values, return the one (&quot;chicken&quot; or &quot;banana&quot;) that appears first among the
+                inputs a, b, and c in order.
+            </li>
+        </ol>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">chickenBanana</span>(<span class="hljs-params">a, b, c</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">chickenBanana</span>(<span class="hljs-string">&#x27;chicken&#x27;</span>, <span class="hljs-string">&#x27;chicken&#x27;</span>, <span class="hljs-string">&#x27;chicken&#x27;</span>)); <span class="hljs-comment">// &quot;CHICKEN!&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">chickenBanana</span>(<span class="hljs-string">&#x27;banana&#x27;</span>, <span class="hljs-string">&#x27;banana&#x27;</span>, <span class="hljs-string">&#x27;banana&#x27;</span>)); <span class="hljs-comment">// &quot;BANANA!&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">chickenBanana</span>(<span class="hljs-string">&#x27;chicken&#x27;</span>, <span class="hljs-string">&#x27;banana&#x27;</span>, <span class="hljs-string">&#x27;apple&#x27;</span>)); <span class="hljs-comment">// &quot;chicken&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">chickenBanana</span>(<span class="hljs-string">&#x27;apple&#x27;</span>, <span class="hljs-string">&#x27;chicken&#x27;</span>, <span class="hljs-string">&#x27;banana&#x27;</span>)); <span class="hljs-comment">// &quot;chicken&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">chickenBanana</span>(<span class="hljs-string">&#x27;apple&#x27;</span>, <span class="hljs-string">&#x27;banana&#x27;</span>, <span class="hljs-string">&#x27;chicken&#x27;</span>)); <span class="hljs-comment">// &quot;banana&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">chickenBanana</span>(<span class="hljs-string">&#x27;banana&#x27;</span>, <span class="hljs-string">&#x27;apple&#x27;</span>, <span class="hljs-string">&#x27;chicken&#x27;</span>)); <span class="hljs-comment">// &quot;banana&quot;</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">chickenBanana</span>(<span class="hljs-string">&#x27;apple&#x27;</span>, <span class="hljs-string">&#x27;orange&#x27;</span>, <span class="hljs-string">&#x27;pear&#x27;</span>)); <span class="hljs-comment">// &quot;none&quot;</span>
+</code></pre>
+        <h2 dir="auto" id="4-bigger-number">4. Bigger number</h2>
+        <p dir="auto">Implement the function <code>bigger(a, b)</code> that returns the bigger number.</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">bigger</span>(<span class="hljs-params">a, b</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">bigger</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)); <span class="hljs-comment">// 2</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">bigger</span>(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>)); <span class="hljs-comment">// 3</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">bigger</span>(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>)); <span class="hljs-comment">// 4</span>
+</code></pre>
+        <h2 dir="auto" id="5-biggest-number">5. Biggest number</h2>
+        <p dir="auto">Implement the function <code>biggest(a, b, c, d)</code> that returns the biggest number.</p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">biggest</span>(<span class="hljs-params">a, b, c, d</span>) {}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">biggest</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)); <span class="hljs-comment">// 4</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">biggest</span>(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>)); <span class="hljs-comment">// 5</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">biggest</span>(<span class="hljs-number">9</span>, <span class="hljs-number">9</span>, <span class="hljs-number">9</span>, <span class="hljs-number">9</span>)); <span class="hljs-comment">// 9</span>
+</code></pre>
+        <h2 dir="auto" id="6-challenge">6. Challenge</h2>
+        <p dir="auto">
+            Write the <code>biggest(a, b, c, d)</code> function by reusing the <code>bigger(a, b)</code> function you
+            created earlier.
+        </p>
+        <p dir="auto">
+            You can keep the if-statement in <code>bigger(a, b)</code>, but do not use any if-statements in your
+            solution of <code>biggest(a, b, c, d)</code>.
+        </p>
+        <pre><code class="code-line language-js" dir="auto"><span class="hljs-keyword">function</span> <span class="hljs-title function_">bigger</span>(<span class="hljs-params">a, b</span>) {}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">biggest</span>(<span class="hljs-params">a, b, c, d</span>) {
+    <span class="hljs-comment">// do not use if-statements here</span>
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">biggest</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)); <span class="hljs-comment">// 4</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">biggest</span>(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>)); <span class="hljs-comment">// 5</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">biggest</span>(<span class="hljs-number">9</span>, <span class="hljs-number">9</span>, <span class="hljs-number">9</span>, <span class="hljs-number">9</span>)); <span class="hljs-comment">// 9</span>
+</code></pre>
+    </body>
+</html>
